@@ -230,8 +230,6 @@
 /*
   datatablesSimple-table
 */
-
-
 #mediSerchList h3 {
 	float: left;
 	font-weight: bold;
@@ -435,4 +433,143 @@
 .medi-tab .tab-content.current{
   display: inherit;
   border: 1px solid rgba(0, 0, 0, .08); 
+}
+
+/*
+  Qa-table
+*/
+.qa-serch {
+	display: flex;
+}
+
+#searchForm {
+	float: left;
+	
+}
+
+#searchForm #serchInput {
+	margin-left: 80px; 
+	display: flex;
+}
+
+#searchForm #serchInput input {
+	margin-top: 5px; 
+}
+
+#searchForm #serchInput button {
+	margin-left: 5px;
+	margin-top: 5px; 
+	margin-right: 535px;
+	width: 30px;
+	height: 30px;
+}
+
+.qa-serch #serchBtn {
+	float: right;
+}
+
+.qa-serch #serchBtn .qa-btn {
+	width: 80px;
+	height: 35px;
+	border-radius: 4px;
+	border: none;
+    background-color: #1A76D1;
+    color: #fff;
+    font-size: 1em;
+}
+
+.qa-serch #serchBtn .qa-btn:hover {
+    background: #2C2D3F;
+    border: none;
+}
+
+#QaTable {
+  margin: 0 auto;
+  min-width: 300px;
+  max-width: 120%;
+  border-collapse: collapse;
+}
+
+#QaTable thead tr:first-child {
+  border-top: none;
+  background: rgba(0, 0, 0, .03);
+  color: #000;
+}
+
+#QaTable tr {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+#QaTable th {
+  display: none;
+}
+
+#QaTable td {
+  display: block;
+}
+
+#QaTable td:first-child {
+  margin-top: .5em;
+}
+
+#QaTable td:last-child {
+  margin-bottom: .5em;
+}
+
+#QaTable td:before {
+  content: attr(data-th) ": ";
+  font-weight: bold;
+  width: 120px;
+  display: inline-block;
+  color: #333;
+}
+
+#QaTable th,
+#QaTable td {
+  text-align: center;
+}
+
+#QaTable {
+  color: #333;
+  overflow: hidden;
+}
+
+#QaTable tr {
+  border-color: #bfbfbf;
+}
+
+#QaTable th,
+#QaTable td {
+  padding: .5em 1em;
+}
+@media screen and (max-width: 601px) {
+  #QaTable tr:nth-child(2) {
+    border-top: none;
+  }
+}
+@media screen and (min-width: 600px) {
+  #QaTable tbody tr:hover {
+    background-color: rgba(0, 0, 0, .06);
+  }
+  #QaTable td:before {
+    display: none;
+  }
+  #QaTable thead tr th,
+  #QaTable td {
+    display: table-cell;
+    padding: .25em .5em;
+  }
+  #QaTable thead tr th:first-child,
+  #QaTable td:first-child {
+    padding-left: 0;
+  }
+  #QaTable thead tr th:last-child,
+  #QaTable td:last-child {
+    padding-right: 0;
+  }
+  #QaTable thead tr th:first-child,
+  #QaTable td {
+    padding: 1em !important;
+  }
 }

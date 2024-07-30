@@ -4,20 +4,7 @@
 <%@include file="../include/header.jsp"%>
 <!-- End Header Area -->
 
-<style type="text/css">
-	#QaTable{
-	  width: 100%;
-      border: 2px solid black;
-	}
-	th,td{
-      align-content: center;
-      border: 1px solid black;
-    }
-    .pageBtn {width: 100%; margin:0 auto; box-sizing: border-box;}
-    .pagination {text-align: center; vertical-align: middle; }
-    .paginate_button {display: inline-block; list-style: none; padding: 6px; text-align: center;}
 
-</style>
 <%
 Boolean isLogin = (Boolean) session.getAttribute("isLogin");
 if (isLogin == null || isLogin == false) {
@@ -48,83 +35,82 @@ if (memberDTO == null || memberType == null) {
 <% 
 }  
 %>
-<div class="col-lg-6 col-md-12 col-12">
-	<h2>QA 게시판</h2>
-	<br>
-	<div class="form-group">
-		<div class="button">
-			<button type="button" class="btn" id="regBtn">글쓰기</button>
-		</div>
-	
-	<div>
-		<form id="searchForm" action="/qa/list" method="get">
-			<div >
-				<div >
-			        <select id="searchType"  name="type">
-			        	<option value="all" ${pageMaker.cri.type == "all" ? "selected":"" }>All</option>
-			            <option value="title" ${pageMaker.cri.type == "title"? "selected":"" }>제목</option>
-			            <option value="writer" ${pageMaker.cri.type == "writer"? "selected":"" }>작성자</option>
-			            <option value="context" ${pageMaker.cri.type == "context"? "selected":"" }>내용</option>
-			        </select>
-			    </div>
-		    </div>
-		    
-		    <div >
-			    <div >
-			        <input type="search"  name="keyword" value="${pageMaker.cri.keyword }">
-			        <span >
-			            <button type="submit"><i class="fa fa-search"></i></button>
-			        </span>
-			    </div>
-		    </div>
-	    </form>
-	</div>
-</div>		
 
-	<form class="form" action="#">
-		<table id="QaTable">
-			<div class="row">
-			  <thead>	
-			 <tr>
-			 	<th>번호</th>
-				<th>작성날짜</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>조회수</th>
-			 </tr>
-		    </thead>
-			<tbody>
-	  	   </tbody>	
-		</table>
-	</form>
-</div>
 
-		<div class="pageBtn">
-			<ul class="pagination">
-				<c:if test="${pageMaker.prev }">
-					<li class="paginate_button previous">
-						<a href="${pageMaker.startPage - 1 }">Previous</a>
-					</li>
-					</c:if>
-						<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-							<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
-								<a href="${num }">${num }</a>
-							</li>
-						</c:forEach>
-						<c:if test="${pageMaker.next }">
-							<li class="paginate_button next">
-								<a href="${pageMaker.endPage + 1 }">Next</a>
-							</li>
-						</c:if>
-					</ul>
+		<section class="Feautes section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10" id="mediSerchSection">
+						<div class="table-container">
+							<h3>QA 게시판</h3>
+							<div class="qa-serch">
+								<div>
+									<form id="searchForm" action="/qa/list" method="get">
+										<select id="searchType" name="type">
+											<option value="all" ${pageMaker.cri.type == "all"? "selected":"" }>All</option>
+								            <option value="title" ${pageMaker.cri.type == "title"? "selected":"" }>제목</option>
+								            <option value="writer" ${pageMaker.cri.type == "writer"? "selected":"" }>작성자</option>
+								            <option value="context" ${pageMaker.cri.type == "context"? "selected":"" }>내용</option>
+								        </select>
+								        <div id="serchInput">
+								        	<input type="search" name="keyword" value="${pageMaker.cri.keyword }">
+									        <button type="submit"><i class="fa fa-search"></i></button>
+									    </div>
+							    	</form>
+							    </div>
+								<div id="serchBtn">
+									<button type="button" class="qa-btn" id="regBtn">글쓰기</button>
+								</div>
+							</div>
+							<div class="card mb-4"> 
+								<form class="form" action="#">
+									<table id="QaTable">
+										  <thead>	
+										 	<tr>
+											 	<th>번호</th>
+												<th>작성날짜</th>
+												<th>제목</th>
+												<th>작성자</th>
+												<th>조회수</th>
+										 	</tr>
+									    </thead>
+										<tbody></tbody>	
+									</table>
+								</form>
+							</div>
+							<div class="pageBtn">
+								<ul class="pagination">
+									<c:if test="${pageMaker.prev }">
+										<li class="paginate_button previous">
+											<a href="${pageMaker.startPage - 1 }">Previous</a>
+										</li>
+										</c:if>
+										<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+											<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
+												<a href="${num }">${num }</a>
+											</li>
+										</c:forEach>
+										<c:if test="${pageMaker.next }">
+											<li class="paginate_button next">
+												<a href="${pageMaker.endPage + 1 }">Next</a>
+											</li>
+										</c:if>
+									</ul>
+								</div>
+							
+							<form id="pageForm" action="/qa/list" method="get">
+									<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+									<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+									<input type="hidden" name="type" value="${pageMaker.cri.type }">
+									<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+							</form>
+						</div>
+					</div>	
 				</div>
-				
-				<form id="pageForm" action="/qa/list" method="get">
-						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-						<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-						<input type="hidden" name="type" value="${pageMaker.cri.type }">
-						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
-				</form>
+			</div>
+		</section>
+
+		
 
 <script type="text/javascript">
 $(document).ready(function(){
