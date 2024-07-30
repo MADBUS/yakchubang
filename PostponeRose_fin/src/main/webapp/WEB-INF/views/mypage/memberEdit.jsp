@@ -1,3 +1,4 @@
+<%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@page import="com.medicalInfo.project.model.MemberInfoDTO"%>
 <%@page import="com.medicalInfo.project.model.PrescriptDTO"%>
 <%@page import="com.medicalInfo.project.model.MemberDTO"%>
@@ -316,9 +317,16 @@ if (isLogin == null || isLogin == false) {
 											String institutionAddress = memberInfoDTO.getInstitutionAddress();
 											String license = memberInfoDTO.getLicense();
 											String institytionTel = memberInfoDTO.getInstitutionTel();
+											System.out.println("이거 찍히냐?"+memberInfoDTO.toString());
 									%>
 						        	<p><strong>전문기관 등록 정보 변경 필요 시 재등록 요청 부탁드립니다.</strong></p>
 							        <br/>
+							        <div>
+							        	<img src="http://localhost:8090/download2?fileName=<%=memberInfoDTO.getPicuniName() %>&originalFileName=<%=memberInfoDTO.getPicName() %>&fileType=<%=memberInfoDTO.getPicType() %>" width="200px" />
+							        </div>
+							       	<div>
+							        	<img src="http://localhost:8090/download?fileName=<%=memberInfoDTO.getUniqueName() %>&originalFileName=<%=memberInfoDTO.getFileName() %>&fileType=<%=memberInfoDTO.getFileType() %>" width="200px" />
+							        </div>
 							        <div>
 										<label>전문기관 이름</label>
 							            <input type="text" readonly="readonly" name="institutionName" value="<%=institutionName%>">

@@ -56,7 +56,7 @@
 	</update>
 	
 	<select id="getMemberInfo" resultType="com.medicalInfo.project.model.MemberInfoDTO">
-		SELECT memberNum, memberType, institutionAddress,institutionTel,license,institutionName FROM member_info WHERE memberNum = #{memberNum}
+		SELECT memberNum, memberType, institutionAddress,institutionTel,license,institutionName,pictureName,picuniName,picType,fileName,uniqueName,fileType FROM member_info WHERE memberNum = #{memberNum}
 	</select>
 	
 	<update id="updateMem" parameterType="com.medicalInfo.project.model.MemberDTO">

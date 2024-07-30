@@ -14,7 +14,7 @@ public class MemberInfoDTO {
 	private String picuniName;
 	private String picType;
 	private String fileName;
-	private String fileuniName;
+	private String uniqueName;
 	private String fileType;
 	
 	public MemberInfoDTO() {}
@@ -44,7 +44,7 @@ public class MemberInfoDTO {
 		this.picuniName = picuniName;
 		this.picType = picType;
 		this.fileName = fileName;
-		this.fileuniName = fileuniName;
+		this.uniqueName = fileuniName;
 		this.fileType = fileType;
 	}
 	
