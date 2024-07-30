@@ -1,0 +1,350 @@
+/*
+	회원 Login
+*/
+
+.login .login-box {
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login-container {
+	padding-top: 90px;
+}
+
+.login-text {
+	padding: 80px 125px 80px 15px;
+}
+
+.login-text .text1 {
+	margin-bottom: 20px;
+	color: #fff;
+	font-weight: bolder;
+	font-size: 4em;
+}
+
+.login-text .text2 {
+	margin-top: 90px;
+	color: #fff;
+	font-weight: 500;
+	font-size: 1.8em;
+}
+
+
+/*
+	회원 Loginidpwd
+*/
+#loginContainer {
+	display: flex;
+	align-items: center;
+}
+
+#loginBox {
+	float: right;
+    width: 430px;
+    height: 350px;
+    border-radius: 16px;
+    background-color: #fff;
+    text-align: center;
+    align-content: center;
+}
+
+#loginForm td {
+    padding-bottom: 5px;
+}
+
+#loginForm tr td input {
+	width: 350px;
+	height: 55px;
+	border: 2px solid #eee;
+    border-radius: 8px;
+    padding: 2px 6px 2px 44px;
+    background-color: #fff;
+    font-size: 1em;
+}
+
+#loginBox .login-btn {
+	width: 350px;
+	height: 55px;
+	margin-bottom: 35px;
+	border-radius: 8px;
+    background-color: #1A76D1;
+    color: #fff;
+    font-size: 1em;
+}
+
+#loginBox .login-btn:hover {
+    background: #2C2D3F;
+}
+
+#loginBox span {
+	margin-right: 50px;
+	float: right;
+	font-size: 1em;
+}
+
+#loginBox span button {
+	border: none;
+	background: none;
+	color: #888;
+}
+
+
+/*
+	kakaoLogin
+*/
+#kakaoLoginContainer {
+	display: flex;
+	align-items: center;
+}
+
+#kakaoLoginBox {
+	padding: 40px;
+    width: 450px;
+    border-radius: 16px;
+    background-color: #fff;
+    text-align: center;
+}
+
+#kakaoLoginBox h3 {
+	margin-top: 40px;
+}
+
+#kakaoLoginBox h1 {
+	margin-bottom: 70px;
+	font-weight: bold;
+}
+
+#kakaoLogoutBox {
+	float: right;
+	padding: 20px 40px 10px 40px;
+    width: 450px;
+    border-radius: 16px;
+    background-color: #fff;
+    text-align: center;
+}
+
+#kakaoLogoutBox h1 {
+	font-weight: bold;
+}
+
+#kakaoLogoutBox h3 {
+	font-weight: 550;
+}
+
+
+
+#memberInfo {
+	text-align: left;
+	border: 4px solid #EDF2FF;
+	border-radius: 8px;
+	padding: 10px;
+}
+
+#memberGrade p {
+	text-align: right;
+	padding: 15px 0 15px 0;
+	font-weight: 550;
+}
+
+
+
+#memberInfo #memberInfo1 p {
+	font-weight: 550;
+}
+
+#memberInfo #memberInfo2 p {
+	font-weight: 550;
+}
+
+#applyExpert {
+	text-align: right;
+}
+
+#applyExpert p {
+	font-weight: bold;
+	font-size: small;
+	padding: 10px;
+}
+
+#applyExpert strong {
+	color: #1A76D1;
+	text-decoration: underline;
+}
+
+#kakaoLogoutBox .medisearch {
+	height: 120px;
+	padding: 10px;
+	padding-top: 15px;
+	border-radius: 8px;
+	text-align: center;
+	background-color: #EDF2FF;
+}
+
+#kakaoLogoutBox .medisearch p {
+	font-size: large;
+	font-weight: 550;
+	padding: 10px 0 10px 0;
+	color: #888;
+}
+
+#kakaoLogoutBox #medisearchForm {
+	width: 280px;
+	height: 35px;
+	border: 2px solid #eee;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 1em;
+}
+
+#kakaoLogoutBox .medisearch-btn {
+	width: 60px;
+	height: 35px;
+	margin-bottom: 35px;
+	border-radius: 4px;
+    background-color: #1A76D1;
+    color: #fff;
+    font-size: 1em;
+    border: none;
+}
+
+#kakaoLogoutBox .medisearch-btn:hover {
+    background: #2C2D3F;
+}
+
+
+
+/*
+	Modal
+*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 100px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 16px;
+    width: 30%;
+    align-items: center;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 330px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.textbox {
+	margin: 5px 5px 5px 5px;
+	width: 100%;
+}
+
+.textbox input {
+    width: 98%;
+    height: 50px;
+    padding: 5px;
+    margin: 5px 0 5px 0;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 2px solid #eee;
+    border-radius: 8px;
+}
+
+.textbox label {
+    margin: 5px 0 5px 0;
+    display: inline-block;
+}
+
+#check {
+    margin: 15px 0 15px 0;
+    width: 100%;
+    height: 55px;
+	border-radius: 8px;
+    background-color: #1A76D1;
+    color: #fff;
+    font-size: 1em;
+}
+
+#check:hover {
+    background: #2C2D3F;
+}
+
+/*
+	실시간 전문의 배너
+*/
+.expert-container {
+	height: 400px;
+	margin: 50px;
+	align-content: center;
+}
+
+.wrap {
+	height: 300px;
+	width: 1080px;
+    display: flex; 
+    overflow: hidden;
+    border-radius: 16px;
+    background-color: #EDF2FF;
+}
+.wrap .rolling-list ul {
+    padding : 0px;
+    display: flex;
+    text-align: center;
+    margin-top: 10px;
+    
+}
+.wrap .rolling-list ul li { 
+	width: 360px;
+	height: 290px;
+    box-sizing: border-box; 
+    display: flex; 
+    align-items: center; 
+    flex-shrink: 0; 
+}
+
+.wrap .rolling-list ul li input { 
+	width: 150px;
+	border: 2px solid #eee;
+    border-radius: 8px;
+}
+
+.rolling-list.original {
+    animation: rollingleft1 90s linear infinite;
+}
+.rolling-list.clone {
+    animation: rollingleft2 90s linear infinite;
+}
+
+@keyframes rollingleft1 {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-100%); }
+    50.01% { transform: translateX(100%); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes rollingleft2 {
+    0% { transition: translateX(0); }
+    100% { transform: translateX(-200%); }
+}

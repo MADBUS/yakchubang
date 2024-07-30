@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.medicalInfo.project.mapper.BestExpertMapper">
+ 
+  	<select id="bestExpert"  resultType="com.medicalInfo.project.model.RatingDTO" >
+		SELECT expertNum,AVG(rate) AS rate
+		FROM rating
+		GROUP BY expertNum
+		ORDER BY rate DESC
+		LIMIT 0,1;
+	</select>
+	
+	<select id="firstExpert" resultType="com.medicalInfo.project.model.MemberInfoDTO" parameterType="int" >
+		SELECT institutionAddress, institytionTel, institutionName FROM member_info WHERE memberNum = #{expertNum};
+	</select>
+	
+	<select id="ExpertName" resultType="com.medicalInfo.project.model.MemberDTO" parameterType="int" >
+		SELECT memberName FROM member WHERE memberNum = #{expertNum};
+	</select>
+	
+	<select id="bestSecondExpert"  resultType="com.medicalInfo.project.model.RatingDTO" >
+		SELECT expertNum,AVG(rate) AS rate
+		FROM rating
+		GROUP BY expertNum
+		ORDER BY rate DESC
+		LIMIT 1,1;
+	</select>
+	
+	<select id="bestThirdExpert"  resultType="com.medicalInfo.project.model.RatingDTO" >
+		SELECT expertNum,AVG(rate) AS rate
+		FROM rating
+		GROUP BY expertNum
+		ORDER BY rate DESC
+		LIMIT 2,1;
+	</select>
+	
+	
+	<select id="myRating" resultType="com.medicalInfo.project.model.RatingDTO" parameterType="int" >
+		SELECT AVG(rate) AS rate FROM rating WHERE expertNum = #{expertNum};
+	</select>
+	
+	<select id="qaRatingList" parameterType="int" resultType="com.medicalInfo.project.model.RatingDTO">
+		SELECT ratedtable_type,ratedqa_no,rate,expertNum FROM rating WHERE expertNum = #{expertNum} AND ratedtable_type ='QACOMMENT'; 
+	</select>
+	
+	<select id="prescriptRatingList" parameterType="int" resultType="com.medicalInfo.project.model.RatingDTO">
+		SELECT ratedtable_type, ratedtprescript_no, rate, expertNum FROM rating WHERE expertNum = #{expertNum} AND ratedtable_type ='PRESCRIPT'; 
+	</select>
+	
+  </mapper>
