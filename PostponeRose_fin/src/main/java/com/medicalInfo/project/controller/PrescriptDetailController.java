@@ -94,8 +94,14 @@ public class PrescriptDetailController {
 				int perD = perDays[i];
 				int totD = totalDays[i];
 				String ad = addordrop[i];
+				ADDORDROP add= null;
+				if(ad.equals("ADD")) {
+					add= ADDORDROP.ADD;
+				}else {
+					add= ADDORDROP.DROP;
+				}
 				String com = d_comment[i];
-				PrescriptDetailDTO pdd = new PrescriptDetailDTO(prescriptId, mid, mn, perD, totD, ADDORDROP.ADD, com);
+				PrescriptDetailDTO pdd = new PrescriptDetailDTO(prescriptId, mid, mn, perD, totD, add, com);
 				prescriptDetailService.insertPrescriptDetail(pdd);
 			}
 			return "redirect:/mypage/expertMypage";

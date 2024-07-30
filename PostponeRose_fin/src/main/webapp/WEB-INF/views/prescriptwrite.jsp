@@ -95,6 +95,8 @@ return;
 					    <td><input type="text" name="dosage" id="dosage"></td>
 					    <td>투약일</td>
 					    <td><input type="text" name="dosageDate" id="dosageDate"></td>
+					    <td>추가/삭제</td>
+						<td> <input type="checkbox" name="addordrop" id="addordrop" value="Y" checked> </td>
 					    <td>comment</td>
 					    <td><input type="text" name="detail_comment" id="detail_comment"></td>
 					    <td><button type="button" id="addMedicineBtn">등록</button></td>
@@ -210,14 +212,14 @@ $(document).ready(function(){
         var dosage = $("#dosage").val();
         var dosageDate = $("#dosageDate").val();
         var detailComment = $("#detail_comment").val();
-
+        var addordrop = $("#addordrop").prop("checked") ? "ADD" : "DROP";
         // Create a new row
         var newRow = "<tr>" +
             "<td>" + itemSeq + "<input type='hidden' name='mediID[]' value='" + itemSeq + "'></td>" +
             "<td>" + itemName + "<input type='hidden' name='itemName[]' value='" + itemName + "'></td>" +
             "<td>" + dosage + "<input type='hidden' name='pd[]' value='" + dosage + "'></td>" +
             "<td>" + dosageDate + "<input type='hidden' name='td[]' value='" + dosageDate + "'></td>" +
-            "<td>+"+"<input type='hidden' name='addordrop[]' value='+'>"+" </td>" +
+            "<td>"+ addordrop + "<input type='hidden' name='addordrop[]' value='"+ addordrop  +"'></td>" +
             "<td>" + detailComment + "<input type='hidden' name='d_comment[]' value='" + detailComment + "'></td>" +
             "<td><button type='button' class='deleteBtn'>삭제</button></td>" +
             "</tr>";
