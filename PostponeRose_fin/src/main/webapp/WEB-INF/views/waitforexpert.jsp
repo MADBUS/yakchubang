@@ -93,34 +93,76 @@ if (isLogin == null || isLogin == false) {
     </div>
 </section>
 
+<div class="pageBtn">
+	 <ul class="pagination-centered">
+		<c:if test="${pageMaker.prev }">
+			<li class="paginate_button previous">
+				<a href="${pageMaker.startPage - 1 }">Previous</a>
+			</li>
+		</c:if>
+		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+			<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
+				<a href="${num}">${num}</a>
+			</li>
+		</c:forEach>
+		<c:if test="${pageMaker.next }">
+			<li class="paginate_button next">
+				<a href="${pageMaker.endPage + 1 }">Next</a>
+			</li>
+		</c:if>
+	</ul>
+</div>
+
+<form id="pageForm" action="/waitforexpert" method="get">
+	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+	<input type="hidden" name="type" value="${pageMaker.cri.type }">
+	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+</form>
+
 <script type="text/javascript">
-    function reject(waitforexpertId,email) {
+    function reject(waitforexpertId, email) {
         var rejectReason = document.querySelector('select[name="rejectReason_' + waitforexpertId + '"]').value;
         if (rejectReason === "") {
             alert("거절 사유를 선택해주세요");
             return;
         }
+        
         var form = document.createElement("form");
         form.method = "post";
         form.action = "delwaitforexpert"; // Controller action for rejection
+
         var idInput = document.createElement("input");
         idInput.type = "hidden";
         idInput.name = "waitforexpertId";
         idInput.value = waitforexpertId;
         form.appendChild(idInput);
-        var idInput2 = document.createElement("input");
-        idInput2.type = "hidden";
-        idInput2.name = "email";
-        idInput2.value = email;
-        form.appendChild(idInput2);
+
+        var emailInput = document.createElement("input");
+        emailInput.type = "hidden";
+        emailInput.name = "email";
+        emailInput.value = email;
+        form.appendChild(emailInput);
+
         var reasonInput = document.createElement("input");
         reasonInput.type = "hidden";
         reasonInput.name = "rejectReason";
         reasonInput.value = rejectReason;
         form.appendChild(reasonInput);
+
         document.body.appendChild(form);
         form.submit();
     }
+    
+	let pageForm = $("#pageForm");
+
+	$(".paginate_button a").on("click", function(e) {
+		// a태그의 기본 기능인 링크를 삭제 
+		e.preventDefault();
+		// pageNum 값을 사용자가 클릭한 a 태그의 href 속성값으로 변경
+		pageForm.find("input[name='pageNum']").val($(this).attr("href"));
+		pageForm.submit();
+	});
 </script>
 
 <%@ include file="include/footer.jsp" %>

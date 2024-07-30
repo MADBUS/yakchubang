@@ -78,25 +78,25 @@ if (memberDTO == null || memberType == null) {
 									</table>
 								</form>
 							</div>
-							<div class="pageBtn">
-								<ul class="pagination">
-									<c:if test="${pageMaker.prev }">
-										<li class="paginate_button previous">
-											<a href="${pageMaker.startPage - 1 }">Previous</a>
-										</li>
-										</c:if>
-										<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-											<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
-												<a href="${num }">${num }</a>
-											</li>
-										</c:forEach>
-										<c:if test="${pageMaker.next }">
-											<li class="paginate_button next">
-												<a href="${pageMaker.endPage + 1 }">Next</a>
-											</li>
-										</c:if>
-									</ul>
-								</div>
+						<div class="pageBtn">
+   							 <ul class="pagination-centered">
+       							 <c:if test="${pageMaker.prev }">
+           							 <li class="paginate_button previous">
+               							 <a href="${pageMaker.startPage - 1 }">Previous</a>
+           							 </li>
+        						</c:if>
+       							<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+           							 <li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
+               							 <a href="${num }">${num }</a>
+           							 </li>
+        						</c:forEach>
+        						<c:if test="${pageMaker.next }">
+           							 <li class="paginate_button next">
+               							 <a href="${pageMaker.endPage + 1 }">Next</a>
+           							 </li>
+        						</c:if>
+    						</ul>
+						</div>
 							
 							<form id="pageForm" action="/qa/list" method="get">
 									<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">

@@ -99,6 +99,7 @@
         
         <link rel="stylesheet" href="../resources/css/table.css">
         <link rel="stylesheet" href="../resources/css/login.css">
+        <link rel="stylesheet" href="../resources/css/paging.css">
       	<link rel="stylesheet" href="../resources/css/member-edit.css">
       
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

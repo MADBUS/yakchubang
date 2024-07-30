@@ -82,7 +82,7 @@ if (isLogin == null || isLogin == false) {
 						</table>
 						
 						<div class="pageBtn">
-							<ul class="pagination">
+							<ul class="pagination-centered">
 								<c:if test="${pageMaker.prev}">
 									<li class="paginate_button previous">
 										<a href="${pageMaker.startPage - 1 }">Previous</a>
