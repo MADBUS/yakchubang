@@ -52,6 +52,25 @@
 	</insert>
 	
 	<select id="getPrescript" resultType="com.medicalInfo.project.model.PrescriptDTO">
-		SELECT * FROM prescript WHERE prescript_no = #{prescript_no} ORDER BY prescriptDate DESC
+		SELECT * FROM prescript WHERE prescript_no = #{prescript_no} ORDER BY prescribed_date DESC
+	</select>
+	
+	<select id="getPrescriptTotal" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
+		SELECT COUNT(prescript_no) FROM prescript 
+		<where>
+			<if test="keyword != null and keyword != ''">
+			memberId LIKE CONCAT("%",#{keyword},"%");
+			</if>
+		</where>
+	</select>
+	
+	<select id="getPreList" resultType="com.medicalInfo.project.model.PrescriptDTO" parameterType="com.medicalInfo.project.model.Criteria">
+		SELECT * FROM prescript
+		 <where>
+			<if test="keyword != null and keyword != ''">
+			memberId LIKE CONCAT("%",#{keyword},"%")
+			</if>
+		</where>
+		 ORDER BY prescribed_date DESC LIMIT #{start}, #{amount};
 	</select>
   </mapper>

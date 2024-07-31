@@ -119,6 +119,8 @@ if (isLogin == null || isLogin == false) {
         if (missingFields.length > 0) {
             alert(missingFields.join(', ') + '이(가) 필요합니다.');
             e.preventDefault();
+        } else {
+            alert("신청이 완료되었습니다.");
         }
     };
 </script>

@@ -104,7 +104,7 @@ public class PrescriptDetailController {
 				PrescriptDetailDTO pdd = new PrescriptDetailDTO(prescriptId, mid, mn, perD, totD, add, com);
 				prescriptDetailService.insertPrescriptDetail(pdd);
 			}
-			return "redirect:/mypage/expertMypage";
+			return "redirect:/prescriptwrite";
 		}
 		System.out.println("멤버체크"+memberDTO.toString());
 		PrescriptDTO prescriptDTO = new PrescriptDTO(member.getMemberName(), member.getMemberEmail(),phoneNum,member.getMemberNum(),MemberType.PATIENT,prescribingInstitution, prescribingDoctor, memberDTO.getMemberNum(), MemberType.EXPERT);
@@ -122,7 +122,7 @@ public class PrescriptDetailController {
 			prescriptDetailService.insertPrescriptDetail(pdd);
 		}
 		
-		return "redirect:/mypage/expertMypage";
+		return "redirect:/prescriptwrite";
 		
 	}
 	

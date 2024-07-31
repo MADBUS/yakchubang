@@ -152,6 +152,8 @@ public class MypageController {
 		System.out.println("prescript model 찍혀?? " + model);
 
 	}
+	
+	
 
 	// 처방전 상세보기 화면으로 이동
 	@GetMapping("/mypage/prescriptDetail")
@@ -330,8 +332,37 @@ public class MypageController {
 	
 	
 	
+	@GetMapping("/mypage/searchPre")
+	public void searchPreList(HttpSession session, Model model, Criteria cri) {
+		model.addAttribute("prescriptdto", prescriptSevice.getList(cri));
+		cri.setType("all");
+
+		log.info("criteria Test야 search 값?~~~"+cri);
+		int total = prescriptSevice.getListTotal(cri);
+		log.info("이거 겟 매핑 토탈이야~~~"+total);
+		
+		PageDTO pageResult = new PageDTO(cri, total);
+		model.addAttribute("expertPageMaker", pageResult);
+		log.info("-------------- list out --------------");
+		log.info(pageResult);
+	}
 	
-	
+	@ResponseBody
+	@PostMapping("/mypage/searchPre")
+	public List<PrescriptDTO> getList(Criteria cri, Model model, HttpSession session) {
+		log.info("Ajax로 전체 게시물 조회 >>> ");
+		// 전체 테이블의 데이터 갯수 반환
+		int total = prescriptSevice.getListTotal(cri);
+		System.out.println("<<<<<<<<<total"+cri.toString());
+		
+		PageDTO pageResult = new PageDTO(cri, total);
+		model.addAttribute("expertPageMaker", pageResult);
+		
+		System.out.println("@PostMapping(\"/getList\")"+pageResult);
+		System.out.println(">>>>>>>>>>>>>"+prescriptSevice.getList(cri));
+		return prescriptSevice.getList(cri);
+		
+	}
 	// EXPERT controller
 	
 	// 마이페이지(전문가), 처방전 목록 화면으로 이동

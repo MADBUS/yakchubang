@@ -50,7 +50,7 @@
 	</select>
 	
 	<select id="getListTotalCount" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
-		SELECT COUNT(m.memberNum)   FROM
+		SELECT COUNT(r.expertNum)   FROM
             rating r
         INNER JOIN
             member m ON r.expertNum = m.memberNum

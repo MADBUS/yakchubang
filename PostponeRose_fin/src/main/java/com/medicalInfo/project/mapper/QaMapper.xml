@@ -141,7 +141,7 @@
   	</select>
   	
   	<update id="incrementViewCnt" parameterType="int">
-		UPDATE qa SET viewcnt = viewcnt+1 WHERE qa_id = #{qa_id}
+		UPDATE qa SET viewcnt = viewcnt+1 WHERE qa_id = #{qa_id} 
 	</update>
 	
   </mapper>

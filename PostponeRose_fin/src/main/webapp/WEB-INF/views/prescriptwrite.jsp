@@ -244,6 +244,14 @@ $(document).ready(function(){
     $("button").not("[type='submit']").click(function(event){
         event.preventDefault();
     });
+
+    // Prevent form submission if no medicine is added
+    $("#prescriptionForm").submit(function(event) {
+        if ($("#medicineTable tbody tr").length === 0) {
+            alert("처방전에 약품을 추가하세요.");
+            event.preventDefault();
+        }
+    });
 });
 
 function ajaxTest() {

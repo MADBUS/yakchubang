@@ -50,5 +50,11 @@ public interface PrescriptMapper {
 	@Delete("DELETE FROM prescript WHERE prescript_no=#{prescript_no}")
 	public void deletePrescript(int prescript_no);
 
+
+	public int getPrescriptTotal(Criteria cri);
+
+
+	public List<PrescriptDTO> getPreList(Criteria cri);
+
 	
 }

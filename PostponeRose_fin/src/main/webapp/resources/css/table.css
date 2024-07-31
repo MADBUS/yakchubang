@@ -148,7 +148,7 @@
 
 .medicine-table thead tr:first-child {
   border-top: none;
-  background: #EDF2FF;
+  background: rgba(0, 0, 0, .03);
   color: #333;
 }
 
@@ -436,8 +436,208 @@
 }
 
 /*
-  Qa-table
+  Qa
 */
+.qa-title {
+	margin: 0 auto;
+	width: 100%;
+	height: 45px;
+	background-color: rgba(0, 0, 0, .06);
+	align-content: center;
+	border-bottom: 1px solid rgba(0, 0, 0, .08);
+}
+
+.qa-title #span1, .qa-title #span2, .qa-title #span3 {
+	float: left;
+	margin-left: 20px;
+}
+
+.qa-title #span4 {
+	float: right;
+	margin-right: 20px;
+}
+
+.qa-title input {
+	border-radius: 4px;
+}
+
+#qaPreNum input {
+	border-radius: 4px;
+	width: 40px;
+	margin-left: 5px;
+	text-align: center;
+}
+
+.qa-title .span3-writer input {
+	background-color: rgba(0, 0, 0, .01);
+}
+
+.qa-content {
+	width: 100%;
+	height: 300px;
+	text-align: left;
+	background-color: rgba(0, 0, 0, .02);
+}
+
+.qa-content p {
+	padding: 30px;
+}
+
+.qa-content textarea {
+	height: 200px;
+}
+
+#qaPrescriptTitle {
+	text-align: left;
+	font-weight: bold;
+}
+
+
+#qaPrescript {
+	margin: 0 auto;
+	width: 100%;
+	height: 45px;
+	background-color: rgba(0, 0, 0, .03);
+	align-content: center;
+}
+
+#qaPrescriptContent1 {
+	padding: 10px;
+}
+
+#qaPrescriptContent1 #qaPreSpan1 {
+	float: left;
+	margin-left: 20px;
+}
+
+#qaPrescriptContent1 #qaPreSpan2 {
+	margin-left: 10px;
+}
+
+#qaPrescriptContent1 #qaPreSpan3 {
+	margin-left: 50px;
+}
+
+#qaPrescriptContent1 #qaPreSpan4 {
+	margin-left: 10px;
+}
+
+#qaPrescriptContent1 #qaPreSpan5 {
+	float: right;
+	margin-right: 20px;
+}
+
+#qaComentTitle {
+	text-align: left;
+	font-weight: bold;
+	color: #1A76D1;
+}
+
+
+/* 기본 테이블 스타일 */
+#qaComment {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+    align-content: center;
+}
+
+/* 테이블 헤더 스타일 */
+#qaComment thead tr {
+    background-color: #f2f2f2;
+    border-bottom: 2px solid #ddd;
+}
+
+/* 테이블 행 스타일 */
+#qaComment tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+#qaComment tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+/* 셀 스타일 */
+#qaComment td {
+    padding: 12px 10px;
+}
+
+/* 작성자 이름 스타일 */
+#qaComment .user-name {
+    color: #333;
+}
+
+/* 댓글 내용 스타일 */
+#qaComment input[type="text"] {
+    width: 100%;
+    height: 100px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+}
+
+/* 버튼 스타일 */
+#qaComment button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#qaComment .modMode {
+    background-color: #1A76D1;
+    color: white;
+}
+
+#qaComment .DeleteMode {
+    background-color: #000;
+    color: white;
+}
+
+#qaComment button:hover {
+    opacity: 0.8;
+}
+
+/* 숨겨진 필드 스타일 */
+#qaComment input[type="hidden"] {
+    display: none;
+}
+
+#qaCommentWrite {
+	margin: 0 auto;
+}
+
+#qaCommentWrite textarea {
+	width: 600px;
+	height: 150px;
+}
+
+ #qaPreNum {
+    text-align: left; 
+    margin-left: 0; 
+}
+.card {
+    margin-bottom: 20px; 
+}
+
+#qaListBtn {
+	text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
 .qa-serch {
 	display: flex;
 }

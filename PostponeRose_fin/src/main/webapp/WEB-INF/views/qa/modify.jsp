@@ -2,20 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<style type="text/css">
-	table{
-	  width: 100%;
-      border: 2px solid black;
-	}
-	th,td{
-      align-content: center;
-      border: 1px solid black;
-    }
-     #d1{
-    	 width: 100%;
-    	 height: 100px;
-    }
-</style>
+
 <%
 Boolean isLogin = (Boolean) session.getAttribute("isLogin");
 if (isLogin == null || isLogin == false) {
@@ -31,112 +18,100 @@ if (isLogin == null || isLogin == false) {
 %>
 </head>
 <body>
-	<h1>수정 및 삭제</h1>
-	<form id="modForm" action="">
-		<div id="d1">
-        <label>제목</label><br>    
-    	<input  name="title" value='<c:out value="${q_ID.title }"/>'>
-    </div>
-    <div id="d1">
-        <label>작성자</label><br>
-    	<input  readonly="readonly"   name="writer" value='<c:out value="${q_ID.writer }"/>'>
-    </div>
-    <div id="d1">
-        <label>내용</label><br>
-    	 <textarea rows="5" cols="50"   name="context">
-	       <c:out value="${q_ID.context }"/>
-	   </textarea>
-	</div>
-	<br><br><br>
-	<div id="d1">
-		<label>처방전 번호</label><br>
-    	<input name="prescript_no" value='<c:out value="${q_ID.prescript_no }"/>'>
-	</div>
-	<br>
-	<div id="prescript">
-		<h3>게시글 처방전</h3>
-	<table>
-		<thead>
-			<tr>
-				<th>처방한 날짜</th>
-				<th>처방전 번호</th>
-				<th>환자 이름</th>
-				<th>전화 번호</th>
-				<th>처방 기관</th>
-				<th>전문가 명</th>
-			</tr>
-		</thead>
-		<tbody>
-		  <c:choose> 
-		  	<c:when test="${q_ID.prescript_no ==0 }">
-			<tr>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   	<tr>
-		   	</c:when>
-		   	<c:otherwise>
-		   	<tr>
-		   		<th><c:out value="${prescriptDTO.prescribed_date}"/></th>
-		   		<th><c:out value="${prescriptDTO.prescript_no}"/></th>
-		   		<th><c:out value="${prescriptDTO.patient_name}"/></th>
-		   		<th><c:out value="${prescriptDTO.patient_phone}"/></th>
-		   		<th><c:out value="${prescriptDTO.institution_address}"/></th>
-		   		<th><c:out value="${prescriptDTO.expert_name}"/></th>
-		   	<tr> 	
-		   	</c:otherwise>
-		  </c:choose>
-		</tbody>  	
-	</table>
-	</div>
-		<h3>나의 처방전</h3>
-		<table>
-		    <thead>	
-			 <tr>
-				<th>처방한 날짜</th>
-				<th>처방전 번호</th>
-				<th>환자 이름</th>
-				<th>전화 번호</th>
-				<th>처방 기관</th>
-				<th>전문가 명</th>
-			 </tr>
-		   </thead>
-		   <tbody>
-		   	  <c:choose> 
-		  	<c:when test="${empty myPrescript}">
-			<tr>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   		<th>첨부 x</th>
-		   	<tr>
-		   	</c:when>
-		   	<c:otherwise>
-		   	<c:forEach items="${myPrescript}" var="my">
-		   	<tr>
-		   		<th><c:out value="${my.prescribed_date}"/></th>
-		   		<th><c:out value="${my.prescript_no}"/></th>
-		   		<th><c:out value="${my.patient_name}"/></th>
-		   		<th><c:out value="${my.patient_phone}"/></th>
-		   		<th><c:out value="${my.institution_address}"/></th>
-		   		<th><c:out value="${my.expert_name}"/></th>
-		   	<tr> 
-		   	</c:forEach>	
-		   	</c:otherwise>
-		  </c:choose>
-		   </tbody>
-		</table>
-	<br><br><br>	
-		<button type="button" class="btn" data-oper ="list">게시판 돌아가기</button>
-		<button type="button" class="btn" data-oper ="modify">수정</button>
-		<button type="button" class="btn" data-oper ="delete">삭제</button>
-	</form>
-	<br><br><br>	
+
+
+		<section class="Feautes section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10" id="mediSerchSection">
+						<div class="table-container">
+							<form id="modForm" action="">
+								<h3>QA 게시판</h3>
+								<h5 id="qaPrescriptTitle">수정 및 삭제</h5>
+								<div id="qaListBtn">
+									<button type="button" class="btn" data-oper ="list">게시판으로 돌아가기</button>
+								</div>
+								<br/>
+								<div class="card mb-4">
+									<div class="qa-title">
+										<span id="span1"><b>제목 </b><input name="title" value='<c:out value="${q_ID.title }"/>'></span>
+										<span id="span2" class="span3-writer"><b>작성자 </b><input readonly="readonly" name="writer" value='<c:out value="${q_ID.writer }"/>'></span>
+										<span id="span3"><b>작성일 </b><fmt:formatDate pattern = "yyyy-MM-dd hh:mm" value="${q_ID.created_at }"/></span>
+										
+										<span id="span4"><b>조회 </b>${q_ID.viewcnt }</span>
+									</div>
+									<div class="qa-content">
+										<p><textarea rows="5" cols="50" name="context"><c:out value="${q_ID.context }"/></textarea></p>
+									</div>
+								</div>
+								<div id="qaPreNum">
+									<span id="span1"><b>현재 게시글 처방전 번호 </b><input name="prescript_no" value='<c:out value="${q_ID.prescript_no }"/>'></span>
+								</div>
+								<br/>
+								<c:choose> 
+								  	<c:when test="${q_ID.prescript_no ==0 }">
+								   	</c:when>
+								   	<c:otherwise>
+								   		<h5 id="qaPrescriptTitle">게시글 처방전</h5>
+								   		<br/>
+										<div class="card mb-4" id="qaPrescript">
+											<div id="qaPrescriptContent1">
+												<span id="qaPreSpan1"><b>처방전 No. </b>${prescriptDTO.prescript_no}</span>
+												<span id="qaPreSpan2"><b>환자명 </b>${prescriptDTO.patient_name}</span>
+												
+												<span id="qaPreSpan3"><b>전문가명 </b>${prescriptDTO.expert_name}</span>
+												<span id="qaPreSpan4"><b>처방기관 </b>${prescriptDTO.institution_address}</span>
+												<span id="qaPreSpan5"><b>처방일자 </b><fmt:formatDate pattern = "yyyy-MM-dd hh:mm" value="${prescriptDTO.prescribed_date}"/></span>
+											</div>
+										</div>	
+								   	</c:otherwise>
+								</c:choose>
+								<br/>
+								<c:choose> 
+								  	<c:when test="${empty myPrescript}">
+								   	</c:when>
+								   	<c:otherwise>
+								   	<h5 id="qaPrescriptTitle">마이처방전</h5>
+									<br/>
+									<div class="card mb-4">
+										<table class="medicine-table">
+										    <thead>	
+											 <tr>
+											 	<th>처방전 No.</th>
+												<th>환자명</th>
+												<th>전문가명</th>
+												<th>처방기관</th>
+												<th>처방일자</th>
+											 </tr>
+										   </thead>
+										   <tbody>
+										   	  <c:forEach items="${myPrescript}" var="my">
+												   	<tr>
+												   		<td data-th='처방전 No.'><c:out value="${my.prescript_no}"/></td>
+												   		<td data-th='환자명'><c:out value="${my.patient_name}"/></td>
+												   		<td data-th='전문가명'><c:out value="${my.expert_name}"/></td>
+												   		<td data-th='처방기관'><c:out value="${my.institution_address}"/></td>
+												   		<td data-th='처방일자'><fmt:formatDate pattern = "yyyy-MM-dd hh:mm" value="${my.prescribed_date}"/></td>
+												   	 <tr> 
+										   		</c:forEach>	
+										    </tbody>
+										  </table>
+										</div>
+								   	 </c:otherwise>
+								   </c:choose>
+								   <button type="button" class="btn" data-oper ="modify">수정</button>
+								   <button type="button" class="btn" data-oper ="delete">삭제</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+							
+							
+							
+							
+	
 <script type="text/javascript">
 	$(document).ready(function() {
 		const formObj = $("#modForm");

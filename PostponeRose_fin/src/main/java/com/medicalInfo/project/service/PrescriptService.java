@@ -96,6 +96,14 @@ public class PrescriptService {
 		prescriptMapper.deletePrescript(prescript_no);
 	}
 
+	public int getListTotal(Criteria cri) {
+		return prescriptMapper.getPrescriptTotal(cri);
+	}
+
+	public List<PrescriptDTO> getList(Criteria cri) {
+		return prescriptMapper.getPreList(cri);
+	}
+
 
 
 }
