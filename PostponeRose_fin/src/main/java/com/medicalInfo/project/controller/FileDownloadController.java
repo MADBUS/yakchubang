@@ -102,7 +102,7 @@ public class FileDownloadController {
     	// globals.properties
     	  File file = new File(uploadPicture, fileName+fileType);
     	  BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
-
+    	  System.out.println("이게 왜 없지?"+fileType);
     	  //User-Agent : 어떤 운영체제로  어떤 브라우저를 서버( 홈페이지 )에 접근하는지 확인함
     	  String header = request.getHeader("User-Agent");
     	  String fileName_;

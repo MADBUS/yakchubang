@@ -10,7 +10,7 @@ public class MemberInfoDTO {
 	private String institutionAddress;
 	private String institutionTel;
 	private String license;
-	private String picName;
+	private String pictureName;
 	private String picuniName;
 	private String picType;
 	private String fileName;
@@ -40,7 +40,7 @@ public class MemberInfoDTO {
 		this.institutionAddress = institutionAddress;
 		this.institutionTel = institutionTel;
 		this.license = license;
-		this.picName = picName;
+		this.pictureName = picName;
 		this.picuniName = picuniName;
 		this.picType = picType;
 		this.fileName = fileName;

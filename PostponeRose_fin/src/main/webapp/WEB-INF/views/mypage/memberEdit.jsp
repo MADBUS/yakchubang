@@ -322,7 +322,7 @@ if (isLogin == null || isLogin == false) {
 						        	<p><strong>전문기관 등록 정보 변경 필요 시 재등록 요청 부탁드립니다.</strong></p>
 							        <br/>
 							        <div>
-							        	<img src="http://localhost:8090/download2?fileName=<%=memberInfoDTO.getPicuniName() %>&originalFileName=<%=memberInfoDTO.getPicName() %>&fileType=<%=memberInfoDTO.getPicType() %>" width="200px" />
+							        	<img src="http://localhost:8090/download2?fileName=<%=memberInfoDTO.getPicuniName() %>&originalFileName=<%=memberInfoDTO.getPictureName() %>&fileType=<%=memberInfoDTO.getPicType() %>" width="200px" />
 							        </div>
 							       	<div>
 							        	<img src="http://localhost:8090/download?fileName=<%=memberInfoDTO.getUniqueName() %>&originalFileName=<%=memberInfoDTO.getFileName() %>&fileType=<%=memberInfoDTO.getFileType() %>" width="200px" />

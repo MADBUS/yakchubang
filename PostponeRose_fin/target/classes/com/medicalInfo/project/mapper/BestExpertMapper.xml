@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="firstExpert" resultType="com.medicalInfo.project.model.MemberInfoDTO" parameterType="int" >
-		SELECT institutionAddress, institytionTel, institutionName FROM member_info WHERE memberNum = #{expertNum};
+		SELECT * FROM member_info WHERE memberNum = #{expertNum};
 	</select>
 	
 	<select id="ExpertName" resultType="com.medicalInfo.project.model.MemberDTO" parameterType="int" >
@@ -49,4 +49,66 @@
 		SELECT ratedtable_type, ratedtprescript_no, rate, expertNum FROM rating WHERE expertNum = #{expertNum} AND ratedtable_type ='PRESCRIPT'; 
 	</select>
 	
+	<select id="getListTotalCount" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
+		SELECT COUNT(m.memberNum)   FROM
+            rating r
+        INNER JOIN
+            member m ON r.expertNum = m.memberNum
+        INNER JOIN
+            member_info mi ON m.memberNum = mi.memberNum
+        <where>
+			<if test="type != null and keyword != null and type != '' and keyword != ''">
+				<choose>
+					<when test="type == 'all'">
+					(m.memberName LIKE CONCAT("%",#{keyword},"%") OR
+					mi.institutionName LIKE CONCAT("%",#{keyword},"%"))
+					</when>
+					<otherwise>
+						<if test="type == 'name'">
+                        m.memberName LIKE CONCAT("%", #{keyword},"%")
+                    </if>
+                    <if test="type == 'institution'">
+                        mi.institution LIKE CONCAT("%", #{keyword},"%")
+                    </if>
+                   
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		GROUP BY
+            r.expertNum ;
+	</select>
+	
+	
+	
+	<select id="getListWithSearch" parameterType="com.medicalInfo.project.model.Criteria" resultType="com.medicalInfo.project.model.RatingTotDTO">
+		 SELECT r.expertNum,AVG(r.rate) AS averageRate, m.memberNum, m.memberName, mi.institutionAddress, mi.institutionTel, mi.institutionName, mi.pictureName,mi.picuniName, mi.picType 
+		 FROM rating r 
+        INNER JOIN member m
+             ON r.expertNum = m.memberNum
+        INNER JOIN member_info mi
+             ON m.memberNum = mi.memberNum
+        <where>
+			<if test="type != null and keyword != null and type != '' and keyword != ''">
+				<choose>
+					<when test="type == 'all'">
+					(m.memberName LIKE CONCAT("%",#{keyword},"%") OR
+					mi.institutionName LIKE CONCAT("%",#{keyword},"%"))
+					</when>
+					<otherwise>
+						<if test="type == 'name'">
+                        m.memberName LIKE CONCAT("%", #{keyword},"%")
+                    </if>
+                    <if test="type == 'institution'">
+                        mi.institution LIKE CONCAT("%", #{keyword},"%")
+                    </if>
+                   
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+        GROUP BY
+            r.expertNum
+		ORDER BY r.expertNum LIMIT #{start}, #{amount};
+	</select>
   </mapper>

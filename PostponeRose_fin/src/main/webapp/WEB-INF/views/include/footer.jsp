@@ -1,49 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<link href="/resources/style.css" rel="stylesheet" type="text/css">
+<link href="<%= request.getContextPath() %>/resources/style.css" rel="stylesheet" type="text/css">
 <!-- Footer Area -->
-<footer id="footer" class="footer ">
-<!-- Footer Top -->
-<div class="footer-top">
-<div class="container">
-<div class="row">
-<div class="col-lg-3 col-md-6 col-12">
-<div class="single-footer">
-<div><img class="logo" src="<%= request.getContextPath() %>resources/img/medilogo.png" alt="logo image"></div>
-</div>
-</div>
-<div class="single-footer">
-<nav>
-<p><a href="#">소개&nbsp;│&nbsp;</a>
-                        <a href="#" >이용약관│&nbsp;</a>
-                        <a href="#">스토어 가이드│&nbsp;</a>
-                        <a href="/agreement"><strong>개인정보 처리방침</strong>&nbsp;</a>
-                        <a href="/waitforexpert">│&nbsp;전문가 등록</a></p>
-                     </nav><br>
-                     <p><strong>주식회사 약 쳐봥</strong>&nbsp;│
- 주소&nbsp;│&nbsp;서울 관악구 봉천동 972-5 &nbsp;│&nbsp;대표자 : 약 쳐봥</p>
- <p><b>광고 및 제휴 문의</b>&nbsp;│&nbsp; zdbx00@naver.com &nbsp;<button><a href="#">이메일문의</a></button></p>
- <p>
-© Copyright 2018 | All Rights Reserved by <a
-href="https://www.wpthemesgrid.com" target="_blank">wpthemesgrid.com</a>
-</p>
- </div>
-<!--  <div class="col-lg-3 col-md-6 col-12">
-<div class="single-footer">
-<div><p>고객센터<br>9:00~18:00<br>주말 및 공휴일 휴무<br></div>
-</div>
-</div> -->
-</div>
-
-</div>
-</div>
-</div>
-<!--/ End Footer Top -->
-<!-- Copyright -->
-
+<footer id="footer" class="footer">
+    <!-- Footer Top -->
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <!-- Logo Section -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-footer">
+                        <div>
+                            <a href="/login"><img class="logo" src="<%= request.getContextPath() %>/resources/img/medilogo.png" alt="logo image"></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation and Information Section -->
+                <div class="col-lg-9 col-md-6 col-12">
+                    <div class="single-footer">
+                        <nav>
+                            <p>
+                                <a href="/mypage/patientMypage">마이 페이지&nbsp;│&nbsp;</a>
+                                <a href="/qa/list">QA 게시판&nbsp;│&nbsp;</a>
+                                <a href="/mypage/expertMypage">전문가 페이지&nbsp;│&nbsp;</a>
+                                <a href="/agreement">개인정보 처리방침&nbsp;│&nbsp;</a>
+                                <a href="/applyExpert">전문가 등록</a>
+                            </p>
+                        </nav>
+                        <br>
+                        <p><strong>주식회사 약 쳐봥</strong>&nbsp;│ 주소&nbsp;│&nbsp;서울 관악구 봉천동 972-5 &nbsp;│&nbsp;대표자 : 약 쳐봥</p>
+                        <p><b>광고 및 제휴 문의</b>&nbsp;│&nbsp; zdbx00@naver.com &nbsp;
+                        <p>
+                            © Copyright 2018 | All Rights Reserved by <a href="/login" target="_blank">wpthemesgrid.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Footer Top -->
 </footer>
 <!--/ End Footer Area -->
 
+<!-- jquery Min JS -->
 <!-- jquery Min JS -->
 <script src="../resources/js/jquery.min.js"></script>
 <!-- jquery Migrate JS -->
@@ -79,8 +78,7 @@ href="https://www.wpthemesgrid.com" target="_blank">wpthemesgrid.com</a>
 <!-- Magnific Popup JS -->
 <script src="../resources/js/jquery.magnific-popup.min.js"></script>
 <!-- Counter Up CDN JS -->
-<script
-src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 <!-- Bootstrap JS -->
 <script src="../resources/js/bootstrap.min.js"></script>
 <!-- Main JS -->

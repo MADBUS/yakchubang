@@ -5,12 +5,18 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.medicalInfo.project.mapper.BestExpertMapper;
+import com.medicalInfo.project.model.Criteria;
 import com.medicalInfo.project.model.MemberDTO;
 import com.medicalInfo.project.model.MemberInfoDTO;
+import com.medicalInfo.project.model.QaDTO;
 import com.medicalInfo.project.model.RatingDTO;
+import com.medicalInfo.project.model.RatingTotDTO;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Service
 @AllArgsConstructor
 public class BestExpertService {
@@ -55,5 +61,27 @@ public class BestExpertService {
 	public List<RatingDTO> myPrescriptRating(int expertNum){
 		System.out.println("나의평점 prescriptlist"+expertNum);
 		return bestExpertMapper.prescriptRatingList(expertNum);
+	}
+
+	public List<RatingTotDTO> getList(Criteria cri) {
+		// TODO Auto-generated method stub
+		return bestExpertMapper.getListWithSearch(cri);
+	}
+
+	public int getListTotal(Criteria cri) {
+		System.out.println("getListTotalCount>>>>"+cri);
+		return bestExpertMapper.getListTotalCount(cri);
+	}
+
+	public List<RatingTotDTO> getRateList(Criteria cri) {
+		
+		System.out.println("Service In" + cri);
+		log.info("-------------- Service in --------------");
+		log.info(cri);
+		List<RatingTotDTO> result = bestExpertMapper.getListWithSearch(cri);
+		log.info("-------------- list out --------------");
+		log.info(result);
+		return result;
+		
 	}
 }
