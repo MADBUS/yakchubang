@@ -30,7 +30,7 @@ if (isLogin == null || isLogin == false) {
 %>	
 	<div>
 		<h2>공지사항 작성</h2>
-		<form method="post" action="/insertnotice">
+		<form method="post" action="/insertnotice" enctype="multipart/form-data">
 			<table>
 				<caption>
 					<strong><span>*</span> 표시는 필수입력 항목입니다.</strong>
@@ -49,6 +49,10 @@ if (isLogin == null || isLogin == false) {
 						<td><textarea  name="noticecontent"
 								cols="30" rows="10" class="textarea01" required></textarea></td>
 					</tr>
+					 <tr>
+                            <th>파일 선택:<span>*</span></th>
+                            <td><input type="file" name="file" id="file"></td>
+                        </tr>
 				</tbody>
 			</table>
 			<div class="btn_right mt15">

@@ -12,7 +12,7 @@ import com.medicalInfo.project.model.NoticeDTO;
 @Service
 public class NoticeService {
 	@Autowired
-	NoticeMapper noticemapper;
+	private NoticeMapper noticemapper;
 	
 	public List<NoticeDTO> allnotice() {
 		return noticemapper.allnotice();
@@ -48,4 +48,3 @@ public class NoticeService {
 		return noticemapper.getListWithPasing(cri);
 	}
 }
-

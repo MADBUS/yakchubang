@@ -27,57 +27,32 @@ import lombok.extern.log4j.Log4j;
 public class PrescriptDetailController {
 	
 	@Autowired
-	PrescriptDetailService prescriptDetailService;
+	private PrescriptDetailService prescriptDetailService;
 	
 	@Autowired
-	PrescriptService prescriptService;
+	private PrescriptService prescriptService;
 	
 	@Autowired
-	PatientService patientService;
+	private PatientService patientService;
 	
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
 	
 	@PostMapping("/insertprescript")
 	public String insertPrescript(@RequestParam("mediID[]") String[] mediID, @RequestParam("itemName[]") String[] itemName,
 			@RequestParam("pd[]") int[] perDays,@RequestParam("td[]") int[] totalDays,
-			@RequestParam("patientName") String patientName,@RequestParam("addordrop[]") String[] addordrop,@RequestParam("d_comment[]") String[] d_comment,
+			@RequestParam("patientName") String patientName,@RequestParam("addordrop[]") String[] addordrop,
+			@RequestParam("d_comment[]") String[] d_comment,
 			@RequestParam("memberId") String memberId,@RequestParam("phoneNum") String phoneNum,
 			@RequestParam("prescribingInstitution")String prescribingInstitution,@RequestParam("prescribingDoctor")String prescribingDoctor,
 			HttpSession session) {
-		System.out.println("check info"+patientName);
-		System.out.println("check info"+memberId);
-		System.out.println("check info"+phoneNum);
-		System.out.println("check info"+prescribingInstitution);
-		System.out.println("check info"+prescribingDoctor);
-		int maxNum = 0;
-		for(String med : mediID) {
-			System.out.println("mediId check"+med);
-		}
-		for(String med : itemName) {
-			System.out.println("mediname check"+med);
-		}
-		for(int med : perDays) {
-			System.out.println("medipd check"+med);
-		}
-		for(int med : totalDays) {
-			System.out.println("meditd check"+med);
-			maxNum= Math.max(maxNum, med);
-		}
-		for(String med : addordrop) {
-			System.out.println("addordrop check"+med);
-		}
-		for(String med :  d_comment) {
-			System.out.println("comment check"+med);
-		}
 		
 		MemberDTO memberDTO = (MemberDTO)session.getAttribute("member_info");
-		
+		PrescriptDTO prescriptDto = null;
 		MemberDTO member = memberService. getMember(memberId);
 		if (member==null) {
 			PatientDTO patient = patientService.getPatient(memberId);
 			if(patient==null) {
-			
 				PatientDTO patient_ = new PatientDTO();
 				patient_.setPatientName(patientName);
 				patient_.setPatientTel(phoneNum);
@@ -85,7 +60,12 @@ public class PrescriptDetailController {
 				patientService.registerPatient(patient_);
 				patient = patientService.getPatient(memberId);
 			}
-			PrescriptDTO prescriptDto = new PrescriptDTO(patientName, memberId, phoneNum, prescribingInstitution, prescribingDoctor, memberDTO.getMemberNum(), MemberType.EXPERT);
+			prescriptDto = new PrescriptDTO(patientName, memberId, phoneNum, prescribingInstitution, prescribingDoctor,
+			memberDTO.getMemberNum(), MemberType.EXPERT);
+		}else {
+			prescriptDto = new PrescriptDTO(member.getMemberName(), member.getMemberEmail(),phoneNum,member.getMemberNum(),
+			MemberType.PATIENT,prescribingInstitution, prescribingDoctor, memberDTO.getMemberNum(), MemberType.EXPERT);
+		}
 			int prescriptId = prescriptService.insertPrescipt(prescriptDto);
 			for(int i = 0; i<mediID.length; i++) {
 				
@@ -104,26 +84,8 @@ public class PrescriptDetailController {
 				PrescriptDetailDTO pdd = new PrescriptDetailDTO(prescriptId, mid, mn, perD, totD, add, com);
 				prescriptDetailService.insertPrescriptDetail(pdd);
 			}
-			return "redirect:/prescriptwrite";
-		}
-		System.out.println("멤버체크"+memberDTO.toString());
-		PrescriptDTO prescriptDTO = new PrescriptDTO(member.getMemberName(), member.getMemberEmail(),phoneNum,member.getMemberNum(),MemberType.PATIENT,prescribingInstitution, prescribingDoctor, memberDTO.getMemberNum(), MemberType.EXPERT);
-		int prescriptId = prescriptService.insertMemPrescipt(prescriptDTO);
-		
-		for(int i = 0; i<mediID.length; i++) {
-			
-			String mid = mediID[i];
-			String mn = itemName[i];
-			int perD = perDays[i];
-			int totD = totalDays[i];
-			String ad = addordrop[i];
-			String com = d_comment[i];
-			PrescriptDetailDTO pdd = new PrescriptDetailDTO(prescriptId, mid, mn, perD, totD, ADDORDROP.ADD, com);
-			prescriptDetailService.insertPrescriptDetail(pdd);
-		}
 		
 		return "redirect:/prescriptwrite";
-		
 	}
 	
 	@GetMapping("/mypage/expertPrescriptMod")
@@ -132,7 +94,6 @@ public class PrescriptDetailController {
 		model.addAttribute("dto", prescriptService.get(prescript_no));
 		model.addAttribute("detaillist", prescriptDetailService.selectPrescript(prescript_no));
 		log.info("MypageController read model >>>" + model);
-
 		MemberType membertype = (MemberType) session.getAttribute("membertype");
 		System.out.println("MypageController read 이거찍힘?" + membertype);
 		
@@ -142,24 +103,6 @@ public class PrescriptDetailController {
 	public String modMed(@RequestParam("mediID[]") String[] mediID, @RequestParam("itemName[]") String[] itemName,
 			@RequestParam("pd[]") int[] perDays,@RequestParam("td[]") int[] totalDays,@RequestParam("addordrop[]") String[] addordrop,
 			@RequestParam("d_comment[]") String[] d_comment, @RequestParam("prescript_no") int prescript_no, Model model) {
-		for(String med : mediID) {
-			System.out.println("mediId check"+med);
-		}
-		for(String med : itemName) {
-			System.out.println("mediname check"+med);
-		}
-		for(int med : perDays) {
-			System.out.println("medipd check"+med);
-		}
-		for(int med : totalDays) {
-			System.out.println("meditd check"+med);
-		}
-		for(String med : addordrop) {
-			System.out.println("addordrop check"+med);
-		}
-		for(String med :  d_comment) {
-			System.out.println("comment check"+med);
-		}
 		
 		prescriptDetailService.deleteDetail(prescript_no);
 		for(int i = 0; i<mediID.length; i++) {
@@ -173,7 +116,6 @@ public class PrescriptDetailController {
 			PrescriptDetailDTO pdd = new PrescriptDetailDTO(prescript_no, mid, mn, perD, totD, ad, com);
 			prescriptDetailService.insertPrescriptDetail(pdd);
 		}
-		
 		return "redirect:/mypage/expertMypage";
 	}
 	

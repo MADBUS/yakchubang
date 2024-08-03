@@ -28,97 +28,100 @@ if (isLogin == null || isLogin == false) {
 }
 %>
 
-<!-- Start Features -->
-<section class="Feautes section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>전문가회원 신청리스트</h2>
-                    <img src="resources/img/section-img.png" alt="#">
-                    <p>최소 3일에서 7일정도 걸릴 수 있습니다.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <form id="expertForm" method="post">
-                <table class="tableForm" border="1" width="350">
-                    <tbody>
-                        <tr>
-                            <td>No</td>
-                            <td>첨부파일</td>
-                            <td>증명사진</td>
-                            <td>신청인</td>
-                            <td>등록일</td>
-                            <td>미리보기</td>
-                            <td>연락 이메일</td>
-                            <td>거절사유</td>
-                            <td>수락상태</td>
-                        </tr>
-                        <c:forEach items="${waitforexpertlist}" var="waitforexpert">
-						    <tr>
-						        <td><c:out value="${waitforexpert.waitforexpertId}" /></td>
-						        <td>첨부파일: <c:out value="${waitforexpert.fileName}" />
-						            <a href="http://localhost:8090/download?fileName=<c:out value='${waitforexpert.uniqueName}' />&originalFileName=<c:out value='${waitforexpert.fileName}' />&fileType=<c:out value='${waitforexpert.fileType}' />">다운로드</a>
-						        </td>
-						        <td>첨부파일: <c:out value="${waitforexpert.pictureName}" />
-						            <a href="http://localhost:8090/download2?fileName=<c:out value='${waitforexpert.picuniName}' />&originalFileName=<c:out value='${waitforexpert.pictureName}' />&fileType=<c:out value='${waitforexpert.picType}' />">다운로드</a>
-						        </td>
-						        <td><c:out value="${waitforexpert.memberName}" /></td>
-						        <td>
-						            <fmt:formatDate value="${waitforexpert.created_at}" pattern="yyyy.MM.dd" />
-						        </td>
-						        <td>
-						            <img src="http://localhost:8090/download2?fileName=<c:out value='${waitforexpert.picuniName}' />&originalFileName=<c:out value='${waitforexpert.pictureName}' />&fileType=<c:out value='${waitforexpert.picType}' />" width="200px" />
-						        </td>
-						        <td><c:out value="${waitforexpert.email}" /></td>
-						        <td>
-						            <select name="rejectReason_${waitforexpert.waitforexpertId}">
-						                <option value="">거절 사유를 선택해주세요</option>
-						                <option value="해당기관과 연락이 되질 않습니다">해당기관과 연락이 되질 않습니다</option>
-						                <option value="파일이 부적절하지 않습니다">파일이 부적절하지 않습니다</option>
-						                <option value="해당 기관에서 본인을 인증 할 수 없습니다">해당 기관에서 본인을 인증 할 수 없습니다</option>
-						            </select>
-						        </td>
-						        <td>
-						            <a href="modwaitforexpert?memberNum=${waitforexpert.memberNum}&waitforexpertId=${waitforexpert.waitforexpertId}&email=${waitforexpert.email}">승인</a>
-						            <a href="#" onclick="reject(${waitforexpert.waitforexpertId}, '${waitforexpert.email}')">거절</a>
-						        </td>
-						    </tr>
-						</c:forEach>
-                    </tbody>
-                </table>
-            </form>
-        </div>
-    </div>
-</section>
+		<section class="Feautes section">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-10" id="mediSerchSection">
+						<div class="table-container">
+						<br/><br/><br/>
+							<h3>전문가회원 신청 리스트</h3>
+							<br/>
+							<form id="expertForm" method="post">
+								<div class="card mb-4">
+					                <table class="tableForm" id="datatablesSimple">
+					                    <thead>
+					                        <tr>
+					                            <th>No.</th>
+					                            <th>첨부파일</th>
+					                            <th>증명사진</th>
+					                            <th>신청인</th>
+					                            <th>등록일</th>
+					                            <th>미리보기</th>
+					                            <th>연락 이메일</th>
+					                            <th>거절사유</th>
+					                            <th>수락상태</th>
+					                        </tr>
+					                      </thead>
+					                      <tbody>
+					                        <c:forEach items="${waitforexpertlist}" var="waitforexpert">
+											    <tr>
+											        <td data-th='No.'><c:out value="${waitforexpert.waitforexpertId}" /></td>
+											        <td data-th='첨부파일'>첨부파일: <c:out value="${waitforexpert.fileName}" />
+											            <a href="http://localhost:8090/download?fileName=<c:out value='${waitforexpert.uniqueName}' />&originalFileName=<c:out value='${waitforexpert.fileName}' />&fileType=<c:out value='${waitforexpert.fileType}' />">다운로드</a>
+											        </td>
+											        <td data-th='증명사진'>첨부파일: <c:out value="${waitforexpert.pictureName}" />
+											            <a href="http://localhost:8090/download2?fileName=<c:out value='${waitforexpert.picuniName}' />&originalFileName=<c:out value='${waitforexpert.pictureName}' />&fileType=<c:out value='${waitforexpert.picType}' />">다운로드</a>
+											        </td>
+											        <td data-th='신청인'><c:out value="${waitforexpert.memberName}" /></td>
+											        <td data-th='등록일'>
+											            <fmt:formatDate value="${waitforexpert.created_at}" pattern="yyyy.MM.dd" />
+											        </td>
+											        <td data-th='미리보기'>
+											            <img src="http://localhost:8090/download2?fileName=<c:out value='${waitforexpert.picuniName}' />&originalFileName=<c:out value='${waitforexpert.pictureName}' />&fileType=<c:out value='${waitforexpert.picType}' />" width="200px" />
+											        </td>
+											        <td data-th='연락 이메일'><c:out value="${waitforexpert.email}" /></td>
+											        <td data-th='거절사유'>
+											            <select name="rejectReason_${waitforexpert.waitforexpertId}">
+					                                        <option value="">거절 사유를 선택해주세요.</option>
+					                                        <option value="해당 기관 정보 불일치">해당 기관 정보가 불일치 합니다.</option>
+					                                        <option value="첨부파일이 확인요망">첨부파일이 부적절 합니다.</option>
+					                                        <option value="해당 기관에서 본인 정보 확인불가">해당 기관에 일치하는 본인 정보가 없습니다.</option>
+					                                    </select>
+											        </td>
+											        <td data-th='수락상태'>
+											            <a href="modwaitforexpert?memberNum=${waitforexpert.memberNum}&waitforexpertId=${waitforexpert.waitforexpertId}&email=${waitforexpert.email}">승인</a>
+											            <a href="#" onclick="reject(${waitforexpert.waitforexpertId}, '${waitforexpert.email}')">거절</a>
+											        </td>
+											    </tr>
+											</c:forEach>
+					                    </tbody>
+					                </table>
+					             </div>
+				            </form>
+				            <br/>
+				            <div class="pageBtn">
+								 <ul class="pagination-centered">
+									<c:if test="${pageMaker.prev }">
+										<li class="paginate_button previous">
+											<a href="${pageMaker.startPage - 1 }">Previous</a>
+										</li>
+									</c:if>
+									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+										<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
+											<a href="${num}">${num}</a>
+										</li>
+									</c:forEach>
+									<c:if test="${pageMaker.next }">
+										<li class="paginate_button next">
+											<a href="${pageMaker.endPage + 1 }">Next</a>
+										</li>
+									</c:if>
+								</ul>
+							</div>
+							
+							<form id="pageForm" action="/waitforexpert" method="get">
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+								<input type="hidden" name="type" value="${pageMaker.cri.type }">
+								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<br/><br/><br/><br/><br/><br/>
 
-<div class="pageBtn">
-	 <ul class="pagination-centered">
-		<c:if test="${pageMaker.prev }">
-			<li class="paginate_button previous">
-				<a href="${pageMaker.startPage - 1 }">Previous</a>
-			</li>
-		</c:if>
-		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-			<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
-				<a href="${num}">${num}</a>
-			</li>
-		</c:forEach>
-		<c:if test="${pageMaker.next }">
-			<li class="paginate_button next">
-				<a href="${pageMaker.endPage + 1 }">Next</a>
-			</li>
-		</c:if>
-	</ul>
-</div>
-
-<form id="pageForm" action="/waitforexpert" method="get">
-	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-	<input type="hidden" name="type" value="${pageMaker.cri.type }">
-	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
-</form>
 
 <script type="text/javascript">
     function reject(waitforexpertId, email) {

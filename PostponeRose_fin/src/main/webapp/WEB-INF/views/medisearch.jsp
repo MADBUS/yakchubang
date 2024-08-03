@@ -59,21 +59,15 @@ function ajaxTest() {
         success: function(data) {
             // 결과 테이블을 비웁니다.
             $('.resultTestApi tbody').empty();
-            
-            // 데이터 구조에 따라 처리합니다.
-            // 데이터가 List<MedicineResponse> 형태로 되어 있다고 가정합니다.
-            // 데이터가 List<MedicineResponse> 형태로 되어 있다고 가정합니다.
             $.each(data, function(index, response) {
                 $.each(response.body.items, function(idx, item) {
                     // 새로운 행 생성
                     var tr = $("<tr>");
-
                     // 각 항목을 셀로 추가
                     tr.append($("<td data-th='회사명'>").text(item.entpName));
                     tr.append($("<td data-th='약품코드'>").text(item.itemSeq));
                     tr.append($("<td data-th='약품명'>").html("<a href='/medidetail?itemSeq=" + item.itemSeq + "'>" + item.itemName + "</a>"));
                     tr.append($("<td data-th='약품 이미지'>").html("<img src='" + item.itemImage + "' alt='약품 이미지' style='width: 100px; height: auto;'>"));
-
                     // 행을 테이블에 추가
                     $('.resultTestApi tbody').append(tr);
                 });

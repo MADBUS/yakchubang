@@ -17,22 +17,9 @@ import com.medicalInfo.project.service.PrescriptService;
 public class PrescriptionController {
 	
 	@Autowired
-	PrescriptService prescriptionService;
+	private PrescriptService prescriptionService;
 	
 	@GetMapping("/prescriptwrite")
-	public void prescriptWrite() {
-		
-	}
-	
-	@GetMapping("/prescriptList")
-	public void prescript(Model model, HttpSession session) {
-		MemberDTO dto = (MemberDTO)session.getAttribute("member_info");
-		model.addAttribute("prescriptList",prescriptionService.showMyPrescription(dto.getMemberNum()));
-	}
-	
-	@GetMapping("/prescriptMod")
-	public void prescriptMod(@RequestParam("prescript_no") int prescript_no,Model model) {
-		PrescriptDTO prescriptDTO =prescriptionService.getPrescript(prescript_no);
-		model.addAttribute("prescript", prescriptDTO);
+	public void prescriptWrite() {	
 	}
 }

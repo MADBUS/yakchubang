@@ -23,7 +23,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
 		<!-- Title -->
-        <title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
+        <title>약 쳐봥 - 당신의 모든 약 정보</title>
         
         <style type="text/css">
         	.pageBtn {width: 100%; margin:0 auto; box-sizing: border-box;}
@@ -68,7 +68,7 @@
 		</style>
 		
 		<!-- Favicon -->
-        <link rel="icon" href="../resources/img/favicon.png">
+        <link rel="icon" href="../resources/img/minicon.png">
 		
 		<!-- Google Fonts -->
 		<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
@@ -161,7 +161,6 @@
 		
 		<!-- Get Pro Button -->
 		<ul class="pro-features">
-			<a class="get-pro" href="#">Get Pro</a>
 			<li class="big-title">Pro Version Available on Themeforest</li>
 			<li class="title">Pro Version Features</li>
 			<li>2+ premade home pages</li>
@@ -177,32 +176,7 @@
 	
 		<!-- Header Area -->
 		<header class="header" >
-			<!-- Topbar -->
-			<div class="topbar">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 col-md-5 col-12">
-							<!-- Contact -->
-							<ul class="top-link">
-								<li><a href="#">About</a></li>
-								<li><a href="#">Doctors</a></li>
-								<li><a href="#">Contact</a></li>
-								<li><a href="#">FAQ</a></li>
-							</ul>
-							<!-- End Contact -->
-						</div>
-						<div class="col-lg-6 col-md-7 col-12">
-							<!-- Top Contact -->
-							<ul class="top-contact">
-								<li><i class="fa fa-phone"></i>+880 1234 56789</li>
-								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">support@yourmail.com</a></li>
-							</ul>
-							<!-- End Top Contact -->
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Topbar -->
+
 			<!-- Header Inner -->
 			<div class="header-inner">
 				<div class="container">
@@ -211,7 +185,7 @@
 							<div class="col-lg-3 col-md-3 col-12">
 								<!-- Start Logo -->
 								<div class="logo">
-									<a href="../login"><img src="../resources/img/medilogo.png" alt="#"></a>
+									<a href="../login"><img src="../resources/img/mainlogo.jpg" alt="#"></a>
 								</div>
 								<!-- End Logo -->
 								<!-- Mobile Nav -->
@@ -222,23 +196,18 @@
                                 <!-- Main Menu -->
                                 <div class="main-menu">
                                     <nav class="navigation">
-                                        <ul class="nav menu">
-                                            <li><a href="/applyExpert">전문가 신청!! <i class="icofont-rounded-down"></i></a>
-                                                <ul class="dropdown">
-                                                    <li><a href="/applyExpert">전문가 신청하기</a></li>
-                                                    <li><a href="/waitforexpert">전문가 승인(관리자만 접근가능)</a></li>
-                                                </ul>
-                                            </li>
+                                        <ul class="nav menu">                   
                                             <li><a href=../qa/list>QA 게시판 </a></li> <!-- 태기님 파트 -->
                                             <li><a href="/notice">공지사항 </a></li> <!-- 수연이 파트 -->
                                             <li><a href="../mypage/patientMypage">마이페이지 <i class="icofont-rounded-down"></i></a>
                                                 <ul class="dropdown">
-                                                    <li><a href="../mypage/prescript">마이처방전</a></li>
-                                                    <li><a href="../mypage/myQa">QA문의 내역</a></li>
+                                         
                                                     <li><a href="../mypage/memberEdit">회원정보 수정</a></li> <!-- PATIENT 정보 수정 -->
+                                                    <li><a href="/applyExpert">전문가 신청하기</a></li>
+                                                    <li><a href="/waitforexpert">전문가 승인(관리자만 접근가능)</a></li>
                                                 </ul>
                                             </li>
-											<li><a href=../bestRating>실시간 전문가 BEST3 </a></li>
+											
 											<%
 												// Get the session attribute "membertype"
 												
@@ -252,16 +221,19 @@
 											<%
 											    if (membertype == MemberType.EXPERT) {
 											%>
-											<li><a href="../mypage/expertMypage">전문가 마이페이지<i class="icofont-rounded-down"></i></a>
+											<li><a href="../mypage/expertMypage">전문가 페이지<i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
 													<li><a href="../prescriptwrite">처방전 작성</a></li> <!-- 장열님 파트 -->
 													<li><a href="../mypage/expertMypage">처방전 확인</a></li> <!-- 작성된 처방전 모두 확인하는 페이지 -->
+													<li><a href="../mypage/searchPre">처방전 검색</a></li>
 													<li><a href="../mypage/expertMyQaComment">QA 답변 내역 확인</a></li>
 												</ul>
 											</li>
+											
 											<%
 											    }
 											%>
+											<li><a href=../bestRating>실시간 전문가 BEST3 </a></li>
 										</ul>
 									</nav>
 								</div>

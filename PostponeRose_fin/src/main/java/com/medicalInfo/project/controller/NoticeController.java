@@ -1,15 +1,25 @@
 package com.medicalInfo.project.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.medicalInfo.project.model.Criteria;
 import com.medicalInfo.project.model.MemberDTO;
@@ -26,10 +36,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class NoticeController {
 	
+	private final String NoticeFolder = "C:\\test\\Notice";
+	
 	@Autowired
-	private final NoticeService noticeService;
+	private  NoticeService noticeService;
 	@Autowired
-	private final QaService qaService;
+	private  QaService qaService;
 
 	@GetMapping("/notice") // 게시판 목록 조회
 	public void allnotice(Model model,Criteria cri) {
@@ -60,16 +72,37 @@ public class NoticeController {
 	
 	@PostMapping("/insertnotice") // 게시글 등록
 	public String insertnotice(@RequestParam("noticetitle") String noticetitle,
-			 @RequestParam("noticecontent") String noticecontent, @RequestParam("writerName") String writerName,HttpSession session) {
-		NoticeDTO notice = new NoticeDTO();
-		MemberDTO memberdto = (MemberDTO)session.getAttribute("member_info");
+			 @RequestParam("noticecontent") String noticecontent, @RequestParam("writerName")String writerName,
+			 @RequestParam("file") MultipartFile file,HttpSession session) {
 		
-		notice.setTitle(noticetitle);
-		notice.setMember_num(memberdto.getMemberNum());
-		notice.setWriterName(writerName);
-		notice.setContent(noticecontent);
+		MemberDTO memberdto = (MemberDTO)session.getAttribute("member_info");
+		int memberNum = memberdto.getMemberNum();
+		String fileRealName = file.getOriginalFilename(); // 파일명을 얻어낼 수 있는 메서드!
+		long size = file.getSize(); // 파일 사이즈
+		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."), fileRealName.length());
+		String NoticeFolder = "C:\\test\\Notice";
+		
+		UUID uuid = UUID.randomUUID();
+		System.out.println(uuid.toString());
+		String[] uuids = uuid.toString().split("-");
+
+		String uniqueName = uuids[0];
+		System.out.println("생성된 고유문자열" + uniqueName);
+		System.out.println("확장자명" + fileExtension);
+		NoticeDTO notice = new NoticeDTO(noticecontent, memberNum, writerName, noticetitle, fileRealName, uniqueName, fileExtension);
 		noticeService.saveNotice(notice);
 		System.out.println("notice 잘찍히나");
+		
+		File saveFile = new File(NoticeFolder + "\\" + uniqueName + fileExtension); // 적용 후
+		
+		try {
+			file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		return "redirect:/notice";
 	}
 	
@@ -101,8 +134,32 @@ public class NoticeController {
 		return "redirect:/noticedetail?id_announcement="+id_announcement;
 	}
 	
-	@GetMapping("/agreement")
-	public void agreement() {		
-	}
+	   @GetMapping("/NoticeDownload")
+	    public void downloadFile(@RequestParam("fileName") String fileName,@RequestParam("fileType") String fileType, @RequestParam("originalFileName") String originalFileName, HttpServletResponse response, HttpServletRequest request) throws IOException {
+	    	// globals.properties
+	    	  File file = new File(NoticeFolder, fileName+fileType);
+	    	  BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
+
+	    	  //User-Agent : 어떤 운영체제로  어떤 브라우저를 서버( 홈페이지 )에 접근하는지 확인함
+	    	  String header = request.getHeader("User-Agent");
+	    	  String fileName_;
+
+	    	  if ((header.contains("MSIE")) || (header.contains("Trident")) || (header.contains("Edge"))) {
+	    	    //인터넷 익스플로러 10이하 버전, 11버전, 엣지에서 인코딩 
+	    	    fileName_ = URLEncoder.encode(originalFileName, "UTF-8");
+	    	  } else {
+	    	    //나머지 브라우저에서 인코딩
+	    	    fileName_ = new String(originalFileName.getBytes("UTF-8"), "iso-8859-1");
+	    	  }
+	    	  //형식을 모르는 파일첨부용 contentType
+	    	  response.setContentType("application/octet-stream");
+	    	  //다운로드와 다운로드될 파일이름
+	    	  response.setHeader("Content-Disposition", "attachment; filename=\""+ fileName+fileType + "\"");
+	    	  //파일복사
+	    	  FileCopyUtils.copy(in, response.getOutputStream());
+	    	  in.close();
+	    	  response.getOutputStream().flush();
+	    	  response.getOutputStream().close();
+	    }
 
 }

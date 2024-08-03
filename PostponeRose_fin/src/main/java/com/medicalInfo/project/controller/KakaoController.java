@@ -55,44 +55,15 @@ public class KakaoController {
 	public String oauthResult(KaKaoOauthResponse response, Model model, HttpSession session,
 			RedirectAttributes redirectAttributes) throws NamingException {
 		log.info("이거null임?" + response.getCode());
-
-		KakaoTokenResponse token = kakaoService.getToken(response);
-		
+		KakaoTokenResponse token = kakaoService.getToken(response);		
 		if (token != null && token.getAccess_token() != null) {
-			// 토큰 정상 발급
-			
-
-			// 사용자 정보 가져오기
-
 			KakaoUserResponse userInfo = kakaoService.getUserInfo(token.getAccess_token());
 			String kakaoEmail = userInfo.getKakao_account().getEmail();
 			session.setAttribute("kakaoEmail", kakaoEmail);
-			System.out.println("이메일 체크" + kakaoEmail);
-
 			Boolean check = memberService.isMem(kakaoEmail);
-			System.out.println("컨트롤러 ismem 체크" + check);
-
 			if (check) {
-
-				System.out.println("이거 유저 인포임:" + userInfo.getId());
-				if (userInfo != null) {
-					session.setAttribute("userInfo", userInfo);
-					log.info("사용자 정보: " + userInfo);
-				}
-
-				session.setAttribute("isLogin", isLogin);
-				
-				MemberDTO memberDto = memberService.getMember(kakaoEmail);
-			    session.setAttribute("member_info", memberDto);
-				/*
-				 * context.bind("kakaoEmail", kakaoEmail);
-				 * if(context.getNameParser("kakaoEmail")!=null) { NameParser kakao =
-				 * context.getNameParser("kakaoEmail"); log.info("test>>>>>>>"+kakao); }
-				 */
-				 log.info("사용자 로그인성공");
-				
-				
-				redirectAttributes.addFlashAttribute("message", "로그인 성공");
+				session.setAttribute("userInfo", userInfo);
+				session.setAttribute("isLogin", isLogin);			
 			} else {
 				model.addAttribute("kakaoEmail", kakaoEmail);
 				return "redirect:/register";

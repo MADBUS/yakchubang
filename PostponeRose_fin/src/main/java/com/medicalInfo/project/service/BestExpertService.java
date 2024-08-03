@@ -8,6 +8,8 @@ import com.medicalInfo.project.mapper.BestExpertMapper;
 import com.medicalInfo.project.model.Criteria;
 import com.medicalInfo.project.model.MemberDTO;
 import com.medicalInfo.project.model.MemberInfoDTO;
+import com.medicalInfo.project.model.MyPrescriptRatingDTO;
+import com.medicalInfo.project.model.MyQaRatingDTO;
 import com.medicalInfo.project.model.QaDTO;
 import com.medicalInfo.project.model.RatingDTO;
 import com.medicalInfo.project.model.RatingTotDTO;
@@ -53,14 +55,12 @@ public class BestExpertService {
 		return bestExpertMapper.myRating(expertNum);
 	}
 	
-	public List<RatingDTO> myQaRating(int expertNum){
-		System.out.println("나의평점 qalist"+expertNum);
-		return bestExpertMapper.qaRatingList(expertNum);
+	public List<MyQaRatingDTO> myQaRating(Criteria cri){
+		return bestExpertMapper.qaRatingList(cri);
 	}
 	
-	public List<RatingDTO> myPrescriptRating(int expertNum){
-		System.out.println("나의평점 prescriptlist"+expertNum);
-		return bestExpertMapper.prescriptRatingList(expertNum);
+	public List<MyPrescriptRatingDTO> myPrescriptRating(Criteria cri){
+		return bestExpertMapper.prescriptRatingList(cri);
 	}
 
 	public List<RatingTotDTO> getList(Criteria cri) {
@@ -83,5 +83,15 @@ public class BestExpertService {
 		log.info(result);
 		return result;
 		
+	}
+
+	public int getMPR(Criteria cri) {
+		// TODO Auto-generated method stub
+		return bestExpertMapper.getMPRT(cri);
+	}
+
+	public int getMQR(Criteria cri) {
+		// TODO Auto-generated method stub
+		return bestExpertMapper.getMQRT(cri);
 	}
 }

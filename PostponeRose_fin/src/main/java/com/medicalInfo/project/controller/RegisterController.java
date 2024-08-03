@@ -55,7 +55,6 @@ public class RegisterController {
 	public String register(@RequestParam("memberId") String memberId, @RequestParam("memberPw") String memberPw,
 			@RequestParam("memberName") String memberName, @RequestParam("memberAddress") String memberAddress,
 			@RequestParam("memberPhone") String memberPhone, @RequestParam("memberEmail") String memberEmail) {
-		System.out.println("여기에 들어오냐?");
 		MemberDTO dto = new MemberDTO(memberId, jasyptEncoding(memberPw), memberName, memberAddress, memberPhone,
 				memberEmail);
 		System.out.println("dto체크" + dto.toString());
@@ -74,10 +73,9 @@ public class RegisterController {
 	
 	@PostMapping("/loginidpw")
 	@ResponseBody
-	public ResponseEntity<Boolean> idpwcheck(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session) {
+	public Boolean idpwcheck(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session) {
 	    String kakaoEmail = (String) session.getAttribute("kakaoEmail");
-	    Boolean check = memberService.idPWCheck(id, pw, kakaoEmail);
-	    
+	    Boolean check = memberService.idPWCheck(id, pw, kakaoEmail);	    
 	    if (check) {
 	        isLogin = true;
 	        session.setAttribute("isLogin", isLogin);
@@ -93,20 +91,17 @@ public class RegisterController {
 	            System.out.println("memInfo잘 찍히나?" + memInfo.toString());
 	            session.setAttribute("memInfo", memInfo);
 	        }
-
-	        return ResponseEntity.ok(check);
+	        return check;
 	    }
 	    System.out.println("로그인 실패: 아이디 또는 비밀번호가 잘못되었습니다.");
-	    return ResponseEntity.ok(check);
+	    return check;
 	}
 	
 	@GetMapping("/applyExpert")
 	public void form() {
 	}
 
-	@GetMapping("/index")
-	public void index() {
-	}
+	
 	@PostMapping("/user/memberIdCheck")
     @ResponseBody
     public boolean idCheck(@RequestParam("memberId")String memberid ) {

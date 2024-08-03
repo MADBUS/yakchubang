@@ -2,101 +2,161 @@
     pageEncoding="UTF-8"%>
 <%@include file="include/header.jsp"%>
 <!-- End Header Area -->
+<style>
 
-<!-- Pricing Table -->
-<section class="pricing-table section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>We Provide You The Best Treatment In Resonable Price</h2>
-                    <img src="resources/img/section-img.png" alt="#">
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit
-                        praesent aliquet. pretiumts</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Single Table -->
-            <div class="col-lg-4 col-md-12 col-12">
-                <div class="single-table">
-                    <!-- Table Head -->
-                    <div class="table-head">
-                        <div class="icon">
-                            <i class="icofont icofont-ui-cut"></i>
-                        </div>
-                        <h4 class="title">회원가입</h4>
-                        <div class="price">
-                            <p class="amount">
-                                $199<span>/ Per Visit</span>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Table List -->
-                    <form name="registerForm" action="/user/register" method="post"
-                        onsubmit="return validateForm()">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>아이디</td>
-                                    <td><input type="text" name="memberId" id="memberId" oninput="validateForm()"></td>
-                                    <td><button type="button" name="memberIdCheck" id="idcheck">중복 체크</button></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"><span id="idCheckResult" style="color: red;"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>비밀번호</td>
-                                    <td><input type="password" name="memberPw" id="memberPw" oninput="validatePassword()"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"><span id="passwordValidationResult" style="color: red;"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>비밀번호 확인</td>
-                                    <td><input type="password" name="memberPwConfirm" id="memberPwConfirm" oninput="validatePasswordMatch()"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3"><span id="passwordCheckResult" style="color: red;"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>이름</td>
-                                    <td><input type="text" name="memberName" id="memberName" required="required" oninput="validateForm()"></td>
-                                </tr>
-                                <tr>
-								    <td>주소</td>
-								    <td><input type="text" name="memberAddress" id="memberAddress" oninput="validateAddress()"></td>
-								</tr>
-								<tr>
-								    <td colspan="3"><span id="addressValidationResult" style="color: red;"></span></td>
-								</tr>
-								<tr>
-								    <td>전화번호</td>
-								    <td><input type="text" name="memberPhone" id="memberPhone" oninput="validatePhoneNumber()"></td>
-								</tr>
-								<tr>
-								    <td colspan="3"><span id="phoneValidationResult" style="color: red;"></span></td>
-								</tr>
-                                <tr>
-                                    <td>이메일</td>
-                                    <td><input type="text" readonly="readonly"
-                                        name="memberEmail" value="${kakaoEmail}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="table-bottom">
-                            <input class="btn" type="submit" value="회원가입" id="registerButton">
-                        </div>
-                    </form>
-                    <!-- Table Bottom -->
-                </div>
-            </div>
-            <!-- End Single Table-->
-            <!-- Single Table -->
-        </div>
-    </div>
-</section>
-<!--/ End Pricing Table -->
+.section-title div:first-child {
+	margin: 0 auto;
+}
+
+/* Form Box Styles */
+.resister-box {
+	width: 800px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.resister {
+    margin: 0 auto;
+}
+
+/* Table Styles */
+.resister-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+    margin: 0 auto;
+}
+
+.resister-table td {
+    padding: 5px;
+}
+
+.resister-table input[type="text"],
+.resister-table input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.resister-table button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #1A76D1;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.resister-table button:hover {
+    background-color: #2C2D3F;
+}
+
+/* Error Message Styles */
+#idCheckResult,
+#passwordValidationResult,
+#passwordCheckResult,
+#addressValidationResult,
+#phoneValidationResult {
+    display: block;
+    color: red;
+    margin-top: 5px;
+}
+
+/* Submit Button Styles */
+.table-bottom {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.table-bottom .resister-btn {
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+</style>
+
+	<section class="Feautes section">
+		<div class="section-title">
+			<br><br><br><br><br>
+			<div>
+				<div class="resister-box">
+					<div>
+					  	<div class="resister">
+					  		<br>
+					  		<h3 style="color: #1A76D1;"><b>회원가입</b></h3>
+					  		<br><br>
+				  			<form name="registerForm" action="/user/register" method="post" onsubmit="return validateForm()">
+		                        <table class="resister-table">
+		                            <tbody>
+		                                <tr>
+		                                    <td>아이디</td>
+		                                    <td><input type="text" name="memberId" id="memberId" oninput="validateForm()"></td>
+		                                    <td><button type="button" name="memberIdCheck" id="idcheck">중복 체크</button></td>
+		                                </tr>
+		                                <tr>
+		                                    <td colspan="3"><span id="idCheckResult" style="color: red;"></span></td>
+		                                </tr>
+		                                <tr>
+		                                    <td>비밀번호</td>
+		                                    <td><input type="password" name="memberPw" id="memberPw" oninput="validatePassword()"></td>
+		                                </tr>
+		                                <tr>
+		                                    <td colspan="3"><span id="passwordValidationResult" style="color: red;"></span></td>
+		                                </tr>
+		                                <tr>
+		                                    <td>비밀번호 확인</td>
+		                                    <td><input type="password" name="memberPwConfirm" id="memberPwConfirm" oninput="validatePasswordMatch()"></td>
+		                                </tr>
+		                                <tr>
+		                                    <td colspan="3"><span id="passwordCheckResult" style="color: red;"></span></td>
+		                                </tr>
+		                                <tr>
+		                                    <td>이름</td>
+		                                    <td><input type="text" name="memberName" id="memberName" required="required" oninput="validateForm()"></td>
+		                                </tr>
+		                                <tr>
+										    <td>주소</td>
+										    <td><input type="text" name="memberAddress" id="memberAddress" oninput="validateAddress()"></td>
+										</tr>
+										<tr>
+										    <td colspan="3"><span id="addressValidationResult" style="color: red;"></span></td>
+										</tr>
+										<tr>
+										    <td>전화번호</td>
+										    <td><input type="text" name="memberPhone" id="memberPhone" oninput="validatePhoneNumber()"></td>
+										</tr>
+										<tr>
+										    <td colspan="3"><span id="phoneValidationResult" style="color: red;"></span></td>
+										</tr>
+		                                <tr>
+		                                    <td>이메일</td>
+		                                    <td><input type="text" readonly="readonly"
+		                                        name="memberEmail" value="${kakaoEmail}"></td>
+		                                </tr>
+		                            </tbody>
+		                        </table>
+		                        <div class="table-bottom">
+		                            <input class="btn" type="submit" value="회원가입" id="registerButton">
+		                        </div>
+		                    </form>
+				  	
+				  	
+				  		</div>
+				  	</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
 
 <script type="text/javascript">
 var isIdChecked = false;
@@ -201,7 +261,7 @@ function validateForm() {
     // 버튼 색상 변경
     var registerButton = document.getElementById("registerButton");
     if (isValid) {
-        registerButton.style.backgroundColor = "blue";
+        registerButton.style.backgroundColor = "#1A76D1";
         registerButton.disabled = false;
     } else {
         registerButton.style.backgroundColor = "grey";

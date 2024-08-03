@@ -29,10 +29,10 @@ public class findIdPwController {
 	
 	
 	@Autowired
-	MemberService memberService;
+	private MemberService memberService;
 	
 	@Autowired
-	JavaMailSenderImpl mailSender;
+	private JavaMailSenderImpl mailSender;
 	
 	@GetMapping("/findid")
 	public void findId() {
@@ -51,14 +51,14 @@ public class findIdPwController {
 	// 아이디 비번 찾기 할때 이메일이 전송되었습니다 문구 띄우기
 	@PostMapping("/id_auth.me")
 	public String id_auth(@RequestParam("email") String email, HttpSession session) throws IOException {
-
-		MemberDTO dto = (MemberDTO) session.getAttribute("member_info");
+		String kakaoEmail = (String)session.getAttribute("kakaoEmail");
+		MemberDTO dto = memberService.getMember(kakaoEmail);
 
 		String setfrom = "pyun9704@gmail.com";
 		String tomail = email; // 받는사람
 		String title = "[약쳐봥]  아이디 찾기 입니다";
 		String content = System.getProperty("line.separator") + "안녕하세요 회원님" + System.getProperty("line.separator")
-				+ "삼삼하개 당신의 아이디는 " + dto.getMemberId() + " 입니다." + System.getProperty("line.separator"); //
+				+ "[약쳐봥] 당신의 아이디는 " + dto.getMemberId() + " 입니다." + System.getProperty("line.separator"); //
 
 		System.out.println("이거찍혀?" + email);
 
@@ -84,28 +84,21 @@ public class findIdPwController {
     @ResponseBody
 	public String pw_auth(HttpSession session, @RequestParam("email") String email, @RequestParam("id") String id,
 			Model model) throws IOException {
-		System.out.println("email" + email);
-		System.out.println("id" + id);
-
-		MemberDTO dto = (MemberDTO) session.getAttribute("member_info");
-
+		String kakaoEmail = (String)session.getAttribute("kakaoEmail");
+		MemberDTO dto = memberService.getMember(kakaoEmail);
 		if (dto != null) {
 			Random r = new Random();
 			int num = r.nextInt(999999); // 랜덤난수설정
-
 			if (dto.getMemberId().equals(id)) {
-
 				String setfrom = "pyun9704@gmail.com";
 				String tomail = email; // 받는사람
 				String title = "[약쳐봥] 비밀번호변경 인증 이메일 입니다";
 				String content = System.getProperty("line.separator") + "안녕하세요 회원님"
-						+ System.getProperty("line.separator") + "삼삼하개 비밀번호찾기(변경) 인증번호는 " + num + " 입니다."
+						+ System.getProperty("line.separator") + "[약쳐봥] 비밀번호찾기(변경) 인증번호는 " + num + " 입니다."
 						+ System.getProperty("line.separator"); //
-
 				try {
 					MimeMessage message = mailSender.createMimeMessage();
 					MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
-
 					messageHelper.setFrom(setfrom);
 					messageHelper.setTo(tomail);
 					messageHelper.setSubject(title);

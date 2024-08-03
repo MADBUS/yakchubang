@@ -41,22 +41,17 @@
 		SELECT AVG(rate) AS rate FROM rating WHERE expertNum = #{expertNum};
 	</select>
 	
-	<select id="qaRatingList" parameterType="int" resultType="com.medicalInfo.project.model.RatingDTO">
-		SELECT ratedtable_type,ratedqa_no,rate,expertNum FROM rating WHERE expertNum = #{expertNum} AND ratedtable_type ='QACOMMENT'; 
-	</select>
 	
-	<select id="prescriptRatingList" parameterType="int" resultType="com.medicalInfo.project.model.RatingDTO">
-		SELECT ratedtable_type, ratedtprescript_no, rate, expertNum FROM rating WHERE expertNum = #{expertNum} AND ratedtable_type ='PRESCRIPT'; 
-	</select>
 	
 	<select id="getListTotalCount" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
-		SELECT COUNT(r.expertNum)   FROM
+		SELECT COUNT(*)  FROM(SELECT COUNT(r.expertNum)   FROM
             rating r
         INNER JOIN
             member m ON r.expertNum = m.memberNum
         INNER JOIN
             member_info mi ON m.memberNum = mi.memberNum
         <where>
+        	
 			<if test="type != null and keyword != null and type != '' and keyword != ''">
 				<choose>
 					<when test="type == 'all'">
@@ -76,13 +71,14 @@
 			</if>
 		</where>
 		GROUP BY
-            r.expertNum ;
+            r.expertNum) s ;
 	</select>
 	
 	
 	
 	<select id="getListWithSearch" parameterType="com.medicalInfo.project.model.Criteria" resultType="com.medicalInfo.project.model.RatingTotDTO">
-		 SELECT r.expertNum,AVG(r.rate) AS averageRate, m.memberNum, m.memberName, mi.institutionAddress, mi.institutionTel, mi.institutionName, mi.pictureName,mi.picuniName, mi.picType 
+		 SELECT r.expertNum,AVG(r.rate) AS averageRate, m.memberNum, m.memberName, mi.institutionAddress, mi.institutionTel,
+		  mi.institutionName, mi.pictureName,mi.picuniName, mi.picType 
 		 FROM rating r 
         INNER JOIN member m
              ON r.expertNum = m.memberNum
@@ -110,5 +106,48 @@
         GROUP BY
             r.expertNum
 		ORDER BY r.expertNum LIMIT #{start}, #{amount};
+	</select>
+	
+	<select id="getMPRT" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
+		SELECT COUNT(*)  FROM
+            rating r
+        INNER JOIN
+            prescript p ON r.ratedtprescript_no = p.prescript_no      
+        <where>
+        	expertNum = #{memberNum_expert} AND ratedtable_type ='PRESCRIPT'
+			
+		</where>
+	</select>
+	<select id="prescriptRatingList" parameterType="com.medicalInfo.project.model.Criteria" resultType="com.medicalInfo.project.model.MyPrescriptRatingDTO">
+		SELECT prescript_no, patient_name, patient_phone, prescribed_date,rate FROM
+            rating r
+        INNER JOIN
+            prescript p ON r.ratedtprescript_no = p.prescript_no      
+        <where>
+        	expertNum = #{memberNum_expert} AND ratedtable_type ='PRESCRIPT'
+			
+		</where> 
+		ORDER BY prescribed_date DESC LIMIT #{start}, #{amount};
+	</select>
+	<select id="getMQRT" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
+		SELECT COUNT(*)  FROM
+            rating r
+        INNER JOIN
+            qa q ON r.ratedqa_no = q.qa_id     
+        <where>
+        	expertNum = #{memberNum_expert} AND ratedtable_type ='QACOMMENT'
+			
+		</where>
+	</select>
+	<select id="qaRatingList" parameterType="com.medicalInfo.project.model.Criteria" resultType="com.medicalInfo.project.model.MyQaRatingDTO">
+		SELECT qa_id,title,writer,created_at,rate FROM
+            rating r
+        INNER JOIN
+            qa q ON r.ratedqa_no = q.qa_id     
+        <where>
+        	expertNum = #{memberNum_expert} AND ratedtable_type ='QACOMMENT'
+			
+		</where>
+		ORDER BY created_at DESC LIMIT #{start}, #{amount};
 	</select>
   </mapper>

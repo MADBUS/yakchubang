@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.medicalInfo.project.mapper.QaMapper;
 import com.medicalInfo.project.model.CommentDTO;
@@ -59,7 +60,8 @@ public class QaService {
 	
 	public int modify(QaDTO dto) {
 		log.info("dto : " + dto);
-		if (dto.getPrescript_no()==0) {
+		
+		if (dto.getPrescript_no() == 0 ) {
 			return qaMapper.updateQa(dto); 
 		}else {
 			return qaMapper.updateQaPre(dto);
@@ -75,6 +77,14 @@ public class QaService {
 	public int getTotal(Criteria cri) {
 		System.out.println("getTotal>>"+cri);
 		return qaMapper.getTotalCount(cri);
+	}
+	public int getMyPrescriptCount(int memberNum) {
+		return qaMapper.getMyPrescriptsCount(memberNum);
+	}
+	
+	public List<PrescriptDTO> getMyPrescritList(Criteria cri){
+		
+		return qaMapper.getMyPrescripts(cri);
 	}
 	
 	public int getListTotal(Criteria cri) {

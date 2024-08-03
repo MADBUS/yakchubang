@@ -66,16 +66,11 @@ public class BestExpertController {
 		}
 		model.addAttribute("ratingTotdto", bestExpertService.getList(cri));
 		log.info("bestExpera"+bestExpertService.getList(cri));
-//		model.addAttribute("qadto", qaService.listAllQa());
-//		log.info(qaService.listAllQa());
 		
 		int total = bestExpertService.getListTotal(cri);
-		log.info(total);
 		
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
-		log.info("-------------- list out --------------");
-		log.info(pageResult);
 
 	}
 	

@@ -6,54 +6,43 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <style>
-.best-experts {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
-
-.expert {
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    width: 30%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+#banner, #banner2 {
+    width: 230px;
+    height: 350px;
     text-align: center;
-    margin: 0 10px; /* 중앙 정렬을 위해 간격 추가 */
-    position: relative; /* 메달 이미지를 위한 상대 위치 설정 */
-}
-
-.expert img.medal {
     position: absolute;
-    top: 10px; /* 상단에서의 위치 조정 */
-    left: 10px; /* 왼쪽에서의 위치 조정 */
-    width: 50px; /* 메달 이미지 크기 조정 */
-    height: auto;
+    left: 30px;
+    top: 150px;  
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
 }
-
-.form-group {
-    margin-bottom: 15px;
+#banner2 {
+    top: 500px;
+    margin-top:20px;  
 }
-
-.form-group label {
-    font-weight: bold;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.banner-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #f00;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
     text-align: center;
 }
-
-h3 {
-    color: #333;
-}
-
-.expert-img {
-	width: 50px; /* Set the width to 50px */
+#mediSerchSection {
+  margin-left: 100px; /* 배너의 너비만큼 왼쪽 여백 추가 */
 }
 </style>
 <%
@@ -82,37 +71,35 @@ if (isLogin == null || isLogin == false) {
 	}
 %>
 
-		<!-- End Header Area -->
 		
-		<section class="Feautes section"></section>
-		<section class="Feautes section">
-			<div class="section-title">
-				<h2>전문가 마이페이지</h2>
-			</div>
-		</section>
-		
-		<!-- Start PrescriptView -->
 		<section class="Feautes section">
 			<div class="container">
+				<div id="banner">
+					<span class="banner-close">&times;</span>
+					<img src="../resources/img/banner.jpg" style="width:100%; height:calc(100% - 20px); object-fit:cover;">
+				</div>
+				<div id="banner2">
+					<span class="banner-close">&times;</span>
+					<img src="../resources/img/banner2.jpg" style="width:100%; height:calc(100% - 20px); object-fit:cover;">
+				</div>
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="section-title">
-							<h2>환자 처방전 목록</h2>
-							<img src="../resources/img/section-img.png" alt="#">
-							<p></p>
+					<div class="col-lg-10" id="mediSerchSection">
+						<div class="table-container">
+							<h3>전문가 마이페이지</h3>
+							<br/>
+							<h5 id="qaPrescriptTitle">처방전 검색</h5>
+							<br/>
 							
 							<form id="searchForm" action="/mypage/searchPre" method="get">
-								
-									
-									<div id="serchInput">
-								       	<input type="search" name="keyword" value="${pageMaker.cri.keyword }">
-									    <button type="submit"><i class="fa fa-search"></i></button>
-									</div>
-								
+								<div id="serchInput" style="margin-left: 0;">
+							       	<input type="search" name="keyword" value="${expertPageMaker.cri.keyword }" placeholder="환자의 이메일을 검색해주세요!" style="width: 250px;">
+								    <button type="submit"><i class="fa fa-search"></i></button>
+								</div>
 							</form>
-							
+							<br/>
+							<br/>
 							<div>
-								<table id="boardTable" border="solid 1px black" width="100%">
+								<table id="boardTable" class="medi-table">
 									<thead>
 										<tr>
 											<th>NO.</th>
@@ -125,9 +112,9 @@ if (isLogin == null || isLogin == false) {
 									</thead>
 									<tbody></tbody>
 								</table>
-								
+								<br/>
 								<div class="pageBtn">
-									<ul class="pagination">
+									<ul class="pagination-centered">
 										<c:if test="${expertPageMaker.prev}">
 											<li class="paginate_button previous">
 												<a href="${expertPageMaker.startPage - 1 }">Previous</a>
@@ -151,94 +138,89 @@ if (isLogin == null || isLogin == false) {
 								</form>
 								
 							</div>
+							
+							
+							
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<!--/ End PrescriptView -->
 		
-<!--/ End QaView -->
+		
+		<section class="Feautes section"></section>
+		<section class="Feautes section">
+			<div class="section-title">
+				<br/><br/><br/><br/><br/><br/>
+				<br/><br/><br/><br/><br/><br/>
+			</div>
+		</section>
 
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				loadTable();
+$(document).ready(function() {
+    loadTable();
 
-				console.log("전체게시글 화면 이동"+$("#searchForm").find("input[type='search']").val());
+    function loadTable() {
+        $.ajax({
+            url: "/mypage/searchPre",
+            type: "post",
+            data: {
+                pageNum: $("#pageForm").find("input[name='pageNum']").val(),
+                amount: $("#pageForm").find("input[name='amount']").val(),
+                keyword: $("#searchForm").find("input[type='search']").val() // keyword 포함
+            },
+            dataType: "json",
+            success: function(data) {
+                var boardTbody = $("#boardTable tbody");
+                boardTbody.empty();
 
-				// loadTable() 시작
-				function loadTable() {
-					$.ajax({
-						url : "/mypage/searchPre",
-						type : "post",
-						data : {pageNum : $("#pageForm").find("input[name='pageNum']").val(),
-								amount : $("#pageForm").find("input[name='amount']").val(),
-								keyword: $("#searchForm").find("input[type='search']").val()
-								},
-						dataType : "json",
-						success : function(data) {
-							// data의 타입 Array
-							var boardTbody = $("#boardTable tbody"); // 테이블 본문(tbody) 요소 저장
-							boardTbody.empty(); // 테이블 본문을 비워서 기존 데이터 삭제
+                $.each(data, function(index, prescript) {
+                    var row = $("<tr>");
+                    row.append($("<td>").text(prescript.prescript_no));
 
-							// 서버에서 전달받은 Array를 반복적으로 화면에 출력
-							$.each(data, function(index, prescript) {
-								console.log("prescipttest:::::"+index);
-								var row = $("<tr>"); // 새로운 테이블의 행 요소 생성
-								row.append($("<td>").text(prescript.prescript_no)); // 생성한 tr요소에 게시글 번호가 담긴 td요소 추가
-								
-								
-								var parseDate = new Date(prescript.prescribed_date); // DB에 저장된 등록 날짜를 Date객체로 변환
-								// numeric : (2024, 7), 2-digit: (24, 07)
-								var options = {
-									year : "numeric",
-									month : "2-digit",
-									day : "2-digit",
-									hour : "2-digit",
-									minute : "2-digit"
-								};
-								var formattedDate = parseDate.toLocaleString(
-										"ko-KR", options); // 날짜 형식을 한국 시간 형식과 지정 옵션으로 반환
-								
-								var prescribedDateLink = $("<a>").attr("href",
-										"/mypage/expertPrescriptDetail?prescript_no=" + prescript.prescript_no + "&memberNum=" + prescript.memberNum).text(formattedDate);
-								var prescribedDateTd = $("<td>").append(prescribedDateLink);
-								row.append(prescribedDateTd);
-										
-								// 게시글 제목을 누르면 상세보기로 이동해야하므로 링크(a태그)를 만들어서 url등록
-								var patientNameLink = $("<a>").attr("href",
-										"/mypage/expertPrescriptDetail?prescript_no=" + prescript.prescript_no + "&memberNum=" + prescript.memberNum).text(prescript.patient_name);
-								var patientNameTd = $("<td>").append(patientNameLink); // a태그를 td태그에 추가
-								row.append(patientNameTd);
-								
-								var memberIdLink = $("<a>").attr("href",
-										"/mypage/expertPrescriptDetail?prescript_no=" + prescript.prescript_no + "&memberNum=" + prescript.memberNum).text(prescript.memberId);
-								var memberIdTd = $("<td>").append(memberIdLink);
-								row.append(memberIdTd);
-								
-								row.append($("<td>").text(prescript.institution_address));
-								row.append($("<td>").text(prescript.expert_name));
-										
-								boardTbody.append(row); // 생성한 tr요소를 테이블 본문에 추가 
-							});
-						},
-						error : function(e) {
-							console.log("실패");
-							console.log(e);
-						}
-					});
-					
-					let pageForm = $("#pageForm");
-					
-					$(".paginate_button a").on("click", function(e) {
-						// a태그의 기본 기능인 링크를 삭제
-						e.preventDefault();
-						// pageNum값을 사용자가 클릭한 a태그의 href의 속성값으로 변경
-						pageForm.find("input[name='pageNum']").val($(this).attr("href"));
-						pageForm.submit();
-					});
-				}
-			});
+                    var parseDate = new Date(prescript.prescribed_date);
+                    var options = {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    };
+                    var formattedDate = parseDate.toLocaleString("ko-KR", options);
+
+                    var prescribedDateLink = $("<a>").attr("href",
+                        "/mypage/expertPrescriptDetail?prescript_no=" + prescript.prescript_no + "&memberNum=" + prescript.memberNum).text(formattedDate);
+                    var prescribedDateTd = $("<td>").append(prescribedDateLink);
+                    row.append(prescribedDateTd);
+
+                    var patientNameLink = $("<a>").attr("href",
+                        "/mypage/expertPrescriptDetail?prescript_no=" + prescript.prescript_no + "&memberNum=" + prescript.memberNum).text(prescript.patient_name);
+                    var patientNameTd = $("<td>").append(patientNameLink);
+                    row.append(patientNameTd);
+
+                    var memberIdLink = $("<a>").attr("href",
+                        "/mypage/expertPrescriptDetail?prescript_no=" + prescript.prescript_no + "&memberNum=" + prescript.memberNum).text(prescript.memberId);
+                    var memberIdTd = $("<td>").append(memberIdLink);
+                    row.append(memberIdTd);
+
+                    row.append($("<td>").text(prescript.institution_address));
+                    row.append($("<td>").text(prescript.expert_name));
+
+                    boardTbody.append(row);
+                });
+            },
+            error: function(e) {
+                console.log("실패");
+                console.log(e);
+            }
+        });
+
+        $(".paginate_button a").on("click", function(e) {
+            e.preventDefault();
+            $("#pageForm").find("input[name='pageNum']").val($(this).attr("href"));
+            loadTable(); // 페이지 클릭시 loadTable() 호출
+        });
+    }
+});
 </script>
 <%@include file="../include/footer.jsp"%>

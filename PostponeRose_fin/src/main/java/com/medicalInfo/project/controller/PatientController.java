@@ -21,7 +21,7 @@ import com.medicalInfo.project.service.PatientService;
 public class PatientController {
 
 	@Autowired
-	private PatientService patientService; // Assuming you have a service to handle DB operations
+	private PatientService patientService;
 
 	@PostMapping("/lookupPatient")
 	@ResponseBody

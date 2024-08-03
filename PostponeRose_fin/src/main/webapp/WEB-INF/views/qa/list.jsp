@@ -35,10 +35,57 @@ if (memberDTO == null || memberType == null) {
 <% 
 }  
 %>
+<style>
+#banner, #banner2 {
+    width: 230px;
+    height: 350px;
+    text-align: center;
+    position: absolute;
+    left: 30px;
+    top: 150px;  
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#banner2 {
+    top: 500px;
+    margin-top:20px;  
+}
+.banner-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #f00;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+#mediSerchSection {
+  margin-left: 100px; /* 배너의 너비만큼 왼쪽 여백 추가 */
+}
+</style>
 
 
-		<section class="Feautes section">
-			<div class="container">
+<section class="Feautes section">	
+	<div class="container">
+		<div id="banner">
+			<span class="banner-close">&times;</span>
+			<img src="../resources/img/banner.jpg" style="width:100%; height:calc(100% - 20px); object-fit:cover;">
+		</div>
+		<div id="banner2">
+			<span class="banner-close">&times;</span>
+			<img src="../resources/img/banner2.jpg" style="width:100%; height:calc(100% - 20px); object-fit:cover;">
+		</div>
 				<div class="row">
 					<div class="col-lg-10" id="mediSerchSection">
 						<div class="table-container">
@@ -74,7 +121,8 @@ if (memberDTO == null || memberType == null) {
 												<th>조회수</th>
 										 	</tr>
 									    </thead>
-										<tbody></tbody>	
+										<tbody>
+										</tbody>	
 									</table>
 								</form>
 							</div>
@@ -115,6 +163,10 @@ if (memberDTO == null || memberType == null) {
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	$('.banner-close').click(function() {
+		$(this).parent().hide();
+	});
+	
 	var userNum ="<%=memberDTO.getMemberNum()%>";
 	var number = 1;
 	loadTable();
@@ -136,16 +188,12 @@ $(document).ready(function(){
 				keyword: $("#searchForm").find("input[type='search']").val()
 				  },
 			dataType : "json",
-			success: function(data) {
-				
+			success: function(data) {			
 				var qaTbody = $("#QaTable tbody");
 				qaTbody.empty(); 
-				
-				
 				$.each(data, function(index, qadto) {		
 					var row = $("<tr>");
-					row.append($("<td>").text(number++)); 
-					// 파싱 문제 : 시간대가 맞지 않음!!!
+					row.append($("<td>").text(qadto.qa_id)); 
 					var parseDate = new Date(qadto.created_at); // DB에 저장된 등록 날짜를 Date객체로 변환
 					// numeric : (2024, 7), 2-digit : (24, 07) 
 					var options = {year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit"};
@@ -168,6 +216,7 @@ $(document).ready(function(){
 					row.append($("<td>").text(qadto.viewcnt));
 				
 					qaTbody.append(row); // 생성한 tr요소를 테이블 본문에 추가
+					number++;
 				});
 			},
 			error: function(e) {

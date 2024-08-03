@@ -1,104 +1,10 @@
-<%@page import="com.medicalInfo.project.model.MemberInfoDTO"%>
 <%@page import="com.medicalInfo.project.model.PrescriptDTO"%>
 <%@page import="com.medicalInfo.project.model.MemberDTO"%>
 <%@page import="com.medicalInfo.project.model.MemberType"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="java.io.*" %>
-<%@ page import="javax.servlet.*" %>
-<%@ page import="javax.servlet.http.*" %>
-
-<!doctype html>
-<html class="no-js" lang="zxx">
-    <head>
-
-        <!-- Meta Tags -->
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="keywords" content="Site keywords here">
-		<meta name="description" content="">
-		<meta name='copyright' content=''>
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		
-		<!-- Title -->
-        <title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
-        
-        <style type="text/css">
-        	.pageBtn {width: 100%; margin:0 auto; box-sizing: border-box;}
-        	.pagination {text-align: center; vertical-align: middle; }
-			.paginate_button {display: inline-block; list-style: none; padding: 6px; text-align: center;}
-			
-			#rateform fieldset{
-			    display: inline-block;
-			    direction: rtl;
-			    border:0;
-			}
-			#rateform fieldset legend{
-			    text-align: right;
-			}
-			#rateform input[type=radio]{
-			    display: none;
-			}
-			#rateform label{
-			    font-size: 3em;
-			    color: transparent;
-			    text-shadow: 0 0 0 #f0f0f0;
-			}
-			#rateform label:hover{
-			    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-			}
-			#rateform label:hover ~ label{
-			    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-			}
-			#rateform input[type=radio]:checked ~ label{
-			    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-			}
-			#reviewContents {
-			    width: 100%;
-			    height: 150px;
-			    padding: 10px;
-			    box-sizing: border-box;
-			    border: solid 1.5px #D3D3D3;
-			    border-radius: 5px;
-			    font-size: 16px;
-			    resize: none;
-			}
-		</style>
-		
-		<!-- Favicon -->
-        <link rel="icon" href="../resources/img/favicon.png">
-		
-		<!-- Google Fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-
-		<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-		<!-- Nice Select CSS -->
-		<link rel="stylesheet" href="../resources/css/nice-select.css">
-		<!-- Font Awesome CSS -->
-        <link rel="stylesheet" href="../resources/css/font-awesome.min.css">
-		<!-- icofont CSS -->
-        <link rel="stylesheet" href="../resources/css/icofont.css">
-		<!-- Slicknav -->
-		<link rel="stylesheet" href="../resources/css/slicknav.min.css">
-		<!-- Owl Carousel CSS -->
-        <link rel="stylesheet" href="../resources/css/owl-carousel.css">
-		<!-- Datepicker CSS -->
-		<link rel="stylesheet" href="../resources/css/datepicker.css">
-		<!-- Animate CSS -->
-        <link rel="stylesheet" href="../resources/css/animate.min.css">
-		<!-- Magnific Popup CSS -->
-        <link rel="stylesheet" href="../resources/css/magnific-popup.css">
-		
-		<!-- Medipro CSS -->
-        <link rel="stylesheet" href="../resources/css/normalize.css">
-        <link rel="stylesheet" href="../resources/style.css">
-        <link rel="stylesheet" href="../resources/css/responsive.css">
-        
-      
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	pageEncoding="UTF-8"%>
+<%@include file="../include/header.jsp"%>
 <%
 Boolean isLogin = (Boolean) session.getAttribute("isLogin");
 if (isLogin == null || isLogin == false) {
@@ -112,145 +18,6 @@ if (isLogin == null || isLogin == false) {
 } 
 
 %>
-    </head>
-    <body>
-	
-		<!-- Preloader -->
-        <div class="preloader">
-            <div class="loader">
-                <div class="loader-outter"></div>
-                <div class="loader-inner"></div>
-
-                <div class="indicator"> 
-                    <svg width="16px" height="12px">
-                        <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
-                        <polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
-                    </svg>
-                </div>
-            </div>
-        </div>
-        <!-- End Preloader -->
-		
-		<!-- Get Pro Button -->
-		<ul class="pro-features">
-			<a class="get-pro" href="#">Get Pro</a>
-			<li class="big-title">Pro Version Available on Themeforest</li>
-			<li class="title">Pro Version Features</li>
-			<li>2+ premade home pages</li>
-			<li>20+ html pages</li>
-			<li>Color Plate With 12+ Colors</li>
-			<li>Sticky Header / Sticky Filters</li>
-			<li>Working Contact Form With Google Map</li>
-			<div class="button">
-				<a href="http://preview.themeforest.net/item/mediplus-medical-and-doctor-html-template/full_screen_preview/26665910?_ga=2.145092285.888558928.1591971968-344530658.1588061879" target="_blank" class="btn">Pro Version Demo</a>
-				<a href="https://themeforest.net/item/mediplus-medical-and-doctor-html-template/26665910" target="_blank" class="btn">Buy Pro Version</a>
-			</div>
-		</ul>
-	
-		<!-- Header Area -->
-		<header class="header" >
-			<!-- Topbar -->
-			<div class="topbar">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 col-md-5 col-12">
-							<!-- Contact -->
-							<ul class="top-link">
-								<li><a href="#">About</a></li>
-								<li><a href="#">Doctors</a></li>
-								<li><a href="#">Contact</a></li>
-								<li><a href="#">FAQ</a></li>
-							</ul>
-							<!-- End Contact -->
-						</div>
-						<div class="col-lg-6 col-md-7 col-12">
-							<!-- Top Contact -->
-							<ul class="top-contact">
-								<li><i class="fa fa-phone"></i>+880 1234 56789</li>
-								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">support@yourmail.com</a></li>
-							</ul>
-							<!-- End Top Contact -->
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Topbar -->
-			<!-- Header Inner -->
-			<div class="header-inner">
-				<div class="container">
-					<div class="inner">
-						<div class="row">
-							<div class="col-lg-3 col-md-3 col-12">
-								<!-- Start Logo -->
-								<div class="logo">
-									<a href="../index"><img src="../resources/img/logo.png" alt="#"></a>
-								</div>
-								<!-- End Logo -->
-								<!-- Mobile Nav -->
-								<div class="mobile-nav"></div>
-								<!-- End Mobile Nav -->
-							</div>
-							<div class="col-lg-7 col-md-9 col-12">
-								<!-- Main Menu -->
-								<div class="main-menu">
-									<nav class="navigation">
-										<ul class="nav menu">
-											<li><a href="#">약 검색 </a></li>
-											<li><a href="#">QA 게시판 </a></li> <!-- 태기님 파트 -->
-											<li><a href="#">공지사항 </a></li> <!-- 수연이 파트 -->
-											<li><a href="../mypage/patientMypage">마이페이지 <i class="icofont-rounded-down"></i></a>
-												<ul class="dropdown">
-													<li><a href="../mypage/prescript">마이처방전</a></li>
-													<li><a href="../mypage/myQa">QA문의 내역</a></li>
-													<li><a href="../mypage/memberEdit">회원정보 수정</a></li> <!-- PATIENT 정보 수정 -->
-												</ul>
-											</li>
-											<%
-												// Get the session attribute "membertype"
-											    MemberType membertype = (MemberType) session.getAttribute("membertype");
-												MemberDTO memberDTO = (MemberDTO) session.getAttribute("member_info");
-												MemberInfoDTO memberInfoDTO = (MemberInfoDTO) session.getAttribute("member");
-												PrescriptDTO prescriptDTO = (PrescriptDTO) session.getAttribute("prescript");
-
-											    if (membertype == MemberType.EXPERT) {
-											%>
-											<li class="active"><a href="../mypage/expertMypage">전문가 마이페이지<i class="icofont-rounded-down"></i></a>
-												<ul class="dropdown">
-													<li><a href="../mypage/#">처방전 작성</a></li> <!-- 장열님 파트 -->
-													<li><a href="../mypage/expertMypage">처방전 확인</a></li> <!-- 작성된 처방전 모두 확인하는 페이지 -->
-													<li><a href="../mypage/expertMyQaComment">QA 답변 내역 확인</a></li>
-												</ul>
-											</li>
-											<%
-											    }
-											%>
-										</ul>
-									</nav>
-								</div>
-								<!--/ End Main Menu -->
-							</div>
-							<div class="col-lg-2 col-12">
-								<div class="get-quote">
-									<%
-									   if (membertype == null) {
-									%>
-									<a href="../login" class="btn">로그인</a>
-									<%
-									    } else if (membertype != null) {
-									%>
-									<a href="/logout" class="btn">로그아웃</a>
-									<%
-									    }
-									%>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/ End Header Inner -->
-		</header>
-<!-- End Header Area -->
 <%
 	// Check if the membertype is null
 	if (membertype == null) {
@@ -259,39 +26,79 @@ if (isLogin == null || isLogin == false) {
 	    return;
 	} else if (membertype.equals("EXPERT") && memberDTO.getMemberNum() == prescriptDTO.getMemberNum()) {
 		// Redirect to login.jsp
-		response.sendRedirect("/mypage/expertMyQaComment");
+	    response.sendRedirect("/mypage/expertMypage");
 	 return;
 	}
 %>
 
-		<section class="Feautes section"></section>
-		<section class="Feautes section">
-			<div class="section-title">
-				<h2>전문가 마이페이지</h2>
-			</div>
-		</section>
-		
-		<!-- Start ExpertEdit -->
+<style>
+#banner, #banner2 {
+    width: 230px;
+    height: 350px;
+    text-align: center;
+    position: absolute;
+    left: 30px;
+    top: 150px;  
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+}
+#banner2 {
+    top: 500px;
+    margin-top:20px;  
+}
+.banner-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #f00;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+#mediSerchSection {
+  margin-left: 100px; /* 배너의 너비만큼 왼쪽 여백 추가 */
+}
+</style>
+
 		<section class="Feautes section">
 			<div class="container">
+				<div id="banner">
+					<span class="banner-close">&times;</span>
+					<img src="../resources/img/banner.jpg" style="width:100%; height:calc(100% - 20px); object-fit:cover;">
+				</div>
+				<div id="banner2">
+					<span class="banner-close">&times;</span>
+					<img src="../resources/img/banner2.jpg" style="width:100%; height:calc(100% - 20px); object-fit:cover;">
+				</div>
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="section-title">
-							<h2>QA 답변 내역 확인</h2>
-							<img src="../resources/img/section-img.png" alt="#">
-							<p/>
-							
-							<form id="searchForm" action="/mypage/expertMyQaComment" method="get">
-								<div class="col-lg-6">
-									<div class="form-group">
-									    <select id="searchType" class="form-control" name="type">
-									   		<option value="all" ${qaPageMaker.cri.type == "all"? "selected":"" }>ALL</option>
-									    </select>
-									</div>
-								</div>
-							</form>
-							<div>
-								<table id="boardTable" border="1">
+					<div class="col-lg-10" id="mediSerchSection">
+						<div class="table-container">
+							<h3>전문가 마이페이지</h3>
+							<br/>
+							<div class="patient-tab">
+								<ul>
+									<li><a href="/mypage/expertMypage">돌아가기</a></li>
+									<li><a href="/mypage/myQaRating">QA게시판 평점보기</a></li>
+									<li><a href="/mypage/myPrescriptRating">처방전 평점보기</a></li>
+								</ul>
+							</div>
+							<br/>
+							<h5 id="qaPrescriptTitle">QA 답변 내역 확인</h5>
+							<br/>
+							<div class="card mb-4">
+								<table id="boardTable" class="medi-table">
 							        <thead>
 							            <tr>
 							                <th>No.</th>
@@ -302,37 +109,48 @@ if (isLogin == null || isLogin == false) {
 							        </thead>
 									<tbody></tbody>
 								</table>
-								
-								<div class="pageBtn">
-									<ul class="pagination">
-										<c:if test="${qaCommentPageMaker.prev}">
-											<li class="paginate_button previous">
-												<a href="${qaCommentPageMaker.startPage - 1 }">Previous</a>
-											</li>
-										</c:if>
-										<c:forEach var="num" begin="${qaCommentPageMaker.startPage }" end="${qaCommentPageMaker.endPage }">
-											<li class="paginate_button ${qaCommentPageMaker.cri.pageNum == num? 'active':'' }"><a href="${num }">${num }</a></li>
-										</c:forEach>
-										<c:if test="${qaCommentPageMaker.next }">
-											<li class="paginate_button next">
-												<a href="${qaCommentPageMaker.endPage + 1 }">Next</a>
-											</li>
-										</c:if>
-									</ul>
-								</div>
-								<form id="pageForm" action="/mypage/expertMyQaComment" method="get">
-									<input type="hidden" name="pageNum" value="${qaCommentPageMaker.cri.pageNum }">
-									<input type="hidden" name="amount" value="${qaCommentPageMaker.cri.amount }">
-									<input type="hidden" name="type" value="${qaCommentPageMaker.cri.type }">
-									<input type="hidden" name="type" value="${qaCommentPageMaker.cri.memberNum }">
-								</form>
 							</div>
+							<div class="pageBtn">
+								<ul class="pagination-centered">
+									<c:if test="${qaCommentPageMaker.prev}">
+										<li class="paginate_button previous">
+											<a href="${qaCommentPageMaker.startPage - 1 }">Previous</a>
+										</li>
+									</c:if>
+									<c:forEach var="num" begin="${qaCommentPageMaker.startPage }" end="${qaCommentPageMaker.endPage }">
+										<li class="paginate_button ${qaCommentPageMaker.cri.pageNum == num? 'active':'' }"><a href="${num }">${num }</a></li>
+									</c:forEach>
+									<c:if test="${qaCommentPageMaker.next }">
+										<li class="paginate_button next">
+											<a href="${qaCommentPageMaker.endPage + 1 }">Next</a>
+										</li>
+									</c:if>
+								</ul>
+							</div>
+							<form id="pageForm" action="/mypage/expertMyQaComment" method="get">
+								<input type="hidden" name="pageNum" value="${qaCommentPageMaker.cri.pageNum }">
+								<input type="hidden" name="amount" value="${qaCommentPageMaker.cri.amount }">
+								<input type="hidden" name="type" value="${qaCommentPageMaker.cri.type }">
+								<input type="hidden" name="type" value="${qaCommentPageMaker.cri.memberNum }">
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<!-- End ExpertEdit -->
+		
+		
+		<section class="Feautes section"></section>
+		<section class="Feautes section">
+			<div class="section-title">
+			<br/>
+			<br/>
+			<br/>
+			</div>
+		</section>
+					
+		
+
 		
 <script type="text/javascript">
 	$(document).ready(
@@ -360,17 +178,17 @@ if (isLogin == null || isLogin == false) {
 							$.each(data, function(index, comment) {
 								console.log("qatest:::::"+index);
 								var row = $("<tr>"); // 새로운 테이블의 행 요소 생성
-								row.append($("<td>").text(comment.comment_id)); // 생성한 tr요소에 게시글 번호가 담긴 td요소 추가
+								row.append($("<td data-th='No.'>").text(comment.comment_id)); // 생성한 tr요소에 게시글 번호가 담긴 td요소 추가
 								
 								// 게시글 제목을 누르면 상세보기로 이동해야하므로 링크(a태그)를 만들어서 url등록
 								var qaTitleLink = $("<a>").attr("href",
 										"/qa/get?qa_id=" + comment.qa_no +"&prescript_no="+comment.prescript_no+"&memberNum="+ comment.writer).text(comment.table_type);
-								var qaTitleTd = $("<td>").append(qaTitleLink); // a태그를 td태그에 추가
+								var qaTitleTd = $("<td data-th='작성종류'>").append(qaTitleLink); // a태그를 td태그에 추가
 								row.append(qaTitleTd);
 								
 								var commentWriterLink = $("<a>").attr("href",
 										"/qa/get?qa_id=" + comment.qa_no +"&prescript_no="+comment.prescript_no+"&memberNum="+ comment.writer).text(comment.writerName);
-								var commentWriterTd = $("<td>").append(commentWriterLink); // a태그를 td태그에 추가
+								var commentWriterTd = $("<td data-th='작성자'>").append(commentWriterLink); // a태그를 td태그에 추가
 								row.append(commentWriterTd);
 								
 								var parseDate = new Date(comment.created_at); // DB에 저장된 등록 날짜를 Date객체로 변환
@@ -387,7 +205,7 @@ if (isLogin == null || isLogin == false) {
 								
 								var createdLink = $("<a>").attr("href",
 										"/qa/get?qa_id=" + comment.qa_no +"&prescript_no="+comment.prescript_no+"&memberNum="+ comment.writer).text(formattedDate);
-								var createdTd = $("<td>").append(createdLink);
+								var createdTd = $("<td data-th='작성일'>").append(createdLink);
 								row.append(createdTd);
 								
 								boardTbody.append(row); // 생성한 tr요소를 테이블 본문에 추가 

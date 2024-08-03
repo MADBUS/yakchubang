@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
                 <div class="col-lg-3 col-md-6 col-12">
                     <div class="single-footer">
                         <div>
-                            <a href="/login"><img class="logo" src="<%= request.getContextPath() %>/resources/img/medilogo.png" alt="logo image"></a>
+                            <a href="/login"><img class="logo" src="<%= request.getContextPath() %>/resources/img/ftlogo.jpg" alt="logo image"></a>
                         </div>
                     </div>
                 </div>

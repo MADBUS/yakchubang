@@ -5,30 +5,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file="include/header.jsp"%>
 <!-- End Header Area -->
-<style>
-body {
-	font-size: 140%;
-}
 
-h2 {
-	text-align: center;
-	padding: 20px 0;
-}
-
-table caption {
-	padding: .5em 0;
-}
-
-table.dataTable th, table.dataTable td {
-	white-space: nowrap;
-}
-
-.p {
-	text-align: center;
-	padding-top: 140px;
-	font-size: 14px;
-}
-</style>
 
 <%
 Boolean isLogin = (Boolean) session.getAttribute("isLogin");
@@ -65,88 +42,134 @@ return;
 return;
 }
 %>
-<!-- Slider Area -->
-<h2>처방전 리스트</h2>
-		<form id="prescriptionForm" action="insertprescript" method="post">  	
-			<table>
-				<tbody>
-					<tr>
-						<td>환자 성명</td>
-						<td><input type="text" name="patientName" id="patientName"></td>
-						<td>환자 이메일</td>
-						<td><input type="text" name="memberId" id="memberId">
-							<button type="button" id="lookupBtn">조회</button></td>
-						<td>전화 번호</td>
-						<td><input type="text" name="phoneNum" id="phoneNum"></td>
-						<td><button type="button" id="registerPatient">신규 등록</button></td>
-					</tr>
-					<tr>
-						<td>발행기관</td>
-						<td><input type="text" name="prescribingInstitution" value="<%=memberInfo.getInstitutionName() %>"></td>	
-						<td>전문가 이름</td>
-						<td><input type="text" name="prescribingDoctor" value="<%=memberDTO.getMemberName() %>"></td>
-					</tr>
-					<tr>
-					    <td>약품 코드</td>
-					    <td><input type="text" readonly="readonly" name="itemSeq" id="itemSeq"></td>
-					    <td>약 이름</td>
-					    <td><input type="text" readonly="readonly" name="itemName" id="itemName"></td>
-					    <td>투약량</td>
-					    <td><input type="text" name="dosage" id="dosage"></td>
-					    <td>투약일</td>
-					    <td><input type="text" name="dosageDate" id="dosageDate"></td>
-					    <td>추가/삭제</td>
-						<td> <input type="checkbox" name="addordrop" id="addordrop" value="Y" checked> </td>
-					    <td>comment</td>
-					    <td><input type="text" name="detail_comment" id="detail_comment"></td>
-					    <td><button type="button" id="addMedicineBtn">등록</button></td>
-					</tr>
-				</tbody>
-			</table>
-			<table class="datatable-table" id="medicineTable">
-				<thead>
-					<tr>
-						<th>고유번호</th>
-						<th>약품명</th>
-						<th>투약량</th>
-						<th>투약일</th>
-						<th>추가/제거</th>
-						<th>코멘트</th>
-						<th>작업</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-				</tbody>
-			</table>
-			<input type="submit" value="처방전 작성">
-			</form>
-			<h1>약 검색</h1>
-			<input type="text" id="searchInput" placeholder="약이름">
-			<button onclick="ajaxTest()">검색</button>
-			<table id="datatablesSimple" class ="resultTestApi">
-			<thead>
-				<tr>
-					<th>회사명</th>
-					<th>약품코드</th>
-					<th>약품명</th>
-					<th>약품 이미지</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${mediApi}" var="medis">
-					<c:forEach items="${medis.body.items}" var="medi">
-						<tr>
-							<td>${medi.entpName}</td>
-							<td>${medi.itemSeq}</td>
-							<td><a href="javascript:void(0);" class="medLink" data-itemseq="${medi.itemSeq}" data-itemname="${medi.itemName}">${medi.itemName}</a></td>
-							<td><img src="${medi.itemImage}" alt="${medi.itemName} 이미지"></td>
-						</tr>
-					</c:forEach>
-				</c:forEach>
-			</tbody>
 
-		</table>
+
+		<section class="Feautes section">
+			<div class="container">
+				
+				<div class="row">
+					<div class="col-lg-10" id="mediSerchSection">
+						<div class="table-container">
+							<h3>전문가 마이페이지</h3>
+							<br/>
+							<h5 id="qaPrescriptTitle">처방전 리스트</h5>
+							<br/>
+							
+							<form id="prescriptionForm" action="insertprescript" method="post"> 
+								<div class="prescriptWrite-expertBox">
+									<div>
+										<label>발행기관 : </label>
+										<input type="text" name="prescribingInstitution" id="prescribingInstitution" value="<%=memberInfo.getInstitutionName() %>">
+										
+										<label>전문가 성명 : </label>
+										<input type="text" name="prescribingDoctor" value="<%=memberDTO.getMemberName() %>">
+									</div>
+									<hr>
+								</div>
+								<div class="prescriptWrite-mediBox">
+									<div>
+										<label>환자 이메일 : </label>
+										<input type="text" name="memberId" id="memberId">
+										<button type="button" id="lookupBtn" class="medicine-btn">조회</button>
+									
+										<label>환자 성명 : </label>
+										<input type="text" name="patientName" id="patientName" style="width: 120px;">
+										
+										<label>환자 연락처 : </label>
+										<input type="text" name="phoneNum" id="phoneNum">
+										
+										<button type="button" id="registerPatient" class="medicines-btn">신규 등록</button>
+									</div>
+									<hr>
+									<div id="mediBoxs">
+										<label>약품 코드 : </label>
+										<input type="text" readonly="readonly" name="itemSeq" id="itemSeq" 
+											style="width: 150px; text-align: center;">
+										
+										<label>약품 명 : </label>
+										<input type="text" readonly="readonly" name="itemName" id="itemName"
+											placeholder="약 검색 란에서 검색 후 약을 선택해주세요!" style="width: 300px;">
+										
+										<label>투약량 : </label>
+										<input type="text" name="dosage" id="dosage" style="width: 40px;">
+										
+										<label>투약일 : </label>
+										<input type="text" name="dosageDate" id="dosageDate" style="width: 40px;">
+										
+										<label>추가/삭제 : </label>
+										<input type="checkbox" name="addordrop" id="addordrop" value="Y" checked>
+									</div>
+									<br/>
+									<div>	
+										<label>변동사항 comment : </label>
+										<input type="text" name="detail_comment" id="detail_comment" placeholder="환자를 위한 변동사항 코멘트를 남겨주세요!" style="width: 730px;">
+										
+										<button type="button" id="addMedicineBtn" class="medicine-btn">등록</button>
+									</div>
+								</div>
+								<hr>
+								
+								<div class="card mb-4">
+									<table class="medicine-table" id="medicineTable">
+										<thead>
+											<tr>
+												<th>고유번호</th>
+												<th>약품명</th>
+												<th>투약량</th>
+												<th>투약일</th>
+												<th>추가/삭제</th>
+												<th>코멘트</th>
+												<th>작업</th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+								<br/>
+								<input type="submit" value="처방전 작성" class="medicines-btn">
+							</form>
+							<hr>
+							<h5 id="qaPrescriptTitle">약 검색</h5>
+							<br/>
+							<div style="text-align: left;">
+								<input type="text" id="searchInput" placeholder="약이름">
+								<button onclick="ajaxTest()" class="medicine-btn">검색</button>
+							</div>
+							<br/>
+							<div class="card mb-4">
+								<table id="datatablesSimple" class ="resultTestApi">
+									<thead>
+										<tr>
+											<th>회사명</th>
+											<th>약품코드</th>
+											<th>약품명</th>
+											<th>약품 이미지</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${mediApi}" var="medis">
+											<c:forEach items="${medis.body.items}" var="medi">
+												<tr>
+													<td>${medi.entpName}</td>
+													<td>${medi.itemSeq}</td>
+													<td><a href="javascript:void(0);" class="medLink" data-itemseq="${medi.itemSeq}" data-itemname="${medi.itemName}">${medi.itemName}</a></td>
+													<td><img src="${medi.itemImage}" alt="${medi.itemName} 이미지"></td>
+												</tr>
+											</c:forEach>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+						
+							
+
+
 			
 <script>
 $(document).ready(function(){
@@ -221,7 +244,7 @@ $(document).ready(function(){
             "<td>" + dosageDate + "<input type='hidden' name='td[]' value='" + dosageDate + "'></td>" +
             "<td>"+ addordrop + "<input type='hidden' name='addordrop[]' value='"+ addordrop  +"'></td>" +
             "<td>" + detailComment + "<input type='hidden' name='d_comment[]' value='" + detailComment + "'></td>" +
-            "<td><button type='button' class='deleteBtn'>삭제</button></td>" +
+            "<td><button type='button' class='medicine-btn'>삭제</button></td>" +
             "</tr>";
 
         // Append the new row to the table

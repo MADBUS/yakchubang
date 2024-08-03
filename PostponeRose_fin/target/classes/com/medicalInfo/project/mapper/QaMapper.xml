@@ -40,11 +40,19 @@
 		SELECT qa_id, writer, member_num, title, created_at, context, member_type , prescript_no, viewcnt  FROM qa ORDER BY created_at DESC  LIMIT #{start}, #{amount}
 	</select>
 	
+	<select id="getMyPrescripts" parameterType="com.medicalInfo.project.model.Criteria" resultType="com.medicalInfo.project.model.PrescriptDTO">
+		SELECT *  FROM prescript WHERE #{memberNum} ORDER BY prescribed_date DESC  LIMIT #{start}, #{amount}
+	</select>
+	
+	<select id="getMyPrescriptsCount" resultType="int" parameterType="int">
+		SELECT COUNT(prescript_no) FROM prescript where memberNum = #{memberNum};
+	</select>
+	
 	<select id="getTotalCount" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
 		SELECT COUNT(qa_id) FROM qa
 	</select>
 	
-		<select id="getListTotalCount" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
+	<select id="getListTotalCount" resultType="int" parameterType="com.medicalInfo.project.model.Criteria">
 		SELECT COUNT(qa_id) FROM qa 
 		<where>
 			<if test="type != null and keyword != null and type != '' and keyword != ''">

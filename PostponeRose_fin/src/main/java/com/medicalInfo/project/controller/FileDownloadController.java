@@ -98,27 +98,20 @@ public class FileDownloadController {
     }
     
     @GetMapping("/download2")
-    public void downloadFile2(@RequestParam("fileName") String fileName,@RequestParam("fileType") String fileType, @RequestParam("originalFileName") String originalFileName, HttpServletResponse response, HttpServletRequest request) throws IOException {
-    	// globals.properties
+    public void downloadFile2(@RequestParam("fileName") String fileName,@RequestParam("fileType") String fileType,
+    		@RequestParam("originalFileName") String originalFileName, HttpServletResponse response, HttpServletRequest request) throws IOException {
     	  File file = new File(uploadPicture, fileName+fileType);
     	  BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
-    	  System.out.println("이게 왜 없지?"+fileType);
-    	  //User-Agent : 어떤 운영체제로  어떤 브라우저를 서버( 홈페이지 )에 접근하는지 확인함
     	  String header = request.getHeader("User-Agent");
     	  String fileName_;
 
     	  if ((header.contains("MSIE")) || (header.contains("Trident")) || (header.contains("Edge"))) {
-    	    //인터넷 익스플로러 10이하 버전, 11버전, 엣지에서 인코딩 
     	    fileName_ = URLEncoder.encode(originalFileName, "UTF-8");
     	  } else {
-    	    //나머지 브라우저에서 인코딩
     	    fileName_ = new String(originalFileName.getBytes("UTF-8"), "iso-8859-1");
     	  }
-    	  //형식을 모르는 파일첨부용 contentType
     	  response.setContentType("application/octet-stream");
-    	  //다운로드와 다운로드될 파일이름
     	  response.setHeader("Content-Disposition", "attachment; filename=\""+ fileName+fileType + "\"");
-    	  //파일복사
     	  FileCopyUtils.copy(in, response.getOutputStream());
     	  in.close();
     	  response.getOutputStream().flush();
@@ -137,42 +130,23 @@ public class FileDownloadController {
 		String fileRealName = file.getOriginalFilename(); // 파일명을 얻어낼 수 있는 메서드!
 		String pictureRealName = picture.getOriginalFilename();
 		long size = file.getSize(); // 파일 사이즈
-
-		System.out.println("파일명 : " + fileRealName);
-		System.out.println("용량크기(byte) : " + size);
-		// 서버에 저장할 파일이름 fileextension으로 .jsp이런식의 확장자 명을 구함
 		String fileExtension = fileRealName.substring(fileRealName.lastIndexOf("."), fileRealName.length());
-		String picExtension = pictureRealName.substring(pictureRealName.lastIndexOf("."), pictureRealName.length());
-		
+		String picExtension = pictureRealName.substring(pictureRealName.lastIndexOf("."), pictureRealName.length());		
 		String uploadFolder = "C:\\test\\upload";
-		String picFolder = "C:\\test\\picture";
-		
+		String picFolder = "C:\\test\\picture";	
 		UUID uuid = UUID.randomUUID();
-		System.out.println(uuid.toString());
 		String[] uuids = uuid.toString().split("-");
-
 		String uniqueName = uuids[0];
-		System.out.println("생성된 고유문자열" + uniqueName);
-		System.out.println("확장자명" + fileExtension);
 		
 		MemberDTO mem = (MemberDTO) session.getAttribute("member_info");
 		WaitForExpertDTO wfeDTO = new WaitForExpertDTO(mem.getMemberNum(), memberName, InstitutionAddress,
 				institutionTel, medicalLicense, fileRealName,uniqueName,fileExtension,medicalInstitution,pictureRealName,uniqueName,picExtension,email);
 		memberService.upload(wfeDTO);
-		/*
-		 * 파일 업로드시 파일명이 동일한 파일이 이미 존재할 수도 있고 사용자가 업로드 하는 파일명이 언어 이외의 언어로 되어있을 수 있습니다.
-		 * 타인어를 지원하지 않는 환경에서는 정산 동작이 되지 않습니다.(리눅스가 대표적인 예시) 고유한 랜던 문자를 통해 db와 서버에 저장할
-		 * 파일명을 새롭게 만들어 준다.
-		 */
-
-		
-
-		// File saveFile = new File(uploadFolder+"\\"+fileRealName); uuid 적용 전
 
 		File saveFile = new File(uploadFolder + "\\" + uniqueName + fileExtension); // 적용 후
 		File savePic = new File(picFolder + "\\" + uniqueName + picExtension); 
 		try {
-			file.transferTo(saveFile); // 실제 파일 저장메서드(filewriter 작업을 손쉽게 한방에 처리해준다.)
+			file.transferTo(saveFile); 
 			picture.transferTo(savePic);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();

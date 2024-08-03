@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.medicalInfo.project.model.CommentDTO;
 import com.medicalInfo.project.model.Criteria;
@@ -34,8 +35,11 @@ public interface QaMapper {
 		public QaDTO getList(int qa_id);
 		
 		//페이징만 했을떄
-		
 		public List<QaDTO> getListWithPasing(Criteria cri);
+		
+		public List<PrescriptDTO> getMyPrescripts(Criteria cri);
+		
+		public int getMyPrescriptsCount(int memberNum);
 		//총게시물이 몇개인지
 		public int getTotalCount(Criteria cri);
 		

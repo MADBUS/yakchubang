@@ -71,14 +71,12 @@ public class MedicineService {
 
 	}
 
-	 private static final int THREAD_POOL_SIZE = 10;
-
+	 	private static final int THREAD_POOL_SIZE = 10;
 	    public List<MedicineResponse> medicineSearch(String search) {
 	        String url = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList";
 	        String key = "52hUuwZkGcmIn8daxaXmr0bjQytOKkbKltQsPA5J5d5IcoVpvU4Kk7jwPzlIBcf9hftYnTUD9NclotFT5eo+yQ==";
 	        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 	        List<CompletableFuture<MedicineResponse>> futures = new ArrayList<>();
-
 	        for (int cnt = 1; cnt < 50; cnt++) {
 	            int pageNo = cnt;
 	            CompletableFuture<MedicineResponse> future = CompletableFuture.supplyAsync(() -> {

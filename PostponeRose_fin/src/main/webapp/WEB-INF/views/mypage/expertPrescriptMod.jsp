@@ -36,130 +36,152 @@ if (isLogin == null || isLogin == false) {
 %>
 
 
-		<!-- End Header Area -->
-		
-		<section class="Feautes section">
-		</section>
-		
-		<!-- Start PrescriptView -->
 		<section class="Feautes section">
 			<div class="container">
+				
 				<div class="row">
-					<div class="col-lg-12">
-						<div class="section-title">
-							<h2>환자 처방전 기록 상세보기</h2>
-							<img src="../resources/img/section-img.png" alt="#">
-							<p/>
-							<div>
-								<div>
-									<label>NO.</label>
-						            <input readonly="readonly" name="prescript-no" value='<c:out value="${dto.prescript_no }"/>'>
-						        </div>
-						        <div>
-									<label>처방일자</label>
-						            <input readonly="readonly" name="prescripted-date" value='<c:out value="${dto.prescribed_date }"/>'>
-						        </div>
-						        <div>
-						        	<label>환자명</label>
-						            <input readonly="readonly" name="patient-name" value='<c:out value="${dto.patient_name }"/>'>
-						            
-						            <label>처방기관</label>
-						            <input readonly="readonly" name="institution-address" value='<c:out value="${dto.institution_address }"/>'>
-						        </div>
-						        <div>
-						            <label>환자ID</label>
-						            <input readonly="readonly" name="ssn" value='<c:out value="${dto.memberId }"/>'>
-						            
-						            <label>전문가명</label>
-						            <input readonly="readonly" name="expert-name" value='<c:out value="${dto.expert_name }"/>'>
-						        </div>
+					<div class="col-lg-10" id="mediSerchSection">
+						<div class="table-container">
+							<h3>전문가 마이페이지</h3>
+							<br/>
+							<h5 id="qaPrescriptTitle">처방전 수정</h5>
+							<br/>
+							<div class="medis-btn">
+								<a href="/mypage/deleteprescript?prescript_no=${dto.prescript_no }">처방전 삭제</a>
 							</div>
-								<table>
-									<tr>
-									    <td>약품 코드</td>
-									    <td><input type="text" readonly="readonly" name="itemSeq" id="itemSeq"></td>
-									    <td>약 이름</td>
-									    <td><input type="text" readonly="readonly" name="itemName" id="itemName"></td>
-									    <td>투약량</td>
-									    <td><input type="text" name="dosage" id="dosage"></td>
-									    <td>투약일</td>
-									    <td><input type="text" name="dosageDate" id="dosageDate"></td>
-									    <td>추가/삭제</td>
-									    <td> <input type="checkbox" name="addordrop" id="addordrop" value="Y" checked> </td>
-									    <td>comment</td>
-									    <td><input type="text" name="detail_comment" id="detail_comment"></td>
-									    <td><button type="button" id="addMedicineBtn">등록</button></td>
-									</tr>
-								</table>					
-							<p/>
-							<div>
+							<br/>
+							<br/>
+							<div class="prescriptWrite-expertBox">
+								<div>
+									<label>발행기관</label>
+					            	<input readonly="readonly" name="institution-address" value='<c:out value="${dto.institution_address }"/>'>
+									
+									<label>전문가 성명</label>
+					            	<input readonly="readonly" name="expert-name" value='<c:out value="${dto.expert_name }"/>'>
+								</div>
+								<hr>
+							</div>
+							<div class="prescriptWrite-mediBox">
+								<div>
+									 <label>환자 이메일 : </label>
+					            	<input readonly="readonly" name="ssn" value='<c:out value="${dto.memberId }"/>'>
+									
+									<label>환자 성명 : </label>
+					            	<input readonly="readonly" name="patient-name" value='<c:out value="${dto.patient_name }"/>'>
+								
+									<label>환자 연락처 : </label>
+									<input readonly="readonly" name="patient_phone" value='<c:out value="${dto.patient_phone }"/>'>
+									
+								</div>
+								<hr>
+								
+								<div id="mediBoxs">
+									<label>약품 코드 : </label>
+									<input type="text" readonly="readonly" name="itemSeq" id="itemSeq"
+										style="width: 150px; text-align: center;">
+									
+									<label>약품 명 : </label>
+									<input type="text" readonly="readonly" name="itemName" id="itemName"
+										placeholder="약 검색 란에서 검색 후 약을 선택해주세요!" style="width: 300px;">
+									
+									<label>투약량 : </label>
+									<input type="text" name="dosage" id="dosage" style="width: 40px;">
+									
+									<label>투약일 : </label>
+									<input type="text" name="dosageDate" id="dosageDate" style="width: 40px;">
+									
+									<label>추가/삭제 : </label>
+									<input type="checkbox" name="addordrop" id="addordrop" value="Y" checked>
+								</div>
+								<br/>
+								<div>	
+									<label>변동사항 comment : </label>
+									<input type="text" name="detail_comment" id="detail_comment" placeholder="환자를 위한 변동사항 코멘트를 남겨주세요!" style="width: 730px;">
+									
+									<button type="button" id="addMedicineBtn" class="medicine-btn">등록</button>
+								</div>
+							</div>
+							<hr>
+							
 							<form action="modMed" method="post">
 								<input type='hidden' name='prescript_no' value='${dto.prescript_no }'>
-								<table border="solid 1px black" width="100%" id="medicineTable">
-									<c:if test="${not empty detaillist }" >
-										<thead>
-											<tr>
-												<th>고유번호</th>
-												<th>약품명</th>
-												<th>1일 투약횟수</th>
-												<th>총 투약일수</th>
-												<th>변동사항</th>
-												<th>설명</th>
-												<th>수정</th>
-											</tr>
-										</thead>
-										<c:forEach var="detaildto" items="${detaillist }">
-												<tbody >
-													<tr>
-														<td><c:out value="${detaildto.medicine_no}"/><input type='hidden' name='mediID[]' value='${detaildto.medicine_no}'></td>
-														<td><c:out value="${detaildto.medicine_name }"/><input type='hidden' name='itemName[]' value='${detaildto.medicine_name }'></td>
-														<td><c:out value="${detaildto.per_day }"/><input type='hidden' name='pd[]' value='${detaildto.per_day }'></td>
-														<td><c:out value="${detaildto.total_day }"/><input type='hidden' name='td[]' value='${detaildto.total_day }'></td>
-														<td><c:out value="${detaildto.addordrop }"/><input type='hidden' name='addordrop[]' value='${detaildto.addordrop }'></td>
-														<td><c:out value="${detaildto.detail_comment }"/><input type='hidden' name='d_comment[]' value='${detaildto.detail_comment }'></td>
-														<td><button type='button' class='deleteBtn'>삭제</button></td>
-													</tr>
-												</tbody>
-										</c:forEach>
-									</c:if>
-								</table>
-								<input type="submit" value="수정완료">
-								</form>
-								<a href="/mypage/deleteprescript?prescript_no=${dto.prescript_no }">처방전 삭제</a> 
+								<div class="card mb-4">
+									<table id="medicineTable" class="medicine-table">
+										<c:if test="${not empty detaillist }" >
+											<thead>
+												<tr>
+													<th>고유번호</th>
+													<th>약품명</th>
+													<th>1일 투약횟수</th>
+													<th>총 투약일수</th>
+													<th>변동사항</th>
+													<th>설명</th>
+													<th>수정</th>
+												</tr>
+											</thead>
+											<c:forEach var="detaildto" items="${detaillist }">
+													<tbody >
+														<tr>
+															<td><c:out value="${detaildto.medicine_no}"/><input type='hidden' name='mediID[]' value='${detaildto.medicine_no}'></td>
+															<td><c:out value="${detaildto.medicine_name }"/><input type='hidden' name='itemName[]' value='${detaildto.medicine_name }'></td>
+															<td><c:out value="${detaildto.per_day }"/><input type='hidden' name='pd[]' value='${detaildto.per_day }'></td>
+															<td><c:out value="${detaildto.total_day }"/><input type='hidden' name='td[]' value='${detaildto.total_day }'></td>
+															<td><c:out value="${detaildto.addordrop }"/><input type='hidden' name='addordrop[]' value='${detaildto.addordrop }'></td>
+															<td><c:out value="${detaildto.detail_comment }"/><input type='hidden' name='d_comment[]' value='${detaildto.detail_comment }'></td>
+															<td><button type='button' class='medicine-btn'>삭제</button></td>
+														</tr>
+													</tbody>
+											</c:forEach>
+										</c:if>
+									</table>
+								</div>
+								<input type="submit" value="수정완료"  class="medicines-btn">
+							</form>
+							
+							<h5 id="qaPrescriptTitle">약 검색</h5>
+							<br/>
+							<div style="text-align: left;">
+								<input type="text" id="searchInput" placeholder="약이름">
+								<button onclick="ajaxTest()" class="medicine-btn">검색</button>
 							</div>
-							<!-- 처방전 작성 시 화면으로 돌아가서 (read only 해제된 화면) 수정(query문 updte) 처리?? -->
+							<br/>
+							<div class="card mb-4">
+								<table id="datatablesSimple" class ="resultTestApi">
+									<thead>
+										<tr>
+											<th>회사명</th>
+											<th>약품코드</th>
+											<th>약품명</th>
+											<th>약품 이미지</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${mediApi}" var="medis">
+											<c:forEach items="${medis.body.items}" var="medi">
+												<tr>
+													<td>${medi.entpName}</td>
+													<td>${medi.itemSeq}</td>
+													<td><a href="javascript:void(0);" class="medLink" data-itemseq="${medi.itemSeq}" data-itemname="${medi.itemName}">${medi.itemName}</a></td>
+													<td><img src="${medi.itemImage}" alt="${medi.itemName} 이미지"></td>
+												</tr>
+											</c:forEach>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+							
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<!--/ End PrescriptView -->
-		<h1>약 검색</h1>
-			<input type="text" id="searchInput" placeholder="약이름">
-			<button onclick="ajaxTest()">검색</button>
-			<table id="datatablesSimple" class ="resultTestApi">
-			<thead>
-				<tr>
-					<th>회사명</th>
-					<th>약품코드</th>
-					<th>약품명</th>
-					<th>약품 이미지</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${mediApi}" var="medis">
-					<c:forEach items="${medis.body.items}" var="medi">
-						<tr>
-							<td>${medi.entpName}</td>
-							<td>${medi.itemSeq}</td>
-							<td><a href="javascript:void(0);" class="medLink" data-itemseq="${medi.itemSeq}" data-itemname="${medi.itemName}">${medi.itemName}</a></td>
-							<td><img src="${medi.itemImage}" alt="${medi.itemName} 이미지"></td>
-						</tr>
-					</c:forEach>
-				</c:forEach>
-			</tbody>
 
-		</table>
+
+
+
+
+
+
 <script>
 // Event delegation to handle dynamically created links
     $(document).on("click", ".medLink", function() {
@@ -169,7 +191,7 @@ if (isLogin == null || isLogin == false) {
         $("#itemName").val(itemName);
     });
 
-    $(document).on("click", ".deleteBtn", function() {
+    $(document).on("click", ".medicine-btn", function() {
         $(this).closest("tr").remove();
     });
     // Add new row to #medicineTable
@@ -189,7 +211,7 @@ if (isLogin == null || isLogin == false) {
 					    "<td>" + dosageDate + "<input type='hidden' name='td[]' value='" + dosageDate + "'></td>" +
 					    "<td>" + addordrop + "<input type='hidden' name='addordrop[]' value='" + addordrop +"'></td>" +
 					    "<td>" + detailComment + "<input type='hidden' name='d_comment[]' value='" + detailComment + "'></td>" +
-					    "<td><button type='button' class='deleteBtn'>삭제</button></td>" +
+					    "<td><button type='button' class='medicine-btn'>삭제</button></td>" +
     				 "</tr>";
 
         // Append the new row to the table

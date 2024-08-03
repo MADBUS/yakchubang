@@ -61,20 +61,11 @@ public class Qacontroller {
 	//전체 목록,페이징
 	@GetMapping("/list")
 	public String getlistQa(Model model,HttpSession session,Criteria cri){
-		model.addAttribute("qadto", qaService.getList(cri));
-		
-		log.info("getlistQa"+qaService.getList(cri));
-//		model.addAttribute("qadto", qaService.listAllQa());
-//		log.info(qaService.listAllQa());
-		
+		model.addAttribute("qadto", qaService.getList(cri));		
 		int total = qaService.getListTotal(cri);
-		log.info(total);
 		
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
-		log.info("-------------- list out --------------");
-		log.info(pageResult);
-		
 		Boolean isLogin = (Boolean) session.getAttribute("isLogin");
 		if (isLogin == null || isLogin == false) {
 			return "redirect:/login";
@@ -112,9 +103,17 @@ public class Qacontroller {
 	
 	// 글등록 jsp
 	@GetMapping("/register")
-	public void registerGet(@RequestParam("memberNum")int memberNum,HttpSession session,Model model) {
+	public void registerGet(@RequestParam("memberNum")int memberNum,HttpSession session,Model model,Criteria cri) {
 		log.info("registerGet >>>");
-		model.addAttribute("myPrescript",qaService.registerMyPrescript(memberNum));
+		int total = qaService.getMyPrescriptCount(memberNum);
+		System.out.println("1>>>>>>>> "+total);
+		cri.setMemberNum(memberNum);
+		
+		model.addAttribute("myPrescript",qaService.getMyPrescritList(cri));
+		System.out.println("2>>>>>>>> "+qaService.getMyPrescritList(cri));
+		PageDTO pageResult = new PageDTO(cri, total);
+		model.addAttribute("pageMaker", pageResult);
+//		model.addAttribute("myPrescript",qaService.registerMyPrescript(memberNum));
 		System.out.println("registerGet >>>"+qaService.registerMyPrescript(memberNum));
 	}
 	
@@ -152,7 +151,7 @@ public class Qacontroller {
 	// 한개의 게시글 
 	@GetMapping({ "/get", "/modify" })
 	public void detail(@RequestParam("qa_id") int qa_id,@RequestParam("prescript_no")String prescript_no, Model model,
-		CommentDTO commentDTO,@RequestParam("memberNum")int memberNum, HttpSession session, HttpServletRequest request) {
+		CommentDTO commentDTO,@RequestParam("memberNum")int memberNum, HttpSession session, HttpServletRequest request,Criteria cri){
 		log.info("detail >>>");
 		int prescript;
 		model.addAttribute("commDTO", commentService.listMyComment(qa_id));
@@ -167,8 +166,17 @@ public class Qacontroller {
 		model.addAttribute("prescriptDTO", qaService.getPrescript(prescript));
 		log.info("prescriptDTO >>>"+qaService.getPrescript(prescript));
 		
-		model.addAttribute("myPrescript",qaService.registerMyPrescript(memberNum));
-		System.out.println("수정에서 나의처방전 >>>"+qaService.registerMyPrescript(memberNum));
+//		model.addAttribute("myPrescript",qaService.registerMyPrescript(memberNum));
+//		System.out.println("수정에서 나의처방전 >>>"+qaService.registerMyPrescript(memberNum));
+// 나의처방전가져오기 페이징
+		int total = qaService.getMyPrescriptCount(memberNum);
+		cri.setMemberNum(memberNum);
+		
+		model.addAttribute("myPrescript",qaService.getMyPrescritList(cri));
+		System.out.println("2>>>>>>>> "+qaService.getMyPrescritList(cri));
+		PageDTO pageResult = new PageDTO(cri, total);
+		model.addAttribute("pageMaker", pageResult);
+		System.out.println("registerGet >>>"+qaService.registerMyPrescript(memberNum));
 		
 		model.addAttribute("prescriptDetailDTO", qaService.myPrescriptDetail(prescript));
 		System.out.println("처방전상세보기 "+qaService.myPrescriptDetail(prescript));
@@ -177,8 +185,11 @@ public class Qacontroller {
 	
 	// 게시글 수정하기
 	@PostMapping("/modify")
-	public String modify(QaDTO dto,RedirectAttributes rttr,HttpSession session) {
+	public String modify(QaDTO dto,RedirectAttributes rttr,HttpSession session,@RequestParam("prescript_no") int prescript_no) {
 		log.info("modify 들어가니? >>>");
+	
+		dto.setPrescript_no(prescript_no);
+		
 		log.info("modify >>>"+ dto);
 		System.out.println(dto.toString());
 		rttr.addFlashAttribute("qadto",qaService.modify(dto));
@@ -188,51 +199,40 @@ public class Qacontroller {
 	
 	// comment 작성
     @PostMapping("/write")
-    public String write(@RequestParam("writer")int writer,@RequestParam("table_type")String type,@RequestParam("memberType")String memType,@RequestParam("prescript_no")String prescript,
+    public String write(@RequestParam("writer")int writer,@RequestParam("table_type")String type,@RequestParam("memberType")String memType,
+    		@RequestParam("prescript_no")String prescript,
     		@RequestParam("memberPhone")int member_num,@RequestParam("qa_no")int qa_no,@RequestParam("writerName")String writerName ,
     		@RequestParam("content")String content,@RequestParam("title") String title, RedirectAttributes rttr,HttpSession session) {
         log.info("MypageController write >>>");
         int prescript_no;
         TableType tableType=null;
         CommentDTO dto = new CommentDTO();
-    	
         if(type.equals("QA")) {
         tableType = tableType.QA;
         }
-        
         MemberType memberType=null;
         if(memType.equals("EXPERT")) {
         	memberType = memberType.EXPERT;
         }else if(memType.equals("PATIENT")) {
         	memberType = memberType.PATIENT;
         }
-        
         if(prescript == null || prescript == "") {
     		prescript_no = 0;
 		}else {
 			prescript_no = Integer.parseInt(prescript);	      
 		}
-        
-        //댓글 쓴사람한테 메세지 보내짐 수정하셈
-        
         dto = new CommentDTO(writer, content, tableType, qa_no, prescript_no, writerName, memberType);
-        System.out.println("댓글작성!!!"+dto);
         commentService.write(dto);
-        
         MemberDTO memberdto =(MemberDTO) session.getAttribute("member_info");
-       
-        DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSGZXZLKLWSHU08","GGEZ6IIHKXSUSAMD1BQBRFNL1VZ9UP48", "https://api.coolsms.co.kr"); 
-		 // Message
-		 //패키지가 중복될 경우 net.nurigo.sdk.message.model.Message로 치환하여 주세요 
+        DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("NCSGZXZLKLWSHU08","GGEZ6IIHKXSUSAMD1BQBRFNL1VZ9UP48",
+        		"https://api.coolsms.co.kr"); 
         MemberDTO mem = memberService.getMemberByMem(member_num);
         Message message =  new Message();
         message.setFrom("01043731710");
         message.setTo(mem.getMemberPhone());
         message.setText(writerName+" 님의 댓글: ["+content+"]"); 
         message.setSubject("회원님의 QA:("+title+") 에 댓글이 달렸습니다."); 
-        // LMS, MMS 전용 옵션, SMS에서 해당 파라미터 추가될 경우 자동으로 // LMS로 변환됩니다! 
         try { 
-        	// send 메소드로 ArrayList<Message> 객체를 넣어도 동작합니다!
         	messageService.send(message); 
         } catch (NurigoMessageNotReceivedException exception) { // 발송에 실패한 메시지 목록을 확인할 수 있습니다!
 			 System.out.println(exception.getFailedMessageList());
@@ -277,23 +277,17 @@ public class Qacontroller {
     //평점 주기
     @ResponseBody
     @PostMapping("/Rating")
-    public boolean rating(@RequestParam("expertNum") int expertNum, @RequestParam("userNum")int memberNum,@RequestParam("userMemType")String userMemType,
+    public boolean rating(@RequestParam("expertNum") int expertNum, @RequestParam("userNum")int memberNum,
+    		@RequestParam("userMemType")String userMemType,
     	@RequestParam("ratedtable_type")String ratedTable,@RequestParam("ratedqa_no")int ratedqa_no,@RequestParam("rating")int rating) {
     	RatingDTO ratingdto = new RatingDTO(memberNum, ratedqa_no, expertNum);
-//    	ratingdto.setExpertNum(memberNum);
-//    	System.out.println("ratingdto.setExpertNum(memberNum)"+ratingdto.getExpertNum());
-//    	ratingdto.setRatedqa_no(ratedqa_no);
-//    	ratingdto.setExpertNum(expertNum);
+
     	System.out.println("ratingdto<<<"+ratingdto);
     	int cntRating = qaService.duplicationRating(ratingdto);
-    	System.out.println("cntRating>>>>>"+cntRating);
-    	
+    	System.out.println("cntRating>>>>>"+cntRating); 	
     		
     	if(cntRating == 0) {
-    		System.out.println("Rating--expertNum"+expertNum);
         	MemberType expertype= commentService.expertmemtype(expertNum);
-        	
-        	System.out.println("Rating>>.expertype>>>>>>"+expertype);
         	
         	Ratedtable_type ratedtable_type = null;
         	if(ratedTable.equals("QACOMMENT")) {

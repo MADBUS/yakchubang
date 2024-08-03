@@ -45,13 +45,9 @@ public class MedicineController {
 	public String wholelist(@RequestParam("searchMed") String searchMed,Model model) {
 		System.out.println("컨트롤러 체크");
 		System.out.println("search Med 체크"+searchMed);
-		// Model : 뷰에 데이터를 전달하여 사용자에게 표시하는데 사용 set attribute 랑 비슷(하지만 단타성)
-		//model.addAttribute("testData","이거 전달됨?");
-		// HttpServletResponse : HTTP 응답을 설정하는데 사용, 상태코드, 헤더, 리다이렉트 등을 설정
 		List<MedicineResponse> r= medicineService.medicineSearch(searchMed);
-		model.addAttribute("mediApi",r);
-			
-		return "medisearch"; //test.jsp 로 이동
+		model.addAttribute("mediApi",r);		
+		return "medisearch"; //medisearch.jsp 로 이동
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)

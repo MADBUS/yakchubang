@@ -258,6 +258,7 @@
     background-color: #1A76D1;
     color: #fff;
     font-size: 1em;
+    font-family: 'Pretendard-Regular';
 }
 
 #mediSerch .mediSerch-btn:hover {
@@ -291,6 +292,7 @@
     background-color: #1A76D1;
     color: #fff;
     font-size: 1em;
+    font-family: 'Pretendard-Regular';
 }
 
 #mediSerchTitle .serch-btn:hover {
@@ -626,6 +628,7 @@
 
 #qaListBtn {
 	text-align: right;
+	font-family: 'Pretendard-Regular';
 }
 
 
@@ -662,10 +665,13 @@
 	margin-right: 535px;
 	width: 30px;
 	height: 30px;
+	border: none;
+	border-radius: 4px;
 }
 
 .qa-serch #serchBtn {
 	float: right;
+	font-family: 'Pretendard-Regular';
 }
 
 .qa-serch #serchBtn .qa-btn {
@@ -676,6 +682,7 @@
     background-color: #1A76D1;
     color: #fff;
     font-size: 1em;
+    font-family: 'Pretendard-Regular';
 }
 
 .qa-serch #serchBtn .qa-btn:hover {
@@ -772,4 +779,244 @@
   #QaTable td {
     padding: 1em !important;
   }
+}
+
+.table-container #rateExpert {
+	width: 100%;
+	height: 80px;
+	display: flex;
+}
+
+.table-container #rateExpert h5, .table-container #rateExpert input {
+	float: left;
+}
+
+.no-rating {
+    text-align: center;
+    font-weight: bold; /* Optional: to make the text stand out more */
+}
+
+#rateExpert {
+	margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.star-rating {
+    position: relative;
+    display: inline-block;
+    font-size: 0; /* Removes the extra space below the stars */
+    width: 100px; /* Adjust based on your preference */
+    height: 20px; /* Adjust based on your preference */
+    margin-left: 30px;
+}
+
+.star-rating-top {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0; /* This will be controlled via inline style */
+}
+
+.star-rating-top::before {
+    content: "★★★★★";
+    font-size: 40px; /* Adjust based on your preference */
+    color: gold;
+}
+
+.star-rating-bottom {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 0;
+    white-space: nowrap;
+}
+
+.star-rating-bottom::before {
+    content: "★★★★★";
+    font-size: 40px; /* Adjust based on your preference */
+    color: #ccc;
+}
+
+#starRateingMent {
+	height: 30px;
+	margin-left: 130px;
+	align-content: center;
+}
+
+
+/*
+	mypage
+*/
+.patient-tab {
+    background-color: rgba(0, 0, 0, 0.06); /* 메뉴바 배경색 */
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* 경계선 */
+	border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.patient-tab ul {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.patient-tab li {
+    margin-right: 20px; /* 각 탭 사이 간격 */
+}
+
+.patient-tab a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.8); /* 링크 텍스트 색상 */
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.patient-tab a:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* 링크 호버 배경색 */
+}
+
+/*
+	mypage prescriptDetail
+*/
+.myPrescript-container {
+	width: 900px;
+	align-content: center;
+}
+
+.myPrescript-container div:first-child {
+	text-align: right;
+}
+
+.myPrescript-container div:nth-child(2) {
+	text-align: right;
+}
+
+
+.myPrescript-container div:nth-child(3) {
+	width: 900px;
+	display: flex;
+}
+
+.myPrescript-container div:nth-child(3) div:first-child {
+	text-align: left;
+	margin-left: 0;
+}
+
+.myPrescript-container div:nth-child(3) div:nth-child(2) {
+	text-align: right;
+	margin-left: 345px;
+}
+
+#myPreRatingTitle {
+	text-align: center;
+	font-weight: bolder;
+}
+
+#myPreSerchBtn {
+	float: right;
+	font-family: 'Pretendard-Regular';
+}
+
+.myPre-btn {
+	width: 100px;
+	height: 35px;
+	border-radius: 4px;
+	border: none;
+    background-color: #1A76D1;
+    color: #fff;
+    font-size: 1em;
+    font-family: 'Pretendard-Regular';
+}
+
+.myPre-btn:hover {
+    background: #2C2D3F;
+    border: none;
+}
+
+.medicine-btn {
+	width: 30px;
+	height: 23px;
+	border-radius: 3px;
+	border: none;
+    background-color: #888;
+    color: #fff;
+    font-size: 0.8em;
+    text-align: center;
+    font-family: 'Pretendard-Regular';
+}
+
+.medicines-btn:hover {
+	background: #2C2D3F;
+    border: none;
+}
+
+.medicines-btn {
+	width: 80px;
+	height: 30px;
+	border-radius: 4px;
+	border: none;
+    background-color: #1A76D1;
+    color: #fff;
+    font-size: 0.9em;
+    text-align: center;
+    font-family: 'Pretendard-Regular';
+}
+
+.medicine-btn:hover {
+	background: #2C2D3F;
+    border: none;
+}
+
+.prescriptWrite-mediBox {
+	text-align: left;
+}
+
+.prescriptWrite-expertBox {
+	text-align: right;
+}
+
+.prescriptWrite-expertBox label {
+	font-weight: bold;
+}
+
+.prescriptWrite-mediBox #patientName, .prescriptWrite-mediBox #lookupBtn, 
+.prescriptWrite-mediBox #prescribingInstitution {
+	margin-right: 10px;
+}
+
+.prescriptWrite-mediBox #phoneNum {
+	margin-right: 30px;
+}
+
+.prescriptWrite-mediBox #mediBoxs input {
+	margin-right: 10px;
+}
+
+
+.medis-btn {
+	float: right;
+	width: 80px;
+	height: 30px;
+	border-radius: 4px;
+	border: none;
+    background-color: #2C2D3F;
+    color: #fff;
+    font-size: 0.9em;
+    text-align: center;
+    align-content: center;
+    font-family: 'Pretendard-Regular';
+}
+
+.medis-btn:hover {
+	opacity: 0.8;
+    border: none;
 }

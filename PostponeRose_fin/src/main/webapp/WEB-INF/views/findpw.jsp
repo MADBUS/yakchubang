@@ -4,39 +4,62 @@
 <!-- jQuery 라이브러리 추가 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- 첫 번째 폼: 이메일 인증번호 전송 -->
-<form class="content" id="emailForm" action="pw_auth.me" method="post">
-    <div class="textbox">
-        <label for="id">아이디</label>
-        <input id="id" name="id" required="" type="text" />
-    </div>
-    <div class="textbox">
-        <p>아이디를 전달받을 이메일을 입력해주세요</p>
-        <label for="email">이메일</label>
-        <input id="email" name="email" required="" type="email" />
-    </div>
-    <input type="submit" id="sendAuthCode" value="이메일 인증번호 전송">
-</form>
+<section class="Feautes section">
+	<div class="section-title">
+	<br><br><br><br><br>
+		<div class="findpw-box">
+			<div>
+			  	<div class="findpw">
+			  		<!-- 첫 번째 폼: 이메일 인증번호 전송 -->
+					<form class="content" id="emailForm" action="pw_auth.me" method="post">
+					    <div class="textbox">
+					    	<h6><b>아이디를 입력해주세요.</b></h6>
+					    	<br/>
+					        <label for="id">아이디</label>
+					        <input id="id" name="id" required="" type="text" />
+					    </div>
+					    <br/>
+					    <br/>
+					    <div class="textbox">
+					        <h6><b>인증번호를 전달받을 이메일을 입력해주세요.</b></h6>
+					        <br/>
+					        <label for="email">이메일</label>
+					        <input id="email" name="email" required="" type="email" />
+					    </div>
+					    <br/>
+					    <input type="submit" id="sendAuthCode" value="이메일 인증번호 전송" class="btns">
+					</form>
+					
+					<!-- 알림 메시지 표시 영역 -->
+					<div id="notification" style="display: none; color: green;"></div>
+					
+					<br><br><br/>
+					<!-- 두 번째 폼: 인증번호 확인 -->
+					<form id="authCodeForm" action="/pw_set.me" method="post"> 
+					    <div class="content">
+					        <div class="textbox">
+					        	<h6><b>전달받은 인증번호를 입력해주세요.</b></h6>
+					        	<br/>
+					            <label for="email_injeung">인증번호</label>
+					            <input type="text" id="email_injeung" name="email_injeung" placeholder="인증번호를 입력하세요">
+					            <div class="error"></div>
+					            <br/>
+					            <button id="verifyAuthCode" type="submit" class="btns">인증번호 확인</button>        
+					        </div> 
+					    </div>
+					</form>
+					
+					<!-- 인증번호 확인 결과 표시 영역 -->
+					<div id="authResult" style="display: none;"></div>
+			    </div>
+			</div>
+		</div>
+	</div>
+</section>
 
-<!-- 알림 메시지 표시 영역 -->
-<div id="notification" style="display: none; color: green;"></div>
 
-<br><br>
 
-<!-- 두 번째 폼: 인증번호 확인 -->
-<form id="authCodeForm" action="/pw_set.me" method="post"> 
-    <div class="content">
-        <div class="textbox">
-            <label for="email_injeung">인증번호</label>
-            <input type="text" id="email_injeung" name="email_injeung" placeholder="인증번호를 입력하세요">
-            <div class="error"></div>
-            <button id="verifyAuthCode" type="submit">인증번호 확인</button>        
-        </div> 
-    </div>
-</form>
 
-<!-- 인증번호 확인 결과 표시 영역 -->
-<div id="authResult" style="display: none;"></div>
 
 
 <script>

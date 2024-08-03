@@ -78,17 +78,6 @@ public class CommentService {
 	        commentMapper.QAComInsert(commentDTO);
 	    }
 	 
-//	    public Integer writeKey(CommentDTO commentDTO) {
-//	        log.info("CommentService writeKey commentDTO : " + commentDTO);
-//	        commentMapper.insertCommentQaNO(commentDTO);
-//	        return commentDTO.getQa_no();
-//	    }
-	    
-//	    public Integer modifyKey(CommentDTO commentDTO){
-//	        log.info("CommentService modifyKey commentDTO : " + commentDTO);
-//	        commentMapper.insertCommentQaNO(commentDTO);
-//	        return commentDTO.getQa_no();
-//	    }
 	    
 	    //댓글 삭제 
 	    public int remove(int comId) {

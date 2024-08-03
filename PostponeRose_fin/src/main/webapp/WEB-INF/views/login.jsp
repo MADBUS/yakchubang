@@ -14,7 +14,10 @@
 								<br/>
 								<p class="text1">약 쳐봥</p>
 								<br/>
-								<p class="text2">문구를 넣어주세요</p>
+								<br/>
+								<p class="text2">약 정보와 처방전을</p>
+								<br/>
+								<p class="text2">한 번에 약 쳐봥에서 해결해 보세요.</p>
 								<br/>
 							</div>
 							<div class="login-kakao">
@@ -22,12 +25,12 @@
 									<c:when test="${empty isLogin || isLogin==false}">
 										<div id="kakaoLoginBox">
 											<h3>Kakao로</h3>
-											<br>
 											<h1>약쳐봥 시작하기</h1>
 											<a
 												href="https://kauth.kakao.com/oauth/authorize?client_id=bc19ac7c0d184c8fbf994a386db912f2&redirect_uri=http://localhost:8090/oauth&response_type=code">
 												<img src="/resources/loginbtn.png">
 											</a>
+											<br/>
 											<form action="medisearch" method="get" class="medisearch">
 												<p>내가 복용하는 약의 정보가 궁금하다면?</p>
 												<input type="text" id="medisearchForm" name="searchMed" placeholder="검색할 약의 이름을 입력해 주세요.">

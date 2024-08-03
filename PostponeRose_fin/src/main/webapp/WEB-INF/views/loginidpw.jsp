@@ -12,11 +12,14 @@
                   <div class="row"  id="loginContainer">
                      <div class="login-text">
                         <p class="text1">당신의 모든 약 정보,</p>
-                        <br/>
-                        <p class="text1">약 쳐봥</p>
-                        <br/>
-                        <p class="text2">문구를 넣어주세요</p>
-                        <br/>
+						<br/>
+						<p class="text1">약 쳐봥</p>
+						<br/>
+						<br/>
+						<p class="text2">약 정보와 처방전을</p>
+						<br/>
+						<p class="text2">한 번에 약 쳐봥에서 해결해 보세요.</p>
+						<br/>
                      </div>
                      <div id="loginBox">
                         <table id="loginForm">
@@ -59,12 +62,10 @@
       </section>
       
 <script type="text/javascript">
-    
-
+  
     function login() {
         const id = $('#id').val();
-        const pw = $('#pw').val();
-        
+        const pw = $('#pw').val(); 
         $.ajax({
             url: '/loginidpw',
             type: 'POST',
@@ -72,12 +73,12 @@
                 id: id,
                 pw: pw
             },
-            dataType: 'json',  // Expect JSON response
+            dataType: 'json',  
             success: function(response) {
-                console.log(response);  // Log the response to check its content
+                console.log(response); 
                 if (response) {
                     console.log("로그인 성공");
-                    window.location.href = '/login';  // Redirect on success
+                    window.location.href = '/login'; 
                 } else {
                     console.log("로그인 실패");
                     $('#error-message').show();

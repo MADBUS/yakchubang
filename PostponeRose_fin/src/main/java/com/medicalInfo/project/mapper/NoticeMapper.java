@@ -29,4 +29,6 @@ public interface NoticeMapper {
 	
 	public List<NoticeDTO> getListWithPasing(Criteria cri);
 	
+
+	
 }
