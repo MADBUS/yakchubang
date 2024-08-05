@@ -72,55 +72,117 @@ MemberType memtype = (MemberType)session.getAttribute("membertype");
 	background-color: #333;
 	color: white;
 }
+#banner, #banner2 {
+    width: 230px;
+    height: 350px;
+    text-align: center;
+    position: absolute;
+    left: 30px;
+    top: 150px;  
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#banner2 {
+    top: 500px;
+    margin-top:20px;  
+}
+.banner-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #f00;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
 </style>
 
-<div>
-	<div class="notice-list">
-		<c:forEach items="${allnotice}" var="notice">
-			<div class="notice-item">
-				<img src="http://localhost:8090/NoticeDownload?fileName=<c:out value='${notice.uniqueName}' />&originalFileName=<c:out value='${notice.fileName}' />&fileType=<c:out value='${notice.fileType}' />" />
-				<div class="notice-item-content">
-					<h3><a href="/noticedetail?id_announcement=${notice.id_announcement}&memberType=<%=memtype %>">${notice.title}</a></h3>
-					<p><fmt:formatDate value="${notice.created_at}" pattern="yyyy.MM.dd"/></p>
+
+		<section class="Feautes section">
+			<div class="container">
+				<div id="banner">
+					<span class="banner-close">&times;</span>
+					<img src="../resources/img/banner.jpg" style="width:100%; height:calc(100% - 20px); object-fit:cover;">
+				</div>
+				<div id="banner2">
+					<span class="banner-close">&times;</span>
+					<img src="../resources/img/banner2.jpg" style="width:100%; height:calc(100% - 20px); object-fit:cover;">
+				</div>
+				<div class="row">
+					<div class="col-lg-10" id="mediSerchSection">
+						<div class="table-container">
+							<h3>공지사항</h3>
+							<div>
+								<div class="notice-list">
+									<c:forEach items="${allnotice}" var="notice">
+										<div class="notice-item">
+											<img src="http://localhost:8090/NoticeDownload?fileName=<c:out value='${notice.uniqueName}' />&originalFileName=<c:out value='${notice.fileName}' />&fileType=<c:out value='${notice.fileType}' />" />
+											<div class="notice-item-content">
+												<h3><a href="/noticedetail?id_announcement=${notice.id_announcement}&memberType=<%=memtype %>">${notice.title}</a></h3>
+												<p><fmt:formatDate value="${notice.created_at}" pattern="yyyy.MM.dd"/></p>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+							
+							<div class="pageBtn">
+								 <ul class="pagination-centered">
+									<c:if test="${pageMaker.prev }">
+										<li class="paginate_button previous">
+											<a href="${pageMaker.startPage - 1 }">Previous</a>
+										</li>
+									</c:if>
+									<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
+										<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
+											<a href="${num}">${num}</a>
+										</li>
+									</c:forEach>
+									<c:if test="${pageMaker.next }">
+										<li class="paginate_button next">
+											<a href="${pageMaker.endPage + 1 }">Next</a>
+										</li>
+									</c:if>
+								</ul>
+							</div>
+							
+							<form id="pageForm" action="/notice" method="get">
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+								<input type="hidden" name="type" value="${pageMaker.cri.type }">
+								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+							</form>
+							    <% if (memtype != null && memtype == MemberType.ADMIN) { %>
+							       <div>
+							     <br>
+								<button type="button" class="btn">
+									<a href="/noticewrite">작성</a>
+								</button>
+							</div>
+							    <% } %>
+							
+						</div>
+					</div>
 				</div>
 			</div>
-		</c:forEach>
-	</div>
-</div>
+		</section>
+							
+							
 
-<div class="pageBtn">
-	 <ul class="pagination-centered">
-		<c:if test="${pageMaker.prev }">
-			<li class="paginate_button previous">
-				<a href="${pageMaker.startPage - 1 }">Previous</a>
-			</li>
-		</c:if>
-		<c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-			<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
-				<a href="${num}">${num}</a>
-			</li>
-		</c:forEach>
-		<c:if test="${pageMaker.next }">
-			<li class="paginate_button next">
-				<a href="${pageMaker.endPage + 1 }">Next</a>
-			</li>
-		</c:if>
-	</ul>
-</div>
-
-<form id="pageForm" action="/notice" method="get">
-	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-	<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-	<input type="hidden" name="type" value="${pageMaker.cri.type }">
-	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
-</form>
-    <% if (memtype != null && memtype == MemberType.ADMIN) { %>
-       <div>
-	<button type="button">
-		<a href="/noticewrite">작성</a>
-	</button>
-</div>
-    <% } %>
 
 
 <script>

@@ -60,12 +60,11 @@ public class QaService {
 	
 	public int modify(QaDTO dto) {
 		log.info("dto : " + dto);
-		
-		if (dto.getPrescript_no() == 0 ) {
-			return qaMapper.updateQa(dto); 
-		}else {
 			return qaMapper.updateQaPre(dto);
 		}
+	
+	public int modify2(QaDTO dto) {
+		return qaMapper.updateQa(dto);
 	}
 	
 	public List<QaDTO> getList(Criteria cri){

@@ -166,36 +166,40 @@ public class Qacontroller {
 		model.addAttribute("prescriptDTO", qaService.getPrescript(prescript));
 		log.info("prescriptDTO >>>"+qaService.getPrescript(prescript));
 		
-//		model.addAttribute("myPrescript",qaService.registerMyPrescript(memberNum));
-//		System.out.println("수정에서 나의처방전 >>>"+qaService.registerMyPrescript(memberNum));
-// 나의처방전가져오기 페이징
+		// 나의처방전가져오기 페이징
 		int total = qaService.getMyPrescriptCount(memberNum);
 		cri.setMemberNum(memberNum);
-		
+		System.out.println("1 modify>>>>>>>> "+total);
 		model.addAttribute("myPrescript",qaService.getMyPrescritList(cri));
-		System.out.println("2>>>>>>>> "+qaService.getMyPrescritList(cri));
+		System.out.println("2 modify>>>>>>>> "+qaService.getMyPrescritList(cri));
+		
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
-		System.out.println("registerGet >>>"+qaService.registerMyPrescript(memberNum));
-		
-		model.addAttribute("prescriptDetailDTO", qaService.myPrescriptDetail(prescript));
-		System.out.println("처방전상세보기 "+qaService.myPrescriptDetail(prescript));
+		System.out.println("3 modify>>>>>>>> "+pageResult);
 		
 	}
 	
 	// 게시글 수정하기
 	@PostMapping("/modify")
-	public String modify(QaDTO dto,RedirectAttributes rttr,HttpSession session,@RequestParam("prescript_no") int prescript_no) {
+	public String modify(RedirectAttributes rttr,HttpSession session,@RequestParam("context") String context,
+			@RequestParam("prescript_no") String prescript_no, @RequestParam("title") String title,@RequestParam("writer") String writer,@RequestParam("qa_id") int qa_id) {
 		log.info("modify 들어가니? >>>");
-	
-		dto.setPrescript_no(prescript_no);
-		
-		log.info("modify >>>"+ dto);
-		System.out.println(dto.toString());
-		rttr.addFlashAttribute("qadto",qaService.modify(dto));
-		
-		return "redirect:/qa/list";
-	}
+		   int prescriptNo1 = 0;
+		   int prescriptNo2 = 0;
+		    // prescript_no가 빈 문자열이 아닌 경우에만 변환
+		    if (!prescript_no.isEmpty()) {
+		        prescriptNo1 = Integer.parseInt(prescript_no);
+		        QaDTO dto = new QaDTO(writer, title, context, prescriptNo1, qa_id);
+		        rttr.addFlashAttribute("qadto", qaService.modify(dto));
+		        System.out.println("제발 수정되줘1111 " + dto.toString());
+		    }else {
+		    	QaDTO dto2 = new QaDTO(qa_id, writer, title, context);
+		    	rttr.addFlashAttribute("qadto", qaService.modify2(dto2));
+		    	System.out.println("제발 수정되줘2222 " + dto2.toString());
+		    }
+
+		    return "redirect:/qa/list";
+		}
 	
 	// comment 작성
     @PostMapping("/write")

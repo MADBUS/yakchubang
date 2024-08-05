@@ -19,7 +19,7 @@
 	</update>
 	
 	<update id="updateQa" parameterType="com.medicalInfo.project.model.QaDTO">
-		UPDATE qa SET title = #{title} , context = #{context} , writer = #{writer} WHERE qa_id = #{qa_id}
+		UPDATE qa SET title = #{title} , context = #{context} , writer = #{writer},prescript_no = null WHERE qa_id = #{qa_id}
 	</update>
   	
   	<insert id="insertQa" parameterType="com.medicalInfo.project.model.QaDTO">
@@ -41,7 +41,7 @@
 	</select>
 	
 	<select id="getMyPrescripts" parameterType="com.medicalInfo.project.model.Criteria" resultType="com.medicalInfo.project.model.PrescriptDTO">
-		SELECT *  FROM prescript WHERE #{memberNum} ORDER BY prescribed_date DESC  LIMIT #{start}, #{amount}
+		SELECT *  FROM prescript WHERE memberNum = #{memberNum} ORDER BY prescribed_date DESC  LIMIT #{start}, #{amount}
 	</select>
 	
 	<select id="getMyPrescriptsCount" resultType="int" parameterType="int">

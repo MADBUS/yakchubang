@@ -8,8 +8,36 @@
     font-style: normal;
 }
 
+
+.login .mainImage-box {
+	margin-top: 50px;
+    height: 200px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login .mainImage-box-background-image {
+	border-radius: 16px;
+}
+
+.login .mainImage-contentBox {
+	margin-top: 20px;
+    height: 500px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .login .login-box {
     height: 600px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.login .login-boxs {
+    height: 550px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -20,21 +48,25 @@
 }
 
 .login-text {
-	padding: 80px 125px 80px 15px;
+	width: 600px;
+	height: 500;
+	margin-left: 20px;
 }
 
 .login-text .text1 {
 	margin-bottom: 20px;
 	color: #fff;
 	font-weight: bolder;
-	font-size: 4em;
+	font-size: 3em;
+	text-align: left;
 }
 
 .login-text .text2 {
 	margin-top: 20px;
 	color: #fff;
 	font-weight: 540;
-	font-size: 2.2em;
+	font-size: 2em;
+	text-align: left;
 }
 
 
@@ -107,7 +139,7 @@
 }
 
 #kakaoLoginBox {
-	padding: 40px;
+	padding: 30px;
     width: 450px;
     border-radius: 16px;
     background-color: #fff;
@@ -115,11 +147,11 @@
 }
 
 #kakaoLoginBox h3 {
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 #kakaoLoginBox h1 {
-	margin-bottom: 18px;
+	margin-bottom: 15px;
 	font-weight: bold;
 }
 
@@ -136,7 +168,7 @@
 #kakaoLoginBox .medisearch p {
 	font-size: large;
 	font-weight: 550;
-	padding: 10px 0 10px 0;
+	padding: 10px 0 5px 0;
 	color: #888;
 }
 
@@ -174,8 +206,8 @@
 
 
 #kakaoLogoutBox {
-	float: right;
-	padding: 20px 40px 10px 40px;
+	
+    padding: 30px;
     width: 450px;
     border-radius: 16px;
     background-color: #fff;
@@ -390,4 +422,3 @@
     0% { transition: translateX(0); }
     100% { transform: translateX(-200%); }
 }
-

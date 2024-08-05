@@ -55,8 +55,10 @@ public class RegisterController {
 	public String register(@RequestParam("memberId") String memberId, @RequestParam("memberPw") String memberPw,
 			@RequestParam("memberName") String memberName, @RequestParam("memberAddress") String memberAddress,
 			@RequestParam("memberPhone") String memberPhone, @RequestParam("memberEmail") String memberEmail) {
-		MemberDTO dto = new MemberDTO(memberId, jasyptEncoding(memberPw), memberName, memberAddress, memberPhone,
-				memberEmail);
+		
+		MemberDTO dto = new MemberDTO(memberId, jasyptEncoding(memberPw),
+				memberName, memberAddress, memberPhone,memberEmail);
+		
 		System.out.println("dto체크" + dto.toString());
 		KakaoDTO kakao = new KakaoDTO();
 		kakao.setEmail(memberEmail);

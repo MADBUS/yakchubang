@@ -80,13 +80,18 @@ MemberType memtype = (MemberType)session.getAttribute("membertype");
     <table class="notice-table">
         <tbody>
             <tr>
-                <td><h4>${notice.title}</h4></td>    
+               
+                <td> 제목 :<h4> ${notice.title}</h4></td>    
             </tr>
             <tr>
-                <td>${notice.created_at}</td>
+            	
+                <td>작성자 : ${notice.writerName}</td>    
             </tr>
             <tr>
-                <td colspan="8">${notice.content}</td>
+                <td>작성일자 : ${notice.created_at}</td>
+            </tr>
+            <tr>
+                <td colspan="8"><textarea style="height:500px;">${notice.content}</textarea></td>
             </tr>
         </tbody>
     </table>
@@ -95,9 +100,7 @@ MemberType memtype = (MemberType)session.getAttribute("membertype");
     </div>
     <% if (memtype != null && memtype == MemberType.ADMIN) { %>
         <div class="admin_btn">
-            <button type="button">
-                <a href="/modnotice?id_announcement=${notice.id_announcement}">수정하기</a>
-            </button>
+            
             <input type="button" value="삭제하기" id="delete">
         </div>
     <% } %>

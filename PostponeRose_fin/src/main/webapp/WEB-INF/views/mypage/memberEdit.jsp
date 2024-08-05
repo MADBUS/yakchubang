@@ -6,29 +6,18 @@
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
 <%
-Boolean isLogin = (Boolean) session.getAttribute("isLogin");
-if (isLogin == null || isLogin == false) {
-    // Redirect to login.jsp if the user is not logged in
-%>
-<script>
-	alert("로그인 후 이용해주세요");
-	window.location.href = "login"; // 로그인 페이지로 리디렉션
-</script>
-<%
-} 
 
-%>
+ Boolean isInvalidSession = (Boolean) request.getAttribute("isInvalidSession");
+
+ if (isInvalidSession != null && isInvalidSession) {
+ %>
+	     <script type="text/javascript">
+	         alert("로그인 후 이용해주세요");
+	         window.location.href = "http://localhost:8090/login"; // 로그인 페이지로 리디렉션
+	     </script>
 <%
-	// Check if the membertype is null
-	if (membertype == null) {
-	    // Redirect to login.jsp
-	    response.sendRedirect("/login");
-	    return;
-	} else if (membertype.equals("EXPERT") || membertype.equals("PATIENT") && memberDTO.getMemberNum() == prescriptDTO.getMemberNum()) {
-		// Redirect to login.jsp
-	    response.sendRedirect("/mypage/patientMypage");
-	 return;
-	}
+return;
+}
 %>
 <style>
 .memEdit-container {
@@ -174,7 +163,9 @@ if (isLogin == null || isLogin == false) {
 								        	<img src="http://localhost:8090/download2?fileName=<%=memberInfoDTO.getPicuniName() %>&originalFileName=<%=memberInfoDTO.getPictureName() %>&fileType=<%=memberInfoDTO.getPicType() %>" width="200px" />
 								        </div>
 								       	<div>
-								        	<img src="http://localhost:8090/download?fileName=<%=memberInfoDTO.getUniqueName() %>&originalFileName=<%=memberInfoDTO.getFileName() %>&fileType=<%=memberInfoDTO.getFileType() %>" width="200px" />
+								        	<label>전문가 자격증</label>
+											<a href="http://localhost:8090/download?fileName=<%=memberInfoDTO.getUniqueName()%>&originalFileName=<%=memberInfoDTO.getFileName() %>&fileType=<%=memberInfoDTO.getFileType()%>"> <%=memberInfoDTO.getFileName() %> 다운로드</a>
+											 
 								        </div>
 								        <div>
 											<label>전문기관 이름</label>

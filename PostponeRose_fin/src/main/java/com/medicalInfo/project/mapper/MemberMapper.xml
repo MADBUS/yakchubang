@@ -52,7 +52,7 @@
 	</select>
 	
 	<update id="modPw">
-		UPDATE member SET memberPw=#{memberPw} WHERE memberNum LIKE #{memberNum}
+		UPDATE member SET memberPw=#{memberPw} WHERE memberEmail LIKE #{memberNum}
 	</update>
 	
 	<select id="getMemberInfo" resultType="com.medicalInfo.project.model.MemberInfoDTO">

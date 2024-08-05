@@ -87,7 +87,7 @@ if (isLogin == null || isLogin == false) {
 										   <tbody>
 										   	  <c:forEach items="${myPrescript}" var="my">
 												   	<tr>
-												   		<td data-th='처방전 No.'><c:out value="${my.prescript_no}"/></td>
+												   		<td data-th='처방전 No.' class="user_prescript_no"><c:out value="${my.prescript_no}"/></td>
 												   		<td data-th='환자명'><c:out value="${my.patient_name}"/></td>
 												   		<td data-th='전문가명'><c:out value="${my.expert_name}"/></td>
 												   		<td data-th='처방기관'><c:out value="${my.institution_address}"/></td>
@@ -98,11 +98,37 @@ if (isLogin == null || isLogin == false) {
 										  </table>
 										</div>
 								   	 </c:otherwise>
-								   </c:choose>
-								   <button type="button" class="btn" data-oper ="modify">수정</button>
-								   <button type="button" class="btn" data-oper ="delete">삭제</button>
+								   </c:choose>			  
 							</form>
+							
+							<div class="pageBtn">
+								<ul class="pagination-centered">
+									<c:if test="${pageMaker.prev }">
+									<li class="paginate_button previous"><a href="${pageMaker.startPage-1}">Previous</a></li>
+									</c:if>
+								<c:forEach var="num" begin="${pageMaker.startPage }"
+									end="${pageMaker.endPage }">
+								<li class="paginate_button ${pageMaker.cri.pageNum == num? 'active':'' }">
+								<a href="${num }">${num }</a>
+								</li>
+								</c:forEach>
+								<c:if test="${pageMaker.next }">
+									<li class="paginate_button next"><a href="${pageMaker.endPage+1 }">Next</a></li>
+								</c:if>
+								</ul>
+							</div>
+						 <form id="pageForm" action="/qa/modify" method="get">
+							<input type="hidden" name="pageNum"value="${pageMaker.cri.pageNum }"> 
+							<input type="hidden"name="amount" value="${pageMaker.cri.amount }">
+							<input type="hidden" name="type" value="${pageMaker.cri.type }"> 
+							<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+							<input type="hidden" name="memberNum" value="<%=memberDTO.getMemberNum() %>">
+							<input type="hidden" name="qa_id" value="${q_ID.qa_id }">
+							<input type="hidden" name="prescript_no" value="${q_ID.prescript_no }">
+						</form>
 						</div>
+						 <button type="button" class="btn" data-oper ="modify">수정</button>
+						<button type="button" class="btn" data-oper ="delete">삭제</button>
 					</div>
 				</div>
 			</div>
@@ -116,6 +142,20 @@ if (isLogin == null || isLogin == false) {
 	$(document).ready(function() {
 		const formObj = $("#modForm");
 		
+		let pageForm = $("#pageForm");
+
+		$(".paginate_button a").on("click", function(e) {
+			// a 태그의 기본 기능인 링크를 제거
+			e.preventDefault();
+
+			// 클릭한 a 태그의 href 속성 값을 pageNum에 설정
+			let pageNum = $(this).attr("href");
+			pageForm.find("input[name='pageNum']").val(pageNum);
+
+			// 폼 제출
+			pageForm.submit();
+		});
+		
 		$(".btn").on("click", function(e) {
 			e.preventDefault(); 
 			const operation = $(this).data("oper");
@@ -127,14 +167,29 @@ if (isLogin == null || isLogin == false) {
 				url = "/qa/list";
 				method = "get";
 				break;
-			case "modify":
-				url = "/qa/modify?qa_id=${q_ID.qa_id}";
-				method = "post";
-				alert("게시글이 수정되었습니다");
-				break;
-			case "delete":
+			case "modify":	
+			       let inputPrescriptNo = $("input[name='prescript_no']").val();
+		            let isValid = false;    
+		            
+		            $(".user_prescript_no").each(function() {
+		                if (inputPrescriptNo == $(this).text() || inputPrescriptNo === "") {
+		                	console.log("여기에들어가니"+inputPrescriptNo);
+		                    isValid = true;
+		                }
+		            });
+
+		            if (!isValid) {
+		                alert("본인의 처방전 번호만 입력할 수 있습니다.");
+		                return;
+		            }
+					console.log("inputPrescriptNo"+inputPrescriptNo);
+					
+		            url = "/qa/modify?qa_id=${q_ID.qa_id}";
+		            method = "post";
+		            break;
+		            
+				case "delete":
 				if (!confirm("정말 삭제하시겠습니까?")) {
-					 event.preventDefault();
 					return;
 				}else{
 					url = "/qa/remove?qa_id=${q_ID.qa_id}";
@@ -150,6 +205,5 @@ if (isLogin == null || isLogin == false) {
 			formObj.attr("action",url).attr("method",method).submit();
 		});
 	});
-
 </script>
 <%@include file="../include/footer.jsp"%>

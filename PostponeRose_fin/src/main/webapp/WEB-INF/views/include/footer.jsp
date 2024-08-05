@@ -62,7 +62,6 @@ pageEncoding="UTF-8"%>
 <!-- Slicknav JS -->
 <script src="../resources/js/slicknav.min.js"></script>
 <!-- ScrollUp JS -->
-<script src="../resources/js/jquery.scrollUp.min.js"></script>
 <!-- Niceselect JS -->
 <script src="../resources/js/niceselect.js"></script>
 <!-- Tilt Jquery JS -->

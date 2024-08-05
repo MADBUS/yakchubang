@@ -84,31 +84,6 @@ public class MedicineController {
 	}
 	
 	
-	@GetMapping("/addmedi")
-    public void addmedi( @RequestParam String entpName,
-            @RequestParam String itemName,
-            @RequestParam String itemSeq,
-            @RequestParam String efcyQesitm,
-            @RequestParam String useMethodQesitm,
-            @RequestParam String intrcQesitm,
-            @RequestParam String seQesitm,
-            @RequestParam String depositMethodQesitm,
-            @RequestParam String itemImage,
-            @RequestParam String bizrno,Model model) {
-
-        model.addAttribute("entpName", entpName)
-        .addAttribute("itemName", itemName)
-        .addAttribute("itemSeq", itemSeq)
-        .addAttribute("efcyQesitm", efcyQesitm)
-        .addAttribute("useMethodQesitm", useMethodQesitm)
-        .addAttribute("intrcQesitm", intrcQesitm)
-        .addAttribute("seQesitm", seQesitm)
-        .addAttribute("depositMethodQesitm", depositMethodQesitm)
-        .addAttribute("itemImage", itemImage)
-        .addAttribute("bizrno", bizrno);
-    
-    }
-	
 	@GetMapping("/medidetail")
     public void mediDetail(@RequestParam("itemSeq") String itemSeq,Model model) {
         // 파라미터를 사용하여 로직을 수행합니다.

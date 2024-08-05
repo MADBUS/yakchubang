@@ -50,6 +50,27 @@ public class QaDTO {
 		this.context = context;
 		this.member_type = member_type;
 		this.prescript_no = prescript_no;
-	};
+	}
+
 	
-}
+
+	public QaDTO(String writer, String title, String context, int prescript_no,int qa_id) {
+		super();
+		this.writer = writer;
+		this.title = title;
+		this.context = context;
+		this.prescript_no = prescript_no;
+		this.qa_id = qa_id;
+	}
+
+
+
+	public QaDTO(int qa_id, String writer, String title, String context) {
+		super();
+		this.qa_id = qa_id;
+		this.writer = writer;
+		this.title = title;
+		this.context = context;
+	}
+}	
+	

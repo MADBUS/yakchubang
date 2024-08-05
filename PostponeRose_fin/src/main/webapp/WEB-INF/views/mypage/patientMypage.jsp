@@ -5,30 +5,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
+
 <%
 Boolean isLogin = (Boolean) session.getAttribute("isLogin");
-if (isLogin == null || isLogin == false) {
-    // Redirect to login.jsp if the user is not logged in
-%>
-<script>
-	alert("로그인 후 이용해주세요");
-	window.location.href = "login"; // 로그인 페이지로 리디렉션
-</script>
-<%
-} 
+memberDTO = (MemberDTO) session.getAttribute("member_info");
+ membertype = (MemberType) session.getAttribute("membertype");
+ System.out.println("isLogin 이거찍힘?" + isLogin);
+ System.out.println("memberDTO 이거찍힘?" + memberDTO);
+ System.out.println("membertype 이거찍힘?" + membertype);
+ Boolean isInvalidSession = (Boolean) request.getAttribute("isInvalidSession");
 
-%>
+ if (isInvalidSession != null && isInvalidSession) {
+ %>
+	     <script type="text/javascript">
+	         alert("로그인 후 이용해주세요");
+	         window.location.href = "http://localhost:8090/login"; // 로그인 페이지로 리디렉션
+	     </script>
 <%
-	// Check if the membertype is null
-	if (membertype == null) {
-	    // Redirect to login.jsp
-	    response.sendRedirect("/login");
-	    return;
-	} else if (membertype.equals("EXPERT") || membertype.equals("PATIENT") && memberDTO.getMemberNum() == prescriptDTO.getMemberNum()) {
-		// Redirect to login.jsp
-	    response.sendRedirect("/mypage/patientMypage");
-	 return;
-	}
+return;
+}
 %>
 <style>
 #banner, #banner2 {

@@ -4,37 +4,25 @@
 <%@include file="../include/header.jsp"%>
 <!-- End Header Area -->
 
-
 <%
 Boolean isLogin = (Boolean) session.getAttribute("isLogin");
-if (isLogin == null || isLogin == false) {
-    // Redirect to login.jsp if the user is not logged in
-%>
-<script>
-	alert("로그인 후 이용해주세요");
-	window.location.href = "http://localhost:8090/login"; // 로그인 페이지로 리디렉션
-</script>
-<%
-} 
+memberDTO = (MemberDTO) session.getAttribute("member_info");
+ membertype = (MemberType) session.getAttribute("membertype");
+ System.out.println("isLogin 이거찍힘?" + isLogin);
+ System.out.println("memberDTO 이거찍힘?" + memberDTO);
+ System.out.println("membertype 이거찍힘?" + membertype);
 
-%>
-<%
-MemberType memberType = (MemberType)session.getAttribute("membertype");
-memberDTO = (MemberDTO)session.getAttribute("member_info");
-
-System.out.println("MemberDTO dto: " + memberDTO);
-
-if (memberDTO == null || memberType == null) {
-    System.out.println("MemberDTO is nullHBYGBYBYG: " + memberDTO);
-    System.out.println("MemberType is null: " + memberType);
-%>
-	 <script type="text/javascript">
-        alert("로그인 해주세요");
-        window.location.href = "http://localhost:8090/login";
-    </script>
-<% 
-}  
-%>
+ if (isLogin == null || !isLogin || memberDTO == null || membertype == null) {
+     System.out.println("if문에 들어오니 이거찍힘?");
+ %>
+ <script type="text/javascript">
+     alert("로그인 후 이용해주세요");
+     window.location.href = "http://localhost:8090/login"; // 로그인 페이지로 리디렉션
+ </script>
+ <%
+     return; // 더 이상의 처리를 중단
+ }
+ %>
 <style>
 #banner, #banner2 {
     width: 230px;

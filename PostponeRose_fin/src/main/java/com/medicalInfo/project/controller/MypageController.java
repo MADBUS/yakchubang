@@ -66,31 +66,35 @@ public class MypageController {
 
 	// 마이페이지(환자), 처방전 목록 화면으로 이동
 	@GetMapping("/mypage/patientMypage")
-	public void preList(HttpSession session, Model model, Criteria cri) {
+	public String preList(HttpSession session, Model model, Criteria cri) {
+		
 		log.info("MypageController prelist >>>");
 		MemberType membertype = (MemberType) session.getAttribute("membertype");
 		System.out.println("MypageController listAll  membertype 이거찍힘?" + membertype);
 		cri.setType("all");
 
 		MemberDTO dto = (MemberDTO) session.getAttribute("member_info");
-		log.info("MypageController preList dto :" + dto);
+	    if (membertype == null || dto == null) {
+	        model.addAttribute("isInvalidSession", true);
+			 System.out.println("저기니?");
+	        return "/mypage/patientMypage"; // JSP 페이지로 이동
+	    }
+		
 		int memberNum = dto.getMemberNum();
 
 		cri.setMemberNum(memberNum);
-
-		System.out.println("preList prescriptCri 찍히니?" + cri);
-
 		int total = prescriptSevice.getTotal(cri);
 
 		PageDTO pageResult = new PageDTO(cri, total);
 		model.addAttribute("pageMaker", pageResult);
 
-		log.info("<<< list out >>>");
 		log.info(total);
 		log.info("이거 잘찍혀?" + pageResult.toString());
 		model.addAttribute("prescript", prescriptSevice.listAll(cri));
 		System.out.println("prescript model 찍혀?? " + model);
-
+		 model.addAttribute("isInvalidSession", false);
+		 System.out.println("여기니?");
+		return "/mypage/patientMypage";
 	}
 
 	@PostMapping("/mypage/getPatientMypage")
@@ -426,9 +430,16 @@ public class MypageController {
 	}
 
 	@GetMapping("/mypage/memberEdit")
-	public void memberEdit(HttpSession session, Model model, Criteria cri) {
+	public String memberEdit(HttpSession session, Model model, Criteria cri) {
 		MemberType membertype = (MemberType) session.getAttribute("membertype");
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member_info");
+		
+		  if (membertype == null || memberDTO == null) {
+		        model.addAttribute("isInvalidSession", true);
+				 System.out.println("저기니?");
+		        return "/mypage/memberEdit"; // JSP 페이지로 이동
+		    }
+		
 		int memberNum = memberDTO.getMemberNum();
 		String memId = memberDTO.getMemberId();
 		String memAddress = memberDTO.getMemberAddress();
@@ -444,6 +455,9 @@ public class MypageController {
 		String memberEmail = memberDTO.getMemberEmail();
 		MemberDTO memDto = memberService.getMember(memberEmail);
 		session.setAttribute("memberDto", memDto);
+		model.addAttribute("isInvalidSession", false);
+		  
+		return "/mypage/memberEdit";
 	}
 
 	@PostMapping("/mypage/edit")
@@ -452,8 +466,9 @@ public class MypageController {
 			RedirectAttributes rttr) {
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("member_info");
 		int memberNum = memberDTO.getMemberNum();
-
 		MemberType membertype = (MemberType) session.getAttribute("membertype");
+		
+		
 		MemberDTO dto = new MemberDTO();
 		dto.setMemberAddress(memberAddress);
 		dto.setMemberPhone(memberPhone);

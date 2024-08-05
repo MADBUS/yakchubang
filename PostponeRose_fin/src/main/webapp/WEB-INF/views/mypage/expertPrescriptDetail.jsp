@@ -96,7 +96,7 @@ if (isLogin == null || isLogin == false) {
 				<div class="row">
 					<div class="col-lg-10" id="mediSerchSection">
 						<div class="table-container">
-							<h3>환자처방전 상세</h3>
+							<h3>처방전 상세</h3>
 							<br/>
 							<div id="myPreSerchBtn">
 							<button type="button" class="myPre-btn"><a href="/mypage/expertMypage">처방전 목록</a></button>
@@ -165,7 +165,7 @@ if (isLogin == null || isLogin == false) {
 															<p>작성자: ${commentsdto.writerName } 작성일자: [<fmt:formatDate pattern="yyyy-MM-dd-HH:mm" value="${commentsdto.created_at }"/>]</p>
 														</c:when>
 														<c:otherwise>
-															<h5 id="myPreRatingTitle">의사 Comment</h5>
+															<h5 id="myPreRatingTitle">Comment</h5>
 															<br/>
 															<p>작성자: ${commentsdto.writerName }</p>
 														</c:otherwise>

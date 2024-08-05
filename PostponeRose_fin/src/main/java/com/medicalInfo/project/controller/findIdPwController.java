@@ -146,11 +146,10 @@ public class findIdPwController {
 	//이메일 인증번호 확인
 	@RequestMapping(value = "/pw_new.me", method = RequestMethod.POST)
 	public String pw_new(HttpSession session, @RequestParam("memberPw") String memberPw) throws IOException{
-		MemberDTO dto = (MemberDTO) session.getAttribute("member_info");
-		System.out.println("memberNum 잘찍히나?"+dto.getMemberNum());
+		String kakaoEmail = (String)session.getAttribute("kakaoEmail");
 		System.out.println("memberPw 잘찍히나?"+memberPw);
 		
-		memberService.modPw(dto.getMemberNum(),jasyptEncoding(memberPw));
+		memberService.modPw(kakaoEmail,jasyptEncoding(memberPw));
 		
 		session.invalidate();
 		return "redirect:/login";

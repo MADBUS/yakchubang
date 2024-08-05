@@ -5,6 +5,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp"%>
+<style>
+    .tableForm select {
+        position: relative;
+        z-index: 1000;
+    }
+</style>
 <%
 Boolean isLogin = (Boolean) session.getAttribute("isLogin");
 if (isLogin == null || isLogin == false) {

@@ -103,43 +103,7 @@
       	<link rel="stylesheet" href="../resources/css/member-edit.css">
       
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-	
-	function validateForm() {
-	    // 정규식 패턴
-	    var usernamePattern = /^[a-zA-Z][a-zA-Z0-9_]{4,14}$/;
-	
-	    // 입력 필드 값
-	    var memberId = document.forms["editForm"]["memberId"].value; 
-	    var memberAddress = document.forms["editForm"]["memberAddress"].value; 
-	    var memberPhone = document.forms["editForm"]["memberPhone"].value; 
-	
-	    // 유효성 검사
-	    if (!usernamePattern.test(memberId)) {
-	        alert("아이디는 알파벳으로 시작하고 5자 이상 15자 이하이어야 하며, 알파벳, 숫자, 언더스코어(_)만 포함할 수 있습니다.");
-	        return false;
-	    }
-	    
-	    if (memberId == null || memberAddress == null || memberPhone == null) {
-	        alert("수정된 내용이 없습니다. 내용을 입력해 주세요.");
-	        return false;
-	    }
-	    
-	    if (memberId = null) {
-	    	memberId = ;
-	    }
-	    
-	    if (memberAddress != null) {
-	    	memberAddress = memberAddress;
-	    }
-	    
-	    if (memberPhone != null) {
-	    	memberPhone = memberPhone;
-	    }
-	
-	    return true; // 유효성 검사를 통과한 경우 폼을 제출합니다.
-	}
-</script>
+
     </head>
     <body>
 	
@@ -224,9 +188,7 @@
 											<li><a href="../mypage/expertMypage">전문가 페이지<i class="icofont-rounded-down"></i></a>
 												<ul class="dropdown">
 													<li><a href="../prescriptwrite">처방전 작성</a></li> <!-- 장열님 파트 -->
-													<li><a href="../mypage/expertMypage">처방전 확인</a></li> <!-- 작성된 처방전 모두 확인하는 페이지 -->
 													<li><a href="../mypage/searchPre">처방전 검색</a></li>
-													<li><a href="../mypage/expertMyQaComment">QA 답변 내역 확인</a></li>
 												</ul>
 											</li>
 											

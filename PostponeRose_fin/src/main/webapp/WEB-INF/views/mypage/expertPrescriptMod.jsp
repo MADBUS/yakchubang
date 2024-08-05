@@ -22,15 +22,17 @@ if (isLogin == null || isLogin == false) {
 	MemberType memberType2 = (MemberType) session.getAttribute("membertype");
 	MemberDTO memberDTO2 = (MemberDTO) session.getAttribute("member_info");
 	PrescriptDTO prescriptDTO2 = (PrescriptDTO) session.getAttribute("prescript");
-	
+	System.out.println(memberType2);
+	System.out.println(memberDTO2.toString());
+	System.out.println(prescriptDTO2.toString());
 	// Check if the membertype is null
 	if (memberType2 == null) {
 	    // Redirect to login.jsp
 	    response.sendRedirect("/login");
 	    return;
-	} else if (memberType2.equals("EXPERT") || memberType2.equals("PATIENT") && memberDTO2.getMemberNum() == prescriptDTO2.getMemberNum()) {
+	} else if ( memberDTO2.getMemberNum() != prescriptDTO2.getMemberNum_expert()) {
 		// Redirect to login.jsp
-	    response.sendRedirect("/index");
+	    response.sendRedirect("/mypage/expertMypage");
 	 return;
 	}
 %>

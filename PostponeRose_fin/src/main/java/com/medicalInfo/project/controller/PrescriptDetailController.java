@@ -91,6 +91,7 @@ public class PrescriptDetailController {
 	@GetMapping("/mypage/expertPrescriptMod")
 	public void read(@RequestParam("prescript_no") int prescript_no, Model model, HttpSession session) {
 		log.info("PrescriptController read >>>");
+		session.setAttribute("prescript", prescriptService.get(prescript_no));
 		model.addAttribute("dto", prescriptService.get(prescript_no));
 		model.addAttribute("detaillist", prescriptDetailService.selectPrescript(prescript_no));
 		log.info("MypageController read model >>>" + model);

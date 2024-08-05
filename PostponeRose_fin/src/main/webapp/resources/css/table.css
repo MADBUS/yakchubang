@@ -11,6 +11,7 @@
     color: #07233E;
 }
 
+
 .table-container h2:before {
 	content: "\25C0";
   	position: absolute;
@@ -41,10 +42,7 @@
   100%  { transform: translateX(0)}
 }
 
-
-/*
-  medi-table
-*/
+/* medi-table */
 .medi-table {
   margin: auto;
   min-width: 300px;
@@ -136,9 +134,7 @@
   }
 }
 
-/*
-  medicine-table
-*/
+/* medicine-table */
 .medicine-table {
   margin: auto;
   min-width: 300px;
@@ -227,9 +223,7 @@
   }
 }
 
-/*
-  datatablesSimple-table
-*/
+/* datatablesSimple-table */
 #mediSerchList h3 {
 	float: left;
 	font-weight: bold;
@@ -266,7 +260,6 @@
     border: none;
 }
 
-
 #mediSerchSection {
 	margin: 0 auto;
 }
@@ -299,7 +292,6 @@
     background: #2C2D3F;
     border: none;
 }
-
 
 #datatablesSimple {
   margin: 0 auto;
@@ -392,13 +384,7 @@
   }
 }
 
-
-
-
-/*
-	medi-tab Table
-*/
-
+/* medi-tab Table */
 .medi-tab {
   width: 920px;
   margin: 0 auto;
@@ -437,9 +423,7 @@
   border: 1px solid rgba(0, 0, 0, .08); 
 }
 
-/*
-  Qa
-*/
+/* Qa */
 .qa-title {
 	margin: 0 auto;
 	width: 100%;
@@ -494,7 +478,6 @@
 	font-weight: bold;
 }
 
-
 #qaPrescript {
 	margin: 0 auto;
 	width: 100%;
@@ -534,7 +517,6 @@
 	font-weight: bold;
 	color: #1A76D1;
 }
-
 
 /* 기본 테이블 스타일 */
 #qaComment {
@@ -631,23 +613,13 @@
 	font-family: 'Pretendard-Regular';
 }
 
-
-
-
-
-
-
-
-
-
-
+/* 검색 스타일 */
 .qa-serch {
 	display: flex;
 }
 
 #searchForm {
 	float: left;
-	
 }
 
 #searchForm #serchInput {
@@ -801,46 +773,7 @@
     margin-bottom: 20px;
 }
 
-.star-rating {
-    position: relative;
-    display: inline-block;
-    font-size: 0; /* Removes the extra space below the stars */
-    width: 100px; /* Adjust based on your preference */
-    height: 20px; /* Adjust based on your preference */
-    margin-left: 30px;
-}
 
-.star-rating-top {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    z-index: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 0; /* This will be controlled via inline style */
-}
-
-.star-rating-top::before {
-    content: "★★★★★";
-    font-size: 40px; /* Adjust based on your preference */
-    color: gold;
-}
-
-.star-rating-bottom {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    z-index: 0;
-    white-space: nowrap;
-}
-
-.star-rating-bottom::before {
-    content: "★★★★★";
-    font-size: 40px; /* Adjust based on your preference */
-    color: #ccc;
-}
 
 #starRateingMent {
 	height: 30px;
@@ -848,10 +781,7 @@
 	align-content: center;
 }
 
-
-/*
-	mypage
-*/
+/* mypage */
 .patient-tab {
     background-color: rgba(0, 0, 0, 0.06); /* 메뉴바 배경색 */
     padding: 10px;
@@ -884,9 +814,7 @@
     background-color: rgba(0, 0, 0, 0.1); /* 링크 호버 배경색 */
 }
 
-/*
-	mypage prescriptDetail
-*/
+/* mypage prescriptDetail */
 .myPrescript-container {
 	width: 900px;
 	align-content: center;
@@ -899,7 +827,6 @@
 .myPrescript-container div:nth-child(2) {
 	text-align: right;
 }
-
 
 .myPrescript-container div:nth-child(3) {
 	width: 900px;
@@ -1000,7 +927,6 @@
 .prescriptWrite-mediBox #mediBoxs input {
 	margin-right: 10px;
 }
-
 
 .medis-btn {
 	float: right;

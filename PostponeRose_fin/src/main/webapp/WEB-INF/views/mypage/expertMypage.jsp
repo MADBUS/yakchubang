@@ -37,8 +37,6 @@ if (isLogin == null || isLogin == false) {
     height: 350px;
     text-align: center;
     position: absolute;
-    left: 30px;
-    top: 150px;  
     border: 1px solid #ddd;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
     background-color: #f9f9f9;
@@ -48,8 +46,13 @@ if (isLogin == null || isLogin == false) {
     overflow: hidden;
     z-index: 1;
 }
+#banner {
+    left: 30px;
+    top: 150px;  
+}
 #banner2 {
-    top: 500px;
+    right: 30px;
+    top: 150px;
     margin-top:20px;  
 }
 .banner-close {
@@ -69,7 +72,28 @@ if (isLogin == null || isLogin == false) {
 }
 #mediSerchSection {
   margin-left: 100px; /* 배너의 너비만큼 왼쪽 여백 추가 */
+  margin-right: 260px; /* 오른쪽 배너의 너비만큼 오른쪽 여백 추가 */
+  
+  .star-rating {
+    font-size: 0;
 }
+
+.rate {
+    background: url(https://aldo814.github.io/jobcloud/html/images/user/star_bg02.png) no-repeat;
+    width: 121px;
+    height: 20px;
+    position: relative;
+}
+
+.rate span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://aldo814.github.io/jobcloud/html/images/user/star02.png) no-repeat;
+    width: auto;  /* 전체 넓이를 차지하도록 설정 */
+    height: 20px;
+}
+
 </style>
 
 		<section class="Feautes section">
@@ -91,11 +115,11 @@ if (isLogin == null || isLogin == false) {
 								<ul>
 									<li><a href="/mypage/myQaRating">QA게시판 평점보기</a></li>
 									<li><a href="/mypage/myPrescriptRating">처방전 평점보기</a></li>
-									<li><a href="/mypage/expertMyQaComment">QA 답변 보기</a></li>
+									<li><a href="../mypage/expertMyQaComment">QA 답변 내역 확인</a></li>
 								</ul>
 							</div>
 							<br/>
-							<h5 id="qaPrescriptTitle">환자 처방전 목록</h5>
+							<h5 id="qaPrescriptTitle">처방전 목록</h5>
 							<br/>
 							<div class="card mb-4">
 								<table id="boardTable" class="medi-table">
@@ -147,12 +171,11 @@ if (isLogin == null || isLogin == false) {
 									     <div id="starRateingMent"><p><b>아직 남겨진 평점이 없습니다!</b></p></div>
 								   	</c:when>
 								   	<c:otherwise>
-										<c:forEach items="${myPrescriptList}" var="PrescriptRating">
-											 <div class="star-rating">
-										        <div class="star-rating-top" style="width: ${myAvgRating.rate * 20}%;"></div>
-										        <div class="star-rating-bottom"></div>
-										     </div>
-										 </c:forEach>
+										<div class="rate">
+									        <span style="width: ${myAvgRating.rate * 20}%;"></span>
+									        
+									    </div>
+									    <div>평점 : ${myAvgRating.rate}점</div>
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -242,6 +265,11 @@ if (isLogin == null || isLogin == false) {
 						pageForm.submit();
 					});
 				}
+				
+				$('.banner-close').click(function() {
+					$(this).parent().hide();
+				});
+				
 			});
 </script>
 <%@include file="../include/footer.jsp"%>

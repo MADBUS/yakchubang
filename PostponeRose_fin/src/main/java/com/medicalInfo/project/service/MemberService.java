@@ -114,7 +114,7 @@ public class MemberService {
 		return list;
 	}
 	
-	public void modPw(int memberNum, String memberPw) {
+	public void modPw(String memberNum, String memberPw) {
 		memberMapper.modPw(memberNum,memberPw);
 	}
 	public int memberIdChecked(String memberid) {

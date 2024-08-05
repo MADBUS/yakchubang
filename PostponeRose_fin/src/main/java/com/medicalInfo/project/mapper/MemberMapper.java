@@ -37,7 +37,7 @@ public interface MemberMapper {
 	
 	public int waitforexpertTotalCount(Criteria cri);
 
-	public void modPw(@Param("memberNum") int memberNum,@Param("memberPw") String memberPw);
+	public void modPw(@Param("memberNum") String memberNum,@Param("memberPw") String memberPw);
 	
 	public void updateMem(MemberDTO dto);
 	

@@ -259,7 +259,7 @@ $(document).ready(function(){
     });
 
     // Event delegation to handle delete button
-    $(document).on("click", ".deleteBtn", function() {
+    $(document).on("click", ".medicine-btn", function() {
         $(this).closest("tr").remove();
     });
 

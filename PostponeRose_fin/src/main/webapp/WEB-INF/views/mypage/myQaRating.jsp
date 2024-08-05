@@ -109,7 +109,10 @@ if (membertype == null) {
 							
 						</tbody>  	
 						</table>
-						<div class="pageBtn">
+						
+				</div>
+				<br>
+				<div class="pageBtn">
    							 <ul class="pagination-centered">
        							 <c:if test="${pageMaker.prev }">
            							 <li class="paginate_button previous">
@@ -135,7 +138,6 @@ if (membertype == null) {
 									<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 							</form>
 					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -186,9 +188,19 @@ $(document).ready(function(){
 					
 					var writer = $("<td>").text(qr.writer);
 					row.append(writer);
+					var parseDate = new Date(qr.created_at); // DB에 저장된 등록 날짜를 Date객체로 변환
+					// numeric : (2024, 7), 2-digit: (24, 07)
+					var options = {
+						year : "numeric",
+						month : "2-digit",
+						day : "2-digit",
+						hour : "2-digit",
+						minute : "2-digit"
+					};
+					var formattedDate = parseDate.toLocaleString(
+							"ko-KR", options); // 날짜 형식을 한국 시간 형식과 지정 옵션으로 반환
 					
-					var created_at = $("<td>").text(qr.created_at);
-					row.append(created_at);
+					row.append(formattedDate);
 					
 					var rate = $("<td>").text(qr.rate);
 					row.append(rate);

@@ -51,33 +51,40 @@ function ajaxTest() {
     let find = $("#searchInput").val();
     console.log("검색어: " + find);
 
-    $.ajax({
-        url: "ajaxTest",
-        type: "post",
-        dataType: "json",
-        data: { "search": find },
-        success: function(data) {
-            // 결과 테이블을 비웁니다.
-            $('.resultTestApi tbody').empty();
-            $.each(data, function(index, response) {
-                $.each(response.body.items, function(idx, item) {
-                    // 새로운 행 생성
-                    var tr = $("<tr>");
-                    // 각 항목을 셀로 추가
-                    tr.append($("<td data-th='회사명'>").text(item.entpName));
-                    tr.append($("<td data-th='약품코드'>").text(item.itemSeq));
-                    tr.append($("<td data-th='약품명'>").html("<a href='/medidetail?itemSeq=" + item.itemSeq + "'>" + item.itemName + "</a>"));
-                    tr.append($("<td data-th='약품 이미지'>").html("<img src='" + item.itemImage + "' alt='약품 이미지' style='width: 100px; height: auto;'>"));
-                    // 행을 테이블에 추가
-                    $('.resultTestApi tbody').append(tr);
+    <script type="text/javascript">
+    function ajaxTest() {
+        let find = $("#searchInput").val();
+        console.log("검색어: " + find);
+
+        $.ajax({
+            url: "ajaxTest",
+            type: "post",
+            dataType: "json",
+            data: { "search": find },
+            success: function(data) {
+                // 결과 테이블을 비웁니다.
+                $('.resultTestApi tbody').empty();
+                $.each(data, function(index, response) {
+                    $.each(response.body.items, function(idx, item) {
+                        // 새로운 행 생성
+                        var tr = $("<tr>");
+                        // 각 항목을 셀로 추가
+                        tr.append($("<td data-th='회사명'>").text(item.entpName));
+                        tr.append($("<td data-th='약품코드'>").text(item.itemSeq));
+                        tr.append($("<td data-th='약품명'>").html("<a href='/medidetail?itemSeq=" + item.itemSeq + "'>" + item.itemName + "</a>"));
+                        var itemImage = item.itemImage ? item.itemImage : "../resource.img.noimage.png";
+                        tr.append($("<td data-th='약품 이미지'>").html("<img src='" + itemImage + "' alt='약품 이미지' style='width: 100px; height: auto;'>"));
+                        // 행을 테이블에 추가
+                        $('.resultTestApi tbody').append(tr);
+                    });
                 });
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX 요청 실패:", status, error);
-        }
-    });
-}
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX 요청 실패:", status, error);
+            }
+        });
+    }
+    </script>
 </script>
 		
 <%@include file="include/footer.jsp"%>

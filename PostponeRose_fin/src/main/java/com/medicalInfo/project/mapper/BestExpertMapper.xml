@@ -5,7 +5,7 @@
  <mapper namespace="com.medicalInfo.project.mapper.BestExpertMapper">
  
   	<select id="bestExpert"  resultType="com.medicalInfo.project.model.RatingDTO" >
-		SELECT expertNum,AVG(rate) AS rate
+		SELECT expertNum,ROUND(AVG(rate), 1) AS rate
 		FROM rating
 		GROUP BY expertNum
 		ORDER BY rate DESC
@@ -21,7 +21,7 @@
 	</select>
 	
 	<select id="bestSecondExpert"  resultType="com.medicalInfo.project.model.RatingDTO" >
-		SELECT expertNum,AVG(rate) AS rate
+		SELECT expertNum,ROUND(AVG(rate), 1) AS rate
 		FROM rating
 		GROUP BY expertNum
 		ORDER BY rate DESC
@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="bestThirdExpert"  resultType="com.medicalInfo.project.model.RatingDTO" >
-		SELECT expertNum,AVG(rate) AS rate
+		SELECT expertNum,ROUND(AVG(rate), 1) AS rate
 		FROM rating
 		GROUP BY expertNum
 		ORDER BY rate DESC
@@ -38,7 +38,7 @@
 	
 	
 	<select id="myRating" resultType="com.medicalInfo.project.model.RatingDTO" parameterType="int" >
-		SELECT AVG(rate) AS rate FROM rating WHERE expertNum = #{expertNum};
+		SELECT ROUND(AVG(rate), 1) AS rate FROM rating WHERE expertNum = #{expertNum};
 	</select>
 	
 	
@@ -77,7 +77,7 @@
 	
 	
 	<select id="getListWithSearch" parameterType="com.medicalInfo.project.model.Criteria" resultType="com.medicalInfo.project.model.RatingTotDTO">
-		 SELECT r.expertNum,AVG(r.rate) AS averageRate, m.memberNum, m.memberName, mi.institutionAddress, mi.institutionTel,
+		 SELECT r.expertNum,ROUND(AVG(r.rate),1) AS averageRate, m.memberNum, m.memberName, mi.institutionAddress, mi.institutionTel,
 		  mi.institutionName, mi.pictureName,mi.picuniName, mi.picType 
 		 FROM rating r 
         INNER JOIN member m
